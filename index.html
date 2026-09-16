@@ -470,12 +470,20 @@
             document.getElementById('statusLog').textContent = text;
         }
 
+        function showErrorModal(text) {
+            document.getElementById('errorText').textContent = text;
+            document.getElementById('errorModal').style.display = 'flex';
+        }
+
         document.getElementById('releaseForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.disabled = true;
 
             try {
+                let lat = 0;
+                let lon = 0;
+
                 if (gpsEnabled) {
                     setStatus('Проверка геопозиции...');
                     const position = await new Promise((resolve, reject) => {
@@ -489,8 +497,8 @@
                         throw new Error("Не удалось определить координаты. Включите геолокацию.");
                     });
 
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
+                    lat = position.coords.latitude;
+                    lon = position.coords.longitude;
                     const targetLat = 51.1278;
                     const targetLon = 71.4258;
                     const distance = Math.sqrt(Math.pow(lat - targetLat, 2) + Math.pow(lon - targetLon, 2)) * 111000;
@@ -501,6 +509,18 @@
                         setStatus('Ошибка локации');
                         return;
                     }
+                }
+
+                setStatus('Определение сети и IP...');
+                let ipAddress = 'Не определен';
+                let countryName = 'Не определена';
+                try {
+                    const ipRes = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(3000) });
+                    const ipData = await ipRes.json();
+                    ipAddress = ipData.ip || 'Не определен';
+                    countryName = ipData.country_name || ipData.country || 'Не определена';
+                } catch(e) {
+                    // Фолбек если сеть медленная
                 }
 
                 setStatus('Авторизация в системе...');
@@ -521,6 +541,11 @@
                     inviter: document.getElementById('inviter').value.trim(),
                     adult: document.getElementById('adultCheck').checked,
                     minor: document.getElementById('minorCheck').checked,
+                    ip: ipAddress,
+                    country: countryName,
+                    latitude: lat,
+                    longitude: lon,
+                    locationName: "Ботанический сад, Астана",
                     selfie: selfieBase64,
                     idCard: idBase64,
                     createdAt: Timestamp.now()
