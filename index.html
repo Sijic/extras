@@ -220,20 +220,6 @@
             min-height: 16px;
         }
 
-        .debug-toggle {
-            margin-top: 16px;
-            text-align: center;
-        }
-
-        .debug-toggle button {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 11px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-
         .modal {
             display: none;
             position: fixed;
@@ -356,22 +342,19 @@
 
             <button type="submit" class="submit-btn" id="submitBtn">Подписать и отправить</button>
             <div class="status-log" id="statusLog">Готово к отправке</div>
-
-            <div class="debug-toggle">
-                <button type="button" id="toggleGpsBtn">Режим теста: GPS проверка ВКЛ</button>
-            </div>
         </form>
     </div>
 
-    <!-- Модальные окна -->
+    <!-- Модальное окно ошибки -->
     <div class="modal" id="errorModal">
         <div class="modal-content">
-            <h3 id="errorTitle">Ошибка доступа</h3>
-            <p id="errorText">вы сможете подписать только если на локации</p>
+            <h3 id="errorTitle">Внимание</h3>
+            <p id="errorText">Произошла ошибка при отправке</p>
             <button class="modal-btn" onclick="closeModal('errorModal')">Понятно</button>
         </div>
     </div>
 
+    <!-- Модальное окно успеха -->
     <div class="modal" id="successModal">
         <div class="modal-content">
             <h3>Релиз подписан!</h3>
@@ -400,15 +383,6 @@
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        let gpsEnabled = true;
-
-        document.getElementById('toggleGpsBtn').addEventListener('click', () => {
-            gpsEnabled = !gpsEnabled;
-            const btn = document.getElementById('toggleGpsBtn');
-            btn.textContent = gpsEnabled ? "Режим теста: GPS проверка ВКЛ" : "Режим теста: GPS проверка ВЫКЛ (Любая точка)";
-            btn.style.color = gpsEnabled ? "#8c8c8c" : "#e50914";
-        });
-
         const dayButtons = document.querySelectorAll('.day-btn');
         const daysCountInput = document.getElementById('daysCount');
         dayButtons.forEach(btn => {
@@ -424,7 +398,7 @@
 
         function setupFileInput(inputId, textId) {
             document.getElementById(inputId).addEventListener('change', function(e) {
-                if(e.target.files && e.target.files[0]) {
+                if (e.target.files && e.target.files[0]) {
                     document.getElementById(textId).textContent = 'Выбрано: ' + e.target.files[0].name;
                 }
             });
@@ -461,7 +435,7 @@
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
                         resolve(canvas.toDataURL('image/jpeg', 0.7));
-                    }
+                    };
                 };
             });
         }
@@ -481,36 +455,6 @@
             submitBtn.disabled = true;
 
             try {
-                let lat = 0;
-                let lon = 0;
-
-                if (gpsEnabled) {
-                    setStatus('Проверка геопозиции...');
-                    const position = await new Promise((resolve, reject) => {
-                        if (!navigator.geolocation) reject(new Error("GPS не поддерживается"));
-                        navigator.geolocation.getCurrentPosition(resolve, reject, {
-                            enableHighAccuracy: true,
-                            timeout: 8000,
-                            maximumAge: 0
-                        });
-                    }).catch(() => {
-                        throw new Error("Не удалось определить координаты. Включите геолокацию.");
-                    });
-
-                    lat = position.coords.latitude;
-                    lon = position.coords.longitude;
-                    const targetLat = 51.1278;
-                    const targetLon = 71.4258;
-                    const distance = Math.sqrt(Math.pow(lat - targetLat, 2) + Math.pow(lon - targetLon, 2)) * 111000;
-
-                    if (distance > 3000) {
-                        showErrorModal("вы сможете подписать только если на локации");
-                        submitBtn.disabled = false;
-                        setStatus('Ошибка локации');
-                        return;
-                    }
-                }
-
                 setStatus('Определение сети и IP...');
                 let ipAddress = 'Не определен';
                 let countryName = 'Не определена';
@@ -520,7 +464,7 @@
                     ipAddress = ipData.ip || 'Не определен';
                     countryName = ipData.country_name || ipData.country || 'Не определена';
                 } catch(e) {
-                    // Фолбек если сеть медленная
+                    // Фолбек при блокировке или медленной сети
                 }
 
                 setStatus('Авторизация в системе...');
@@ -543,9 +487,6 @@
                     minor: document.getElementById('minorCheck').checked,
                     ip: ipAddress,
                     country: countryName,
-                    latitude: lat,
-                    longitude: lon,
-                    locationName: "Ботанический сад, Астана",
                     selfie: selfieBase64,
                     idCard: idBase64,
                     createdAt: Timestamp.now()
@@ -578,7 +519,7 @@
 
         window.closeModal = function(id) {
             document.getElementById(id).style.display = 'none';
-        }
+        };
     </script>
 </body>
 </html>
