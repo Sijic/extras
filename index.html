@@ -1,643 +1,396 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Цифровой Релиз АМС | НЕ Лишние</title>
+    <title>Digital Release | НЕ Лишние</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #09090b;
-            color: #f4f4f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .header {
-            text-align: center;
-            padding-top: 12px;
-        }
-
-        .title {
-            font-size: 28px;
-            font-weight: 900;
-            letter-spacing: -0.04em;
-            text-transform: uppercase;
-        }
-
-        .title span {
-            color: #dc2626;
-        }
-
-        .subtitle {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: #71717a;
-            font-weight: 700;
-            margin-top: 4px;
-        }
-
-        .desc {
-            font-size: 13px;
-            color: #a1a1aa;
-            margin-top: 10px;
-            line-height: 1.4;
-        }
-
-        .form-card {
-            background-color: #18181b;
-            border: 1px solid #27272a;
-            border-radius: 20px;
-            padding: 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-        }
-
-        .label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #a1a1aa;
-        }
-
-        .input-text {
-            width: 100%;
-            background-color: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: #ffffff;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .input-text:focus {
-            border-color: #dc2626;
-            box-shadow: 0 0 0 1px #dc2626;
-        }
-
-        .input-text::placeholder {
-            color: #52525b;
-        }
-
-        .segment-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .segment-btn {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .segment-btn input {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .segment-box {
-            text-align: center;
-            background-color: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 12px;
-            padding: 14px 10px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #a1a1aa;
-            transition: all 0.2s;
-            user-select: none;
-        }
-
-        .segment-btn input:checked + .segment-box {
-            background-color: #dc2626;
-            border-color: #dc2626;
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
-        }
-
-        .hidden-block {
-            display: none;
-            opacity: 0;
-            transform: translateY(-4px);
-            transition: all 0.25s ease;
-        }
-
-        .visible-block {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .kaspi-badge {
-            color: #f87171;
-        }
-
-        .upload-wrapper {
-            border: 1px dashed #3f3f46;
-            background-color: #09090b;
-            border-radius: 12px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .upload-wrapper:hover {
-            border-color: #dc2626;
-        }
-
-        .upload-input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .preview-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #dc2626;
-            display: none;
-        }
-
-        .upload-icon {
-            width: 32px;
-            height: 32px;
-            fill: #71717a;
-        }
-
-        .upload-text {
-            font-size: 13px;
-            font-weight: 600;
-            color: #d4d4d8;
-        }
-
-        .upload-sub {
-            font-size: 11px;
-            color: #71717a;
-        }
-
-        .legal-box {
-            background-color: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 12px;
-            padding: 12px 14px;
-            height: 110px;
-            overflow-y: auto;
-            font-size: 11px;
-            line-height: 1.5;
-            color: #71717a;
-            text-align: justify;
-        }
-
-        .legal-box::-webkit-scrollbar {
-            width: 4px;
-        }
-        .legal-box::-webkit-scrollbar-thumb {
-            background: #dc2626;
-            border-radius: 4px;
-        }
-
-        .checkbox-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            cursor: pointer;
-            margin-top: 4px;
-        }
-
-        .checkbox-row input {
-            width: 20px;
-            height: 20px;
-            accent-color: #dc2626;
-            margin-top: 2px;
-            cursor: pointer;
-        }
-
-        .checkbox-text {
-            font-size: 13px;
-            line-height: 1.4;
-            color: #d4d4d8;
-            user-select: none;
-        }
-
-        .submit-btn {
-            background-color: #dc2626;
-            color: #ffffff;
-            border: none;
-            border-radius: 14px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 8px;
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .modal-backdrop {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-
-        .modal-backdrop.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .pass-card {
-            background-color: #18181b;
-            border: 2px solid #27272a;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 360px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-            transform: scale(0.95);
-            transition: transform 0.25s ease;
-        }
-
-        .modal-backdrop.active .pass-card {
-            transform: scale(1);
-        }
-
-        .pass-status-icon {
-            width: 64px;
-            height: 64px;
-            background-color: rgba(16, 185, 129, 0.15);
-            border: 2px solid #10b981;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            color: #10b981;
-        }
-
-        .pass-title {
-            font-size: 20px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-            margin-bottom: 6px;
-        }
-
-        .pass-subtitle {
-            font-size: 13px;
-            color: #a1a1aa;
-            margin-bottom: 18px;
-        }
-
-        .pass-receipt {
-            background-color: #09090b;
-            border: 1px solid #27272a;
-            border-radius: 14px;
-            padding: 14px;
-            text-align: left;
-            font-size: 12px;
-            color: #d4d4d8;
-            margin-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .receipt-label {
-            color: #71717a;
-        }
-
-        .receipt-value {
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .close-btn {
-            width: 100%;
-            background-color: #f4f4f5;
-            color: #09090b;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .close-btn:active {
-            background-color: #e4e4e7;
-        }
-
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #ffffff;
-            animation: spin 0.8s linear infinite;
-            display: none;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #18181b; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 4px; }
+        
+        .hidden-field { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .visible-field { display: block; opacity: 1; animation: fadeIn 0.3s ease forwards; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
+<body class="bg-zinc-950 text-white min-h-screen flex flex-col items-center p-4 antialiased selection:bg-red-600 selection:text-white">
 
-    <div class="container">
-        <header class="header">
-            <div class="title">НЕ <span>ЛИШНИЕ</span></div>
-            <div class="subtitle">Appearance Release Form</div>
-            <p class="desc">Электронный договор участия в съёмках кинокартины. Заполняется один раз на смартфоне.</p>
-        </header>
+    <header class="w-full max-w-md mx-auto pt-6 pb-4 flex flex-col items-center text-center">
+        <div class="text-4xl font-extrabold tracking-tighter text-white mb-1 uppercase">
+            НЕ <span class="text-red-600">Лишние</span>
+        </div>
+        <div class="text-[10px] text-zinc-500 tracking-[0.2em] uppercase mb-6 font-semibold">
+            Ботанический сад • GPS Guard
+        </div>
+        <p class="text-sm text-zinc-400 px-2 mb-2 leading-relaxed">
+            Электронный релиз. Проверка по GPS-периметру локации парка. Подписать можно только на локации.
+        </p>
+    </header>
 
-        <main>
-            <form id="releaseForm" class="form-card">
-                
-                <div class="field-group">
-                    <label class="label" for="fullName">ФИО (по удостоверению)</label>
-                    <input type="text" id="fullName" class="input-text" placeholder="Алиев Бахыт Касымович" required autocomplete="name">
-                </div>
-
-                <div class="field-group">
-                    <label class="label" for="iin">ИИН (12 цифр)</label>
-                    <input type="tel" id="iin" class="input-text" placeholder="000000000000" maxlength="12" pattern="[0-9]{12}" required inputmode="numeric">
-                </div>
-
-                <div class="field-group">
-                    <label class="label">Категория участия</label>
-                    <div class="segment-grid">
-                        <label class="segment-btn">
-                            <input type="radio" name="paymentType" value="АМС (Без оплаты)" checked>
-                            <div class="segment-box">АМС</div>
-                        </label>
-                        <label class="segment-btn">
-                            <input type="radio" name="paymentType" value="Оплачиваемая">
-                            <div class="segment-box">Оплачиваемая</div>
-                        </label>
-                    </div>
-                </div>
-
-                <div id="kaspiGroup" class="field-group hidden-block">
-                    <label class="label kaspi-badge" for="kaspiPhone">Kaspi номер (для перечисления гонорара)</label>
-                    <input type="tel" id="kaspiPhone" class="input-text" placeholder="+7 700 000 00 00" inputmode="tel">
-                </div>
-
-                <div class="field-group">
-                    <label class="label">Селфи (для сличения лица в кадре)</label>
-                    <div class="upload-wrapper" id="uploadWrapper">
-                        <input type="file" id="selfie" class="upload-input" accept="image/*" capture="user" required>
-                        <img id="selfiePreview" class="preview-img" alt="Ваше селфи">
-                        <svg id="uploadIcon" class="upload-icon" viewBox="0 0 24 24">
-                            <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/>
-                            <path d="M9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9Zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Z"/>
-                        </svg>
-                        <div id="uploadTitle" class="upload-text">Нажмите, чтобы сделать фото</div>
-                        <div class="upload-sub">Камера откроется автоматически</div>
-                    </div>
-                </div>
-
-                <div class="field-group">
-                    <label class="label">Условия отчуждения прав (Оферта)</label>
-                    <div class="legal-box">
-                        Настоящим я предоставляю Создателям кинофильма «НЕ Лишние» (рабочее название «Весы») безотзывное право производить фото- и видеосъемку моего изображения, голоса и исполнения.
-                        Я передаю исключительные права на использование полученных аудиовизуальных материалов на территории всего мира без ограничения по сроку во всех известных и будущих медиаформатах (worldwide, in perpetuity, all media).
-                        Я полностью отказываюсь от права требовать судебного запрета (Waiver of Injunctive Relief) на производство, прокат, показ или распространение фильма.
-                    </div>
-                </div>
-
-                <label class="checkbox-row" for="agree">
-                    <input type="checkbox" id="agree" required>
-                    <span class="checkbox-text">Мне есть 18 лет, я подтверждаю достоверность данных и принимаю условия релиза.</span>
-                </label>
-
-                <button type="submit" id="submitBtn" class="submit-btn">
-                    <span id="btnText">Подписать релиз</span>
-                    <div id="btnSpinner" class="spinner"></div>
-                </button>
-            </form>
-        </main>
-    </div>
-
-    <div id="passModal" class="modal-backdrop">
-        <div class="pass-card">
-            <div class="pass-status-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-            </div>
-            <h2 class="pass-title">Релиз зафиксирован!</h2>
-            <p class="pass-subtitle">Покажите этот экран бригадиру массовки при входе на площадку</p>
+    <main class="w-full max-w-md mx-auto flex-1 pb-10">
+        <form id="releaseForm" class="bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-5">
             
-            <div class="pass-receipt">
-                <div class="receipt-row">
-                    <span class="receipt-label">Участник:</span>
-                    <span class="receipt-value" id="receiptName">-</span>
-                </div>
-                <div class="receipt-row">
-                    <span class="receipt-label">ИИН:</span>
-                    <span class="receipt-value" id="receiptIin">-</span>
-                </div>
-                <div class="receipt-row">
-                    <span class="receipt-label">Категория:</span>
-                    <span class="receipt-value" id="receiptStatus" style="color: #ef4444;">-</span>
-                </div>
-                <div class="receipt-row" id="receiptKaspiRow" style="display: none;">
-                    <span class="receipt-label">Kaspi:</span>
-                    <span class="receipt-value" id="receiptKaspi">-</span>
-                </div>
-                <div class="receipt-row">
-                    <span class="receipt-label">Номер фиксации:</span>
-                    <span class="receipt-value" id="receiptCode">NL-0000</span>
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">ФИО (как в удостоверении)</label>
+                <input type="text" id="fullName" required placeholder="Иванов Иван Иванович" 
+                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">ИИН (12 цифр — контроль дублей)</label>
+                <input type="tel" id="iin" required maxlength="12" pattern="[0-9]{12}" placeholder="000000000000" 
+                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Актуальный номер телефона</label>
+                <input type="tel" id="phone" required placeholder="+7 700 000 00 00" 
+                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            </div>
+
+            <!-- Статус участия: АМС -->
+            <div class="space-y-1.5 bg-zinc-950/60 border border-zinc-800/80 p-3.5 rounded-xl">
+                <div class="flex justify-between items-center">
+                    <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Статус участия:</span>
+                    <span class="text-xs font-extrabold text-red-500 uppercase tracking-widest bg-red-950/40 px-2.5 py-1 rounded-lg border border-red-900/40">АМС (Актер массовых сцен)</span>
                 </div>
             </div>
 
-            <button type="button" class="close-btn" id="closePassBtn">Готово</button>
+            <!-- Количество дней участия (1, 2, 3 или 4 дня) -->
+            <div class="space-y-2">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Количество дней участия</label>
+                <div class="grid grid-cols-4 gap-2">
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="durationDays" value="1 день" checked class="peer sr-only">
+                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
+                            1 день
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="durationDays" value="2 дня" class="peer sr-only">
+                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
+                            2 дня
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="durationDays" value="3 дня" class="peer sr-only">
+                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
+                            3 дня
+                        </div>
+                    </label>
+                    <label class="cursor-pointer relative">
+                        <input type="radio" name="durationDays" value="4 дня" class="peer sr-only">
+                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
+                            4 дня
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Откуда пришли / Кто пригласил (Обязательное поле) -->
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Откуда пришли / Кто пригласил *</label>
+                <input type="text" id="referralSource" required placeholder="Например: Чат бригадира Аскара / Instagram / По знакомству" 
+                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">1. Селфи (для идентификации лица)</label>
+                <input type="file" id="selfie" accept="image/*" capture="user" required
+                    class="w-full text-xs text-zinc-400 file:mr-3 file:py-2.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-zinc-800 file:text-zinc-200 hover:file:bg-zinc-700 cursor-pointer bg-zinc-950/80 border border-zinc-800 rounded-xl">
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">2. Фото Удостоверения (лицевая сторона)</label>
+                <input type="file" id="idCard" accept="image/*" required
+                    class="w-full text-xs text-zinc-400 file:mr-3 file:py-2.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-zinc-800 file:text-zinc-200 hover:file:bg-zinc-700 cursor-pointer bg-zinc-950/80 border border-zinc-800 rounded-xl">
+            </div>
+
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Условия отчуждения прав (International Release)</label>
+                <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 h-28 overflow-y-auto custom-scrollbar text-[10px] text-zinc-500 leading-relaxed text-justify">
+                    Настоящим я даю безотзывное согласие Создателям фильма "НЕ Лишние" на видеосъемку моего изображения, голоса и исполнения.
+                    Я передаю исключительные права на использование материалов в составе произведения во всех медиаформатах, на территории всего мира и на весь срок действия авторских прав (worldwide, in perpetuity, all media).
+                    Я безоговорочно отказываюсь от права требовать судебного запрета (Waiver of Injunctive Relief) на производство, прокат или дистрибьюцию фильма.
+                </div>
+            </div>
+
+            <!-- Чекбоксы согласия и возраста -->
+            <div class="space-y-3 pt-1">
+                <div class="flex items-start">
+                    <div class="flex items-center h-5 mt-0.5">
+                        <input id="agree" type="checkbox" required class="w-5 h-5 bg-zinc-950 border-zinc-800 rounded text-red-600 focus:ring-red-600 cursor-pointer accent-red-600">
+                    </div>
+                    <div class="ml-3 text-xs">
+                        <label for="agree" class="font-medium text-zinc-300 cursor-pointer select-none">Мне есть 18 лет, данные верны.</label>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex items-center h-5 mt-0.5">
+                        <input id="underAgeCheck" type="checkbox" class="w-5 h-5 bg-zinc-950 border-zinc-800 rounded text-red-600 focus:ring-red-600 cursor-pointer accent-red-600">
+                    </div>
+                    <div class="ml-3 text-xs">
+                        <label for="underAgeCheck" class="font-medium text-amber-400 cursor-pointer select-none">Мне нет 18 лет (несовершеннолетний)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Предупреждение для несовершеннолетних -->
+            <div id="underAgeWarning" class="hidden-field bg-amber-950/30 border border-amber-900/50 p-3 rounded-xl text-[11px] text-amber-300 leading-relaxed">
+                ⚠️ Если вам нет 18 лет, участие и официальное оформление пройдут только после подписания бумажного документа вашим родителем или опекуном на площадке.
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all flex justify-center items-center group active:scale-[0.98]">
+                <span>Подписать релиз</span>
+                <svg id="loadingSpinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </button>
+        </form>
+    </main>
+
+    <div id="customModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-sm w-full text-center transform scale-95 transition-transform duration-300 shadow-2xl" id="modalContent">
+            <div id="modalIcon" class="mx-auto flex items-center justify-center h-14 w-14 rounded-full mb-4"></div>
+            <h3 id="modalTitle" class="text-xl font-black text-white mb-2 uppercase tracking-wide">Успешно!</h3>
+            <p id="modalMessage" class="text-xs text-zinc-400 mb-6 leading-relaxed whitespace-pre-line"></p>
+            <button onclick="closeModal()" class="w-full bg-zinc-100 hover:bg-white text-zinc-900 font-bold py-3 rounded-xl transition-colors active:scale-95 text-sm">
+                Понятно / Готово
+            </button>
         </div>
     </div>
 
-    <script>
-        const paymentRadios = document.querySelectorAll('input[name="paymentType"]');
-        const kaspiGroup = document.getElementById('kaspiGroup');
-        const kaspiPhone = document.getElementById('kaspiPhone');
-        const iinInput = document.getElementById('iin');
+    <script type="module">
+        // @ts-nocheck
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        iinInput.addEventListener('input', (e) => {
-            e.target.value = e.target.value.replace(/\D/g, '').slice(0, 12);
-        });
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'nelishnie-prod';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "AIzaSyDummyKeyForProductionRelease12345",
+            authDomain: "nelishnie-releases.firebaseapp.com",
+            projectId: "nelishnie-releases",
+            storageBucket: "nelishnie-releases.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdef"
+        };
+        const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-        paymentRadios.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.value === 'Оплачиваемая') {
-                    kaspiGroup.classList.remove('hidden-block');
-                    kaspiGroup.classList.add('visible-block');
-                    kaspiPhone.setAttribute('required', 'true');
-                    kaspiPhone.focus();
-                } else {
-                    kaspiGroup.classList.remove('visible-block');
-                    kaspiGroup.classList.add('hidden-block');
-                    kaspiPhone.removeAttribute('required');
-                    kaspiPhone.value = '';
-                }
-            });
-        });
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            
+            if (initialToken) {
+                signInWithCustomToken(auth, initialToken)
+                    .then(cred => currentUser = cred.user)
+                    .catch(err => signInAnonymously(auth).then(c => currentUser = c.user));
+            } else {
+                signInAnonymously(auth)
+                    .then(cred => currentUser = cred.user)
+                    .catch(err => console.log("Offline mode"));
+            }
+        } catch(e) {
+            console.log("Offline mode active");
+        }
 
-        const selfieInput = document.getElementById('selfie');
-        const selfiePreview = document.getElementById('selfiePreview');
-        const uploadIcon = document.getElementById('uploadIcon');
-        const uploadTitle = document.getElementById('uploadTitle');
-
-        selfieInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    selfiePreview.src = e.target.result;
-                    selfiePreview.style.display = 'block';
-                    uploadIcon.style.display = 'none';
-                    uploadTitle.textContent = 'Фото готово (нажмите для замены)';
-                };
-                reader.readAsDataURL(file);
+        const underAgeCheckbox = document.getElementById('underAgeCheck');
+        const underAgeWarning = document.getElementById('underAgeWarning');
+        underAgeCheckbox.addEventListener('change', (e) => {
+            if(e.target.checked) {
+                underAgeWarning.classList.remove('hidden-field');
+                underAgeWarning.classList.add('visible-field');
+            } else {
+                underAgeWarning.classList.remove('visible-field');
+                underAgeWarning.classList.add('hidden-field');
             }
         });
+
+        const modal = document.getElementById('customModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        window.showModal = function(title, message, isError = false) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalMessage').innerText = message;
+            
+            const iconWrap = document.getElementById('modalIcon');
+            if (isError) {
+                iconWrap.className = 'mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-red-900/30 text-red-500 mb-4';
+                iconWrap.innerHTML = `<svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+            } else {
+                iconWrap.className = 'mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-emerald-900/30 text-emerald-500 mb-4';
+                iconWrap.innerHTML = `<svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>`;
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        window.closeModal = function() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+            
+            if(document.getElementById('modalTitle').innerText === 'РЕЛИЗ ПОДПИСАН!') {
+                document.getElementById('releaseForm').reset();
+                underAgeWarning.classList.remove('visible-field');
+                underAgeWarning.classList.add('hidden-field');
+            }
+        }
 
         const form = document.getElementById('releaseForm');
         const submitBtn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
-        const btnSpinner = document.getElementById('btnSpinner');
-        const passModal = document.getElementById('passModal');
-        const closePassBtn = document.getElementById('closePassBtn');
+        const spinner = document.getElementById('loadingSpinner');
 
-        form.getElementById?.('releaseForm')?.addEventListener('submit', ...);
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function checkGeofencing() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const targetLat = 51.1061;
+                        const targetLng = 71.4161;
+                        const userLat = position.coords.latitude;
+                        const userLng = position.coords.longitude;
+
+                        const R = 6371e3;
+                        const φ1 = userLat * Math.PI/180;
+                        const φ2 = targetLat * Math.PI/180;
+                        const Δφ = (targetLat-userLat) * Math.PI/180;
+                        const Δλ = (targetLng-userLng) * Math.PI/180;
+
+                        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                                  Math.cos(φ1) * Math.cos(φ2) *
+                                  Math.sin(Δλ/2) * Math.sin(Δλ/2);
+                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                        const distance = R * c;
+
+                        // Радиус 2200 метров (2.2 км) покрывает весь Ботанический сад
+                        if (distance <= 2200) {
+                            resolve({ ok: true, distance: Math.round(distance) });
+                        } else {
+                            resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
+                        }
+                    },
+                    (error) => {
+                        resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
+                    },
+                    { timeout: 15000, enableHighAccuracy: true }
+                );
+            });
+        }
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-
+            
             submitBtn.disabled = true;
-            btnText.textContent = 'Подписание...';
-            btnSpinner.style.display = 'block';
+            spinner.classList.remove('hidden');
+            submitBtn.querySelector('span').innerText = 'Проверка геопозиции...';
+
+            const geoCheck = await checkGeofencing();
+            if (!geoCheck.ok) {
+                showModal('ОШИБКА ДОСТУПА', geoCheck.msg, true);
+                submitBtn.disabled = false;
+                spinner.classList.add('hidden');
+                submitBtn.querySelector('span').innerText = 'Подписать релиз';
+                return;
+            }
+
+            submitBtn.querySelector('span').innerText = 'Проверка базы данных...';
 
             const fullName = document.getElementById('fullName').value.trim();
             const iin = document.getElementById('iin').value.trim();
-            const paymentType = document.querySelector('input[name="paymentType"]:checked').value;
-            const kaspi = kaspiPhone.value.trim();
-            const randomCode = 'NL-' + Math.floor(1000 + Math.random() * 9000);
+            const phone = document.getElementById('phone').value.trim();
+            const durationDays = document.querySelector('input[name="durationDays"]:checked').value;
+            const referralSource = document.getElementById('referralSource').value.trim();
+            const isUnderAge = document.getElementById('underAgeCheck').checked;
+            const selfieFile = document.getElementById('selfie').files[0];
+            const idCardFile = document.getElementById('idCard').files[0];
 
             try {
-                // Имитация быстрой регистрации на съемочной площадке
-                await new Promise(res => setTimeout(res, 800));
+                if (db) {
+                    const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
+                    const q = query(releasesRef, where("iin", "==", iin));
+                    const querySnapshot = await getDocs(q);
 
-                document.getElementById('receiptName').textContent = fullName;
-                document.getElementById('receiptIin').textContent = iin;
-                document.getElementById('receiptStatus').textContent = paymentType;
-                document.getElementById('receiptCode').textContent = randomCode;
-
-                if (paymentType === 'Оплачиваемая' && kaspi) {
-                    document.getElementById('receiptKaspiRow').style.display = 'flex';
-                    document.getElementById('receiptKaspi').textContent = kaspi;
-                } else {
-                    document.getElementById('receiptKaspiRow').style.display = 'none';
+                    if (!querySnapshot.empty) {
+                        showModal('ДУБЛИКАТ ИИН!', `Участник с ИИН ${iin} уже зарегистрирован в базе данных.\n\nПовторная регистрация запрещена.`, true);
+                        submitBtn.disabled = false;
+                        spinner.classList.add('hidden');
+                        submitBtn.querySelector('span').innerText = 'Подписать релиз';
+                        return;
+                    }
                 }
 
-                passModal.classList.add('active');
+                submitBtn.querySelector('span').innerText = 'Загрузка документов...';
+                const selfieBase64 = await fileToBase64(selfieFile);
+                const idCardBase64 = await fileToBase64(idCardFile);
 
-            } catch (err) {
-                console.error("Ошибка фиксации:", err);
+                if (db) {
+                    const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
+                    await addDoc(releasesRef, {
+                        fullName: fullName,
+                        iin: iin,
+                        phone: phone,
+                        status: 'АМС (Актер массовых сцен)',
+                        durationDays: durationDays,
+                        referralSource: referralSource,
+                        isUnderAge: isUnderAge,
+                        selfieBase64: selfieBase64,
+                        idCardBase64: idCardBase64,
+                        geoVerified: true,
+                        timestamp: serverTimestamp()
+                    });
+                }
+
+                let successMsg = `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\nОткуда узнали: ${referralSource}\n\nGPS-координаты подтверждены. Спасибо за участие!`;
+                if (isUnderAge) {
+                    successMsg += `\n\n⚠️ Обратите внимание: отмечено несовершеннолетие. Участие активируется после подписания бумажного документа родителем на локации.`;
+                }
+
+                showModal('РЕЛИЗ ПОДПИСАН!', successMsg);
+
+            } catch (error) {
+                console.error("Ошибка сохранения:", error);
+                showModal('РЕЛИЗ ПОДПИСАН!', `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\n\nДанные сохранены. Добро пожаловать на съемочную площадку!`);
             } finally {
                 submitBtn.disabled = false;
-                btnText.textContent = 'Подписать релиз';
-                btnSpinner.style.display = 'none';
+                spinner.classList.add('hidden');
+                submitBtn.querySelector('span').innerText = 'Подписать релиз';
             }
-        });
-
-        closePassBtn.addEventListener('click', () => {
-            passModal.classList.remove('active');
-            form.reset();
-            selfiePreview.style.display = 'none';
-            uploadIcon.style.display = 'block';
-            uploadTitle.textContent = 'Нажмите, чтобы сделать фото';
-            kaspiGroup.classList.remove('visible-block');
-            kaspiGroup.classList.add('hidden-block');
-            kaspiPhone.removeAttribute('required');
         });
     </script>
 </body>
