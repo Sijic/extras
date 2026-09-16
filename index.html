@@ -2,264 +2,435 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Digital Release | НЕ Лишние</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронное согласие — НЕ Лишние</title>
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #18181b; border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #dc2626; border-radius: 4px; }
-        
-        .hidden-field { display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .visible-field { display: block; opacity: 1; animation: fadeIn 0.3s ease forwards; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+        :root {
+            --bg-color: #0b0b0c;
+            --card-bg: #141416;
+            --accent-red: #e50914;
+            --accent-red-hover: #f40612;
+            --text-main: #ffffff;
+            --text-muted: #8c8c8c;
+            --border-color: #26262a;
+            --input-bg: #1f1f23;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            text-transform: uppercase;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px 14px;
+            color: var(--text-main);
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: var(--accent-red);
+        }
+
+        .days-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .day-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-muted);
+            padding: 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .day-btn.active {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: var(--text-main);
+        }
+
+        .file-upload {
+            position: relative;
+            background: var(--input-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .legal-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 11px;
+            line-height: 1.4;
+            color: var(--text-muted);
+            max-height: 120px;
+            overflow-y: auto;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            accent-color: var(--accent-red);
+            width: 18px;
+            height: 18px;
+            margin-top: 1px;
+        }
+
+        .checkbox-group label {
+            font-size: 13px;
+            text-transform: none;
+            letter-spacing: normal;
+            color: var(--text-main);
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent-red);
+            color: var(--text-main);
+            border: none;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-red-hover);
+        }
+
+        .submit-btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .status-log {
+            font-size: 11px;
+            color: var(--accent-red);
+            text-align: center;
+            margin-top: 10px;
+            min-height: 16px;
+        }
+
+        .debug-toggle {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .debug-toggle button {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .modal-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .modal-btn {
+            background: var(--text-main);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
         }
     </style>
 </head>
-<body class="bg-zinc-950 text-white min-h-screen flex flex-col items-center p-4 antialiased selection:bg-red-600 selection:text-white">
+<body>
 
-    <header class="w-full max-w-md mx-auto pt-6 pb-4 flex flex-col items-center text-center">
-        <div class="text-4xl font-extrabold tracking-tighter text-white mb-1 uppercase">
-            НЕ <span class="text-red-600">Лишние</span>
+    <div class="container">
+        <div class="header">
+            <h1>НЕ Лишние</h1>
+            <p>Анкета актера массовых сцен</p>
         </div>
-        <div class="text-[10px] text-zinc-500 tracking-[0.2em] uppercase mb-6 font-semibold">
-            Digital Release • Быстрый сбор
-        </div>
-        <p class="text-sm text-zinc-400 px-2 mb-2 leading-relaxed">
-            Электронный релиз и согласие на участие в съемочном процессе.
-        </p>
-    </header>
 
-    <main class="w-full max-w-md mx-auto flex-1 pb-10">
-        <form id="releaseForm" class="bg-zinc-900/50 backdrop-blur-md border border-zinc-800 rounded-2xl p-6 shadow-2xl space-y-5">
-            
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">ФИО (как в удостоверении)</label>
-                <input type="text" id="fullName" required placeholder="Иванов Иван Иванович" 
-                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+        <form id="releaseForm">
+            <div class="form-group">
+                <label>ФИО *</label>
+                <input type="text" id="fullName" required placeholder="Введите полностью">
             </div>
 
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">ИИН (12 цифр — контроль дублей)</label>
-                <input type="tel" id="iin" required maxlength="12" pattern="[0-9]{12}" placeholder="000000000000" 
-                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            <div class="form-group">
+                <label>ИИН *</label>
+                <input type="text" id="iin" maxlength="12" required placeholder="12 цифр">
             </div>
 
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Актуальный номер телефона</label>
-                <input type="tel" id="phone" required placeholder="+7 700 000 00 00" 
-                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
+            <div class="form-group">
+                <label>Статус участия</label>
+                <input type="text" value="Актер массовых сцен (АМС)" disabled style="color: var(--text-muted); cursor: not-allowed;">
             </div>
 
-            <div class="space-y-1.5 bg-zinc-950/60 border border-zinc-800/80 p-3.5 rounded-xl">
-                <div class="flex justify-between items-center">
-                    <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Статус участия:</span>
-                    <span class="text-xs font-extrabold text-red-500 uppercase tracking-widest bg-red-950/40 px-2.5 py-1 rounded-lg border border-red-900/40">АМС (Актер массовых сцен)</span>
+            <div class="form-group">
+                <label>Количество дней участия *</label>
+                <div class="days-selector">
+                    <div class="day-btn active" data-days="1">1 день</div>
+                    <div class="day-btn" data-days="2">2 дня</div>
+                    <div class="day-btn" data-days="3">3 дня</div>
+                    <div class="day-btn" data-days="4">4 дня</div>
+                </div>
+                <input type="hidden" id="daysCount" value="1">
+            </div>
+
+            <div class="form-group">
+                <label>Откуда пришли / Кто приглашил *</label>
+                <input type="text" id="inviter" required placeholder="Имя бригадира или источник">
+            </div>
+
+            <div class="form-group">
+                <label>1. Селфи (для идентификации лица) *</label>
+                <div class="file-upload" id="selfieUploadWrap">
+                    <span class="file-upload-text" id="selfieText">Сделать селфи или выбрать файл</span>
+                    <input type="file" id="selfieFile" accept="image/*" capture="user" required>
                 </div>
             </div>
 
-            <div class="space-y-2">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Количество дней участия</label>
-                <div class="grid grid-cols-4 gap-2">
-                    <label class="cursor-pointer relative">
-                        <input type="radio" name="durationDays" value="1 день" checked class="peer sr-only">
-                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
-                            1 день
-                        </div>
-                    </label>
-                    <label class="cursor-pointer relative">
-                        <input type="radio" name="durationDays" value="2 дня" class="peer sr-only">
-                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
-                            2 дня
-                        </div>
-                    </label>
-                    <label class="cursor-pointer relative">
-                        <input type="radio" name="durationDays" value="3 дня" class="peer sr-only">
-                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
-                            3 дня
-                        </div>
-                    </label>
-                    <label class="cursor-pointer relative">
-                        <input type="radio" name="durationDays" value="4 дня" class="peer sr-only">
-                        <div class="text-center bg-zinc-950/80 border border-zinc-800 text-zinc-400 rounded-xl py-3 peer-checked:bg-red-600 peer-checked:border-red-600 peer-checked:text-white transition-all text-[11px] font-semibold shadow-sm">
-                            4 дня
-                        </div>
-                    </label>
+            <div class="form-group">
+                <label>2. Фото удостоверения (лицевая сторона) *</label>
+                <div class="file-upload" id="idUploadWrap">
+                    <span class="file-upload-text" id="idText">Загрузить фото удостоверения</span>
+                    <input type="file" id="idCardFile" accept="image/*" required>
                 </div>
             </div>
 
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Откуда пришли / Кто приглашил *</label>
-                <input type="text" id="referralSource" required placeholder="Например: Чат бригадира Аскара / Instagram / По знакомству" 
-                    class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
-            </div>
-
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">1. Селфи (для идентификации лица)</label>
-                <input type="file" id="selfie" accept="image/*" capture="user" required
-                    class="w-full text-xs text-zinc-400 file:mr-3 file:py-2.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-zinc-800 file:text-zinc-200 hover:file:bg-zinc-700 cursor-pointer bg-zinc-950/80 border border-zinc-800 rounded-xl">
-            </div>
-
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">2. Фото Удостоверения (лицевая сторона)</label>
-                <input type="file" id="idCard" accept="image/*" required
-                    class="w-full text-xs text-zinc-400 file:mr-3 file:py-2.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-zinc-800 file:text-zinc-200 hover:file:bg-zinc-700 cursor-pointer bg-zinc-950/80 border border-zinc-800 rounded-xl">
-            </div>
-
-            <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Условия отчуждения прав (International Release)</label>
-                <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 h-28 overflow-y-auto custom-scrollbar text-[10px] text-zinc-500 leading-relaxed text-justify">
-                    Настоящим я даю безотзывное согласие Создателям фильма "НЕ Лишние" на видеосъемку моего изображения, голоса и исполнения.
-                    Я передаю исключительные права на использование материалов в составе произведения во всех медиаформатах, на территории всего мира и на весь срок действия авторских прав (worldwide, in perpetuity, all media).
-                    Я безоговорочно отказываюсь от права требовать судебного запрета (Waiver of Injunctive Relief) на производство, прокат или дистрибьюцию фильма.
+            <div class="form-group">
+                <label>Условия отчуждения прав (International Release)</label>
+                <div class="legal-box">
+                    Настоящим я даю безотзывное согласие Создателям фильма «НЕ Лишние» на видеосъемку моего изображения, голоса и исполнения. Я передаю исключительные права на использование материалов в составе произведения во всех медиаформатах, на территории всего мира и на весь срок действия авторских прав (worldwide, in perpetuity, all media). Я безоговорочно отказываюсь от права авторского надзора и претензий к монтажу.
                 </div>
             </div>
 
-            <div class="space-y-3 pt-1">
-                <div class="flex items-start">
-                    <div class="flex items-center h-5 mt-0.5">
-                        <input id="agree" type="checkbox" required class="w-5 h-5 bg-zinc-950 border-zinc-800 rounded text-red-600 focus:ring-red-600 cursor-pointer accent-red-600">
-                    </div>
-                    <div class="ml-3 text-xs">
-                        <label for="agree" class="font-medium text-zinc-300 cursor-pointer select-none">Мне есть 18 лет, данные верны.</label>
-                    </div>
-                </div>
-
-                <div class="flex items-start">
-                    <div class="flex items-center h-5 mt-0.5">
-                        <input id="underAgeCheck" type="checkbox" class="w-5 h-5 bg-zinc-950 border-zinc-800 rounded text-red-600 focus:ring-red-600 cursor-pointer accent-red-600">
-                    </div>
-                    <div class="ml-3 text-xs">
-                        <label for="underAgeCheck" class="font-medium text-amber-400 cursor-pointer select-none">Мне нет 18 лет (несовершеннолетний)</label>
-                    </div>
-                </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="adultCheck" checked>
+                <label for="adultCheck">Мне есть 18 лет, данные верны.</label>
             </div>
 
-            <div id="underAgeWarning" class="hidden-field bg-amber-950/30 border border-amber-900/50 p-3 rounded-xl text-[11px] text-amber-300 leading-relaxed">
-                ⚠️ Если вам нет 18 лет, участие и официальное оформление пройдут только после подписания бумажного документа вашим родителем или опекуном на площадке.
+            <div class="checkbox-group">
+                <input type="checkbox" id="minorCheck">
+                <label for="minorCheck">Мне нет 18 лет (несовершеннолетний)</label>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl shadow-[0_0_20px_rgba(220,38,38,0.3)] transition-all flex justify-center items-center group active:scale-[0.98]">
-                <span>Подписать релиз</span>
-                <svg id="loadingSpinner" class="animate-spin ml-2 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </button>
+            <button type="submit" class="submit-btn" id="submitBtn">Подписать и отправить</button>
+            <div class="status-log" id="statusLog">Готово к отправке</div>
+
+            <div class="debug-toggle">
+                <button type="button" id="toggleGpsBtn">Режим теста: GPS проверка ВКЛ</button>
+            </div>
         </form>
-    </main>
+    </div>
 
-    <div id="customModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 max-w-sm w-full text-center transform scale-95 transition-transform duration-300 shadow-2xl" id="modalContent">
-            <div id="modalIcon" class="mx-auto flex items-center justify-center h-14 w-14 rounded-full mb-4"></div>
-            <h3 id="modalTitle" class="text-xl font-black text-white mb-2 uppercase tracking-wide">Успешно!</h3>
-            <p id="modalMessage" class="text-xs text-zinc-400 mb-6 leading-relaxed whitespace-pre-line"></p>
-            <button onclick="closeModal()" class="w-full bg-zinc-100 hover:bg-white text-zinc-900 font-bold py-3 rounded-xl transition-colors active:scale-95 text-sm">
-                Понятно / Готово
-            </button>
+    <!-- Модальные окна -->
+    <div class="modal" id="errorModal">
+        <div class="modal-content">
+            <h3 id="errorTitle">Ошибка доступа</h3>
+            <p id="errorText">вы сможете подписать только если на локации</p>
+            <button class="modal-btn" onclick="closeModal('errorModal')">Понятно</button>
         </div>
     </div>
 
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <h3>Релиз подписан!</h3>
+            <p>Ваши данные успешно сохранены в базе проекта.</p>
+            <button class="modal-btn" onclick="location.reload()">Готово</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
     <script type="module">
-        // @ts-nocheck
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, Timestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'nelishnie-prod';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "AIzaSyCzq-ooxC4V8IjH76mUorSknqNMO_4JqwU",
-            authDomain: "nelishnie-re.firebaseapp.com",
-            projectId: "nelishnie-re",
-            storageBucket: "nelishnie-re.appspot.com",
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzqfooxC4V8IjH76mUorSkmqNMO_MJqwU",
+            authDomain: "nelishnie-release.firebaseapp.com",
+            projectId: "nelishnie-release",
+            storageBucket: "nelishnie-release.firebasestorage.app",
             messagingSenderId: "648545265781",
-            appId: "1:648545265781:web:fb15c2c7c731b20233b03c"
+            appId: "1:648545265781:web:fb15c2c7c731b20233b03c",
+            measurementId: "G-JLFC354PKJ"
         };
-        const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-        let db = null;
-        let auth = null;
-        let currentUser = null;
-        
-        try {
-            const app = initializeApp(firebaseConfig);
-            db = getFirestore(app);
-            auth = getAuth(app);
-            
-            if (initialToken) {
-                signInWithCustomToken(auth, initialToken)
-                    .then(cred => currentUser = cred.user)
-                    .catch(err => signInAnonymously(auth).then(c => currentUser = c.user));
-            } else {
-                signInAnonymously(auth)
-                    .then(cred => currentUser = cred.user)
-                    .catch(err => console.log("Offline mode"));
-            }
-        } catch(e) {
-            console.log("Offline mode active");
-        }
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
 
-        const underAgeCheckbox = document.getElementById('underAgeCheck');
-        const underAgeWarning = document.getElementById('underAgeWarning');
-        underAgeCheckbox.addEventListener('change', (e) => {
-            if(e.target.checked) {
-                underAgeWarning.classList.remove('hidden-field');
-                underAgeWarning.classList.add('visible-field');
-            } else {
-                underAgeWarning.classList.remove('visible-field');
-                underAgeWarning.classList.add('hidden-field');
-            }
+        let gpsEnabled = true;
+
+        document.getElementById('toggleGpsBtn').addEventListener('click', () => {
+            gpsEnabled = !gpsEnabled;
+            const btn = document.getElementById('toggleGpsBtn');
+            btn.textContent = gpsEnabled ? "Режим теста: GPS проверка ВКЛ" : "Режим теста: GPS проверка ВЫКЛ (Любая точка)";
+            btn.style.color = gpsEnabled ? "#8c8c8c" : "#e50914";
         });
 
-        const modal = document.getElementById('customModal');
-        const modalContent = document.getElementById('modalContent');
-        
-        window.showModal = function(title, message, isError = false) {
-            document.getElementById('modalTitle').innerText = title;
-            document.getElementById('modalMessage').innerText = message;
-            
-            const iconWrap = document.getElementById('modalIcon');
-            if (isError) {
-                iconWrap.className = 'mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-red-900/30 text-red-500 mb-4';
-                iconWrap.innerHTML = `<svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>`;
-            } else {
-                iconWrap.className = 'mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-emerald-900/30 text-emerald-500 mb-4';
-                iconWrap.innerHTML = `<svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>`;
-            }
+        const dayButtons = document.querySelectorAll('.day-btn');
+        const daysCountInput = document.getElementById('daysCount');
+        dayButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                dayButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                daysCountInput.value = btn.getAttribute('data-days');
+            });
+        });
 
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-            }, 10);
+        setupFileInput('selfieFile', 'selfieText');
+        setupFileInput('idCardFile', 'idText');
+
+        function setupFileInput(inputId, textId) {
+            document.getElementById(inputId).addEventListener('change', function(e) {
+                if(e.target.files && e.target.files[0]) {
+                    document.getElementById(textId).textContent = 'Выбрано: ' + e.target.files[0].name;
+                }
+            });
         }
 
-        window.closeModal = function() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-            
-            if(document.getElementById('modalTitle').innerText === 'РЕЛИЗ ПОДПИСАН!') {
-                document.getElementById('releaseForm').reset();
-                underAgeWarning.classList.remove('visible-field');
-                underAgeWarning.classList.add('hidden-field');
-            }
-        }
-
-        const form = document.getElementById('releaseForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const spinner = document.getElementById('loadingSpinner');
-
-        // Функция сжатия изображений до оптимального размера (защита от лимитов и зависаний)
-        function compressImage(file, maxWidth = 800, quality = 0.6) {
+        function compressImage(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
@@ -268,114 +439,121 @@
                     img.src = event.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 800;
+                        const MAX_HEIGHT = 800;
                         let width = img.width;
                         let height = img.height;
-                        if (width > maxWidth) {
-                            height = Math.round((height * maxWidth) / width);
-                            width = maxWidth;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
                         }
+
                         canvas.width = width;
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', quality));
-                    };
-                    img.onerror = () => resolve(event.target.result);
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
+                    }
                 };
-                reader.onerror = () => resolve(null);
             });
         }
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            submitBtn.disabled = true;
-            spinner.classList.remove('hidden');
-            submitBtn.querySelector('span').innerText = 'Сжатие фото...';
+        function setStatus(text) {
+            document.getElementById('statusLog').textContent = text;
+        }
 
-            const fullName = document.getElementById('fullName').value.trim();
-            const iin = document.getElementById('iin').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const durationDays = document.querySelector('input[name="durationDays"]:checked').value;
-            const referralSource = document.getElementById('referralSource').value.trim();
-            const isUnderAge = document.getElementById('underAgeCheck').checked;
-            const selfieFile = document.getElementById('selfie').files[0];
-            const idCardFile = document.getElementById('idCard').files[0];
+        document.getElementById('releaseForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
 
             try {
-                // Сжимаем фотографии
-                const selfieBase64 = await compressImage(selfieFile, 800, 0.6);
-                const idCardBase64 = await compressImage(idCardFile, 900, 0.6);
-
-                submitBtn.querySelector('span').innerText = 'Проверка базы...';
-
-                if (db) {
-                    const dbCheckPromise = (async () => {
-                        const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
-                        const q = query(releasesRef, where("iin", "==", iin));
-                        return await getDocs(q);
-                    })();
-
-                    // Строгий таймаут 3 секунды, чтобы база никогда не зависала
-                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 3000));
-                    
-                    try {
-                        const querySnapshot = await Promise.race([dbCheckPromise, timeoutPromise]);
-                        if (!querySnapshot.empty) {
-                            showModal('ДУБЛИКАТ ИИН!', `Участник с ИИН ${iin} уже зарегистрирован в базе данных.\n\nПовторная регистрация запрещена.`, true);
-                            submitBtn.disabled = false;
-                            spinner.classList.add('hidden');
-                            submitBtn.querySelector('span').innerText = 'Подписать релиз';
-                            return;
-                        }
-                    } catch (dbErr) {
-                        console.log("DB check timeout/offline, proceeding");
-                    }
-                }
-
-                submitBtn.querySelector('span').innerText = 'Сохранение...';
-
-                if (db) {
-                    const savePromise = (async () => {
-                        const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
-                        await addDoc(releasesRef, {
-                            fullName: fullName,
-                            iin: iin,
-                            phone: phone,
-                            status: 'АМС (Актер массовых сцен)',
-                            durationDays: durationDays,
-                            referralSource: referralSource,
-                            isUnderAge: isUnderAge,
-                            selfieBase64: selfieBase64,
-                            idCardBase64: idCardBase64,
-                            timestamp: serverTimestamp()
+                if (gpsEnabled) {
+                    setStatus('Проверка геопозиции...');
+                    const position = await new Promise((resolve, reject) => {
+                        if (!navigator.geolocation) reject(new Error("GPS не поддерживается"));
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: true,
+                            timeout: 8000,
+                            maximumAge: 0
                         });
-                    })();
+                    }).catch(() => {
+                        throw new Error("Не удалось определить координаты. Включите геолокацию.");
+                    });
 
-                    const saveTimeout = new Promise((_, reject) => setTimeout(() => reject(new Error('Save Timeout')), 4000));
-                    try {
-                        await Promise.race([savePromise, saveTimeout]);
-                    } catch (saveErr) {
-                        console.log("Save completed with offline/timeout fallback");
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    const targetLat = 51.1278;
+                    const targetLon = 71.4258;
+                    const distance = Math.sqrt(Math.pow(lat - targetLat, 2) + Math.pow(lon - targetLon, 2)) * 111000;
+
+                    if (distance > 3000) {
+                        showErrorModal("вы сможете подписать только если на локации");
+                        submitBtn.disabled = false;
+                        setStatus('Ошибка локации');
+                        return;
                     }
                 }
 
-                let successMsg = `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\nОткуда узнали: ${referralSource}\n\nРелиз успешно подписан! Спасибо за участие!`;
-                if (isUnderAge) {
-                    successMsg += `\n\n⚠️ Обратите внимание: отмечено несовершеннолетие. Участие активируется после подписания бумажного документа родителем на площадке.`;
+                setStatus('Авторизация в системе...');
+                await signInAnonymously(auth).catch(() => {});
+
+                setStatus('Сжатие фотографий...');
+                const selfieFile = document.getElementById('selfieFile').files[0];
+                const idFile = document.getElementById('idCardFile').files[0];
+
+                const selfieBase64 = selfieFile ? await compressImage(selfieFile) : '';
+                const idBase64 = idFile ? await compressImage(idFile) : '';
+
+                const formData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    iin: document.getElementById('iin').value.trim(),
+                    status: "Актер массовых сцен (АМС)",
+                    days: document.getElementById('daysCount').value,
+                    inviter: document.getElementById('inviter').value.trim(),
+                    adult: document.getElementById('adultCheck').checked,
+                    minor: document.getElementById('minorCheck').checked,
+                    selfie: selfieBase64,
+                    idCard: idBase64,
+                    createdAt: Timestamp.now()
+                };
+
+                setStatus('Проверка дублей ИИН...');
+                const q = query(collection(db, "crowd_releases"), where("iin", "==", formData.iin));
+                const querySnapshot = await getDocs(q).catch(() => ({ empty: true }));
+
+                if (!querySnapshot.empty) {
+                    alert("Анкета с таким ИИН уже была отправлена ранее.");
+                    submitBtn.disabled = false;
+                    setStatus('ИИН уже существует');
+                    return;
                 }
 
-                showModal('РЕЛИЗ ПОДПИСАН!', successMsg);
+                setStatus('Сохранение в базу данных...');
+                await addDoc(collection(db, "crowd_releases"), formData);
 
-            } catch (error) {
-                console.error("Ошибка сохранения:", error);
-                showModal('РЕЛИЗ ПОДПИСАН!', `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\n\nДанные сохранены. Добро пожаловать на съемочную площадку!`);
-            } finally {
+                setStatus('Успешно!');
+                document.getElementById('successModal').style.display = 'flex';
+
+            } catch (err) {
+                console.error(err);
+                alert("Ошибка сохранения: " + (err.message || "Неизвестная ошибка"));
                 submitBtn.disabled = false;
-                spinner.classList.add('hidden');
-                submitBtn.querySelector('span').innerText = 'Подписать релиз';
+                setStatus('Ошибка отправки');
             }
         });
+
+        window.closeModal = function(id) {
+            document.getElementById(id).style.display = 'none';
+        }
     </script>
 </body>
 </html>
