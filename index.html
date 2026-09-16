@@ -60,7 +60,6 @@
                     class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
             </div>
 
-            <!-- Статус участия: АМС -->
             <div class="space-y-1.5 bg-zinc-950/60 border border-zinc-800/80 p-3.5 rounded-xl">
                 <div class="flex justify-between items-center">
                     <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Статус участия:</span>
@@ -68,7 +67,6 @@
                 </div>
             </div>
 
-            <!-- Количество дней участия (1, 2, 3 или 4 дня) -->
             <div class="space-y-2">
                 <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Количество дней участия</label>
                 <div class="grid grid-cols-4 gap-2">
@@ -99,7 +97,6 @@
                 </div>
             </div>
 
-            <!-- Откуда пришли / Кто приглашил (Обязательное поле) -->
             <div class="space-y-1.5">
                 <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Откуда пришли / Кто приглашил *</label>
                 <input type="text" id="referralSource" required placeholder="Например: Чат бригадира Аскара / Instagram / По знакомству" 
@@ -127,7 +124,6 @@
                 </div>
             </div>
 
-            <!-- Чекбоксы согласия и возраста -->
             <div class="space-y-3 pt-1">
                 <div class="flex items-start">
                     <div class="flex items-center h-5 mt-0.5">
@@ -148,7 +144,6 @@
                 </div>
             </div>
 
-            <!-- Предупреждение для несовершеннолетних -->
             <div id="underAgeWarning" class="hidden-field bg-amber-950/30 border border-amber-900/50 p-3 rounded-xl text-[11px] text-amber-300 leading-relaxed">
                 ⚠️ Если вам нет 18 лет, участие и официальное оформление пройдут только после подписания бумажного документа вашим родителем или опекуном на площадке.
             </div>
@@ -177,12 +172,11 @@
     <script type="module">
         // @ts-nocheck
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'nelishnie-prod';
         
-        // ВАШИ КЛЮЧИ ИЗ КОНСОЛИ FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyCzq-ooxC4V8IjH76mUorSknqNMO_4JqwU",
             authDomain: "nelishnie-re.firebaseapp.com",
@@ -194,18 +188,14 @@
 
         let db = null;
         let auth = null;
-        let currentUser = null;
         
         try {
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
-            
-            signInAnonymously(auth)
-                .then(cred => currentUser = cred.user)
-                .catch(err => console.log("Offline mode"));
+            signInAnonymously(auth).catch(() => {});
         } catch(e) {
-            console.log("Firebase init error, offline mode active");
+            console.log("Offline mode active");
         }
 
         const underAgeCheckbox = document.getElementById('underAgeCheck');
@@ -294,7 +284,6 @@
                         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                         const distance = R * c;
 
-                        // Радиус 2200 метров покрывает весь Ботанический сад
                         if (distance <= 2200) {
                             resolve({ ok: true, distance: Math.round(distance) });
                         } else {
@@ -304,7 +293,7 @@
                     (error) => {
                         resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
                     },
-                    { timeout: 15000, enableHighAccuracy: true }
+                    { timeout: 10000, enableHighAccuracy: true }
                 );
             });
         }
@@ -337,17 +326,27 @@
             const idCardFile = document.getElementById('idCard').files[0];
 
             try {
+                // Добавляем таймаут для базы данных (5 секунд), чтобы форма никогда не зависала вечно
                 if (db) {
-                    const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
-                    const q = query(releasesRef, where("iin", "==", iin));
-                    const querySnapshot = await getDocs(q);
+                    const dbCheckPromise = (async () => {
+                        const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
+                        const q = query(releasesRef, where("iin", "==", iin));
+                        return await getDocs(q);
+                    })();
 
-                    if (!querySnapshot.empty) {
-                        showModal('ДУБЛИКАТ ИИН!', `Участник с ИИН ${iin} уже зарегистрирован в базе данных.\n\nПовторная регистрация запрещена.`, true);
-                        submitBtn.disabled = false;
-                        spinner.classList.add('hidden');
-                        submitBtn.querySelector('span').innerText = 'Подписать релиз';
-                        return;
+                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 6000));
+                    
+                    try {
+                        const querySnapshot = await Promise.race([dbCheckPromise, timeoutPromise]);
+                        if (!querySnapshot.empty) {
+                            showModal('ДУБЛИКАТ ИИН!', `Участник с ИИН ${iin} уже зарегистрирован в базе данных.\n\nПовторная регистрация запрещена.`, true);
+                            submitBtn.disabled = false;
+                            spinner.classList.add('hidden');
+                            submitBtn.querySelector('span').innerText = 'Подписать релиз';
+                            return;
+                        }
+                    } catch (dbErr) {
+                        console.log("DB Check skipped or timed out, proceeding with save");
                     }
                 }
 
