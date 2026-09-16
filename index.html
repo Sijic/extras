@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <!-- @ts-nocheck -->
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -98,9 +99,9 @@
                 </div>
             </div>
 
-            <!-- Откуда пришли / Кто пригласил (Обязательное поле) -->
+            <!-- Откуда пришли / Кто приглашил (Обязательное поле) -->
             <div class="space-y-1.5">
-                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Откуда пришли / Кто пригласил *</label>
+                <label class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Откуда пришли / Кто приглашил *</label>
                 <input type="text" id="referralSource" required placeholder="Например: Чат бригадира Аскара / Instagram / По знакомству" 
                     class="w-full bg-zinc-950/80 text-white border border-zinc-800 rounded-xl px-4 py-3.5 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-600">
             </div>
@@ -180,15 +181,16 @@
         import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'nelishnie-prod';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
-            apiKey: "AIzaSyDummyKeyForProductionRelease12345",
-            authDomain: "nelishnie-releases.firebaseapp.com",
-            projectId: "nelishnie-releases",
-            storageBucket: "nelishnie-releases.appspot.com",
-            messagingSenderId: "123456789",
-            appId: "1:123456789:web:abcdef"
+        
+        // ВАШИ КЛЮЧИ ИЗ КОНСОЛИ FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzq-ooxC4V8IjH76mUorSknqNMO_4JqwU",
+            authDomain: "nelishnie-re.firebaseapp.com",
+            projectId: "nelishnie-re",
+            storageBucket: "nelishnie-re.appspot.com",
+            messagingSenderId: "648545265781",
+            appId: "1:648545265781:web:fb15c2c7c731b20233b03c"
         };
-        const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         let db = null;
         let auth = null;
@@ -199,17 +201,11 @@
             db = getFirestore(app);
             auth = getAuth(app);
             
-            if (initialToken) {
-                signInWithCustomToken(auth, initialToken)
-                    .then(cred => currentUser = cred.user)
-                    .catch(err => signInAnonymously(auth).then(c => currentUser = c.user));
-            } else {
-                signInAnonymously(auth)
-                    .then(cred => currentUser = cred.user)
-                    .catch(err => console.log("Offline mode"));
-            }
+            signInAnonymously(auth)
+                .then(cred => currentUser = cred.user)
+                .catch(err => console.log("Offline mode"));
         } catch(e) {
-            console.log("Offline mode active");
+            console.log("Firebase init error, offline mode active");
         }
 
         const underAgeCheckbox = document.getElementById('underAgeCheck');
@@ -298,7 +294,7 @@
                         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                         const distance = R * c;
 
-                        // Радиус 2200 метров (2.2 км) покрывает весь Ботанический сад
+                        // Радиус 2200 метров покрывает весь Ботанический сад
                         if (distance <= 2200) {
                             resolve({ ok: true, distance: Math.round(distance) });
                         } else {
