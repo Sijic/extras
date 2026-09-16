@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <!-- @ts-nocheck -->
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -32,10 +31,10 @@
             НЕ <span class="text-red-600">Лишние</span>
         </div>
         <div class="text-[10px] text-zinc-500 tracking-[0.2em] uppercase mb-6 font-semibold">
-            Ботанический сад • GPS Guard
+            Ботанический сад • GPS Guard (Strict)
         </div>
         <p class="text-sm text-zinc-400 px-2 mb-2 leading-relaxed">
-            Электронный релиз. Проверка по GPS-периметру локации парка. Подписать можно только на локации.
+            Электронный релиз. Подписать можно только находясь на локации Ботанического сада.
         </p>
     </header>
 
@@ -172,12 +171,11 @@
     <script type="module">
         // @ts-nocheck
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'nelishnie-prod';
-        
-        const firebaseConfig = {
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
             apiKey: "AIzaSyCzq-ooxC4V8IjH76mUorSknqNMO_4JqwU",
             authDomain: "nelishnie-re.firebaseapp.com",
             projectId: "nelishnie-re",
@@ -185,15 +183,26 @@
             messagingSenderId: "648545265781",
             appId: "1:648545265781:web:fb15c2c7c731b20233b03c"
         };
+        const initialToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
         let db = null;
         let auth = null;
+        let currentUser = null;
         
         try {
             const app = initializeApp(firebaseConfig);
             db = getFirestore(app);
             auth = getAuth(app);
-            signInAnonymously(auth).catch(() => {});
+            
+            if (initialToken) {
+                signInWithCustomToken(auth, initialToken)
+                    .then(cred => currentUser = cred.user)
+                    .catch(err => signInAnonymously(auth).then(c => currentUser = c.user));
+            } else {
+                signInAnonymously(auth)
+                    .then(cred => currentUser = cred.user)
+                    .catch(err => console.log("Offline mode"));
+            }
         } catch(e) {
             console.log("Offline mode active");
         }
@@ -258,6 +267,7 @@
             });
         }
 
+        // Строгий GPS-гейт с защитой от зависаний (таймаут 6 секунд)
         function checkGeofencing() {
             return new Promise((resolve) => {
                 if (!navigator.geolocation) {
@@ -265,10 +275,22 @@
                     return;
                 }
                 
+                let finished = false;
+                const timer = setTimeout(() => {
+                    if (!finished) {
+                        finished = true;
+                        resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
+                    }
+                }, 6000);
+
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
-                        const targetLat = 51.1061;
-                        const targetLng = 71.4161;
+                        if (finished) return;
+                        finished = true;
+                        clearTimeout(timer);
+
+                        const targetLat = 51.1060; // Центр Ботанического сада Астана
+                        const targetLng = 71.4160;
                         const userLat = position.coords.latitude;
                         const userLng = position.coords.longitude;
 
@@ -284,16 +306,20 @@
                         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                         const distance = R * c;
 
-                        if (distance <= 2200) {
+                        // Радиус 1600 метров (1.6 км) строго покрывает Ботанический сад
+                        if (distance <= 1600) {
                             resolve({ ok: true, distance: Math.round(distance) });
                         } else {
                             resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
                         }
                     },
                     (error) => {
+                        if (finished) return;
+                        finished = true;
+                        clearTimeout(timer);
                         resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
                     },
-                    { timeout: 10000, enableHighAccuracy: true }
+                    { timeout: 5500, enableHighAccuracy: true, maximumAge: 0 }
                 );
             });
         }
@@ -303,7 +329,7 @@
             
             submitBtn.disabled = true;
             spinner.classList.remove('hidden');
-            submitBtn.querySelector('span').innerText = 'Проверка геопозиции...';
+            submitBtn.querySelector('span').innerText = 'Проверка локации (GPS)...';
 
             const geoCheck = await checkGeofencing();
             if (!geoCheck.ok) {
@@ -326,7 +352,6 @@
             const idCardFile = document.getElementById('idCard').files[0];
 
             try {
-                // Добавляем таймаут для базы данных (5 секунд), чтобы форма никогда не зависала вечно
                 if (db) {
                     const dbCheckPromise = (async () => {
                         const releasesRef = collection(db, 'artifacts', appId, 'public', 'data', 'crowd_releases');
@@ -334,7 +359,8 @@
                         return await getDocs(q);
                     })();
 
-                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 6000));
+                    // Таймаут базы данных 4 секунды, чтобы никогда не зависало
+                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 4000));
                     
                     try {
                         const querySnapshot = await Promise.race([dbCheckPromise, timeoutPromise]);
@@ -346,7 +372,7 @@
                             return;
                         }
                     } catch (dbErr) {
-                        console.log("DB Check skipped or timed out, proceeding with save");
+                        console.log("DB check timeout/offline, proceeding");
                     }
                 }
 
@@ -371,9 +397,9 @@
                     });
                 }
 
-                let successMsg = `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\nОткуда узнали: ${referralSource}\n\nGPS-координаты подтверждены. Спасибо за участие!`;
+                let successMsg = `ФИО: ${fullName}\nСтатус: АМС (${durationDays})\nОткуда узнали: ${referralSource}\n\nРелиз успешно подписан! Спасибо за участие!`;
                 if (isUnderAge) {
-                    successMsg += `\n\n⚠️ Обратите внимание: отмечено несовершеннолетие. Участие активируется после подписания бумажного документа родителем на локации.`;
+                    successMsg += `\n\n⚠️ Обратите внимание: отмечено несовершеннолетие. Участие активируется после подписания бумажного документа родителем на площадке.`;
                 }
 
                 showModal('РЕЛИЗ ПОДПИСАН!', successMsg);
