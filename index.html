@@ -31,10 +31,10 @@
             НЕ <span class="text-red-600">Лишние</span>
         </div>
         <div class="text-[10px] text-zinc-500 tracking-[0.2em] uppercase mb-6 font-semibold">
-            Ботанический сад • GPS Guard (Strict)
+            Ботанический сад • Digital Release
         </div>
         <p class="text-sm text-zinc-400 px-2 mb-2 leading-relaxed">
-            Электронный релиз. Подписать можно только находясь на локации Ботанического сада.
+            Электронный релиз и согласие на участие в съемочном процессе.
         </p>
     </header>
 
@@ -267,79 +267,11 @@
             });
         }
 
-        // Строгий GPS-гейт с защитой от зависаний (таймаут 6 секунд)
-        function checkGeofencing() {
-            return new Promise((resolve) => {
-                if (!navigator.geolocation) {
-                    resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
-                    return;
-                }
-                
-                let finished = false;
-                const timer = setTimeout(() => {
-                    if (!finished) {
-                        finished = true;
-                        resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
-                    }
-                }, 6000);
-
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        if (finished) return;
-                        finished = true;
-                        clearTimeout(timer);
-
-                        const targetLat = 51.1060; // Центр Ботанического сада Астана
-                        const targetLng = 71.4160;
-                        const userLat = position.coords.latitude;
-                        const userLng = position.coords.longitude;
-
-                        const R = 6371e3;
-                        const φ1 = userLat * Math.PI/180;
-                        const φ2 = targetLat * Math.PI/180;
-                        const Δφ = (targetLat-userLat) * Math.PI/180;
-                        const Δλ = (targetLng-userLng) * Math.PI/180;
-
-                        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                                  Math.cos(φ1) * Math.cos(φ2) *
-                                  Math.sin(Δλ/2) * Math.sin(Δλ/2);
-                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                        const distance = R * c;
-
-                        // Радиус 1600 метров (1.6 км) строго покрывает Ботанический сад
-                        if (distance <= 1600) {
-                            resolve({ ok: true, distance: Math.round(distance) });
-                        } else {
-                            resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
-                        }
-                    },
-                    (error) => {
-                        if (finished) return;
-                        finished = true;
-                        clearTimeout(timer);
-                        resolve({ ok: false, msg: "вы сможете подписать только если на локации" });
-                    },
-                    { timeout: 5500, enableHighAccuracy: true, maximumAge: 0 }
-                );
-            });
-        }
-
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             submitBtn.disabled = true;
             spinner.classList.remove('hidden');
-            submitBtn.querySelector('span').innerText = 'Проверка локации (GPS)...';
-
-            const geoCheck = await checkGeofencing();
-            if (!geoCheck.ok) {
-                showModal('ОШИБКА ДОСТУПА', geoCheck.msg, true);
-                submitBtn.disabled = false;
-                spinner.classList.add('hidden');
-                submitBtn.querySelector('span').innerText = 'Подписать релиз';
-                return;
-            }
-
             submitBtn.querySelector('span').innerText = 'Проверка базы данных...';
 
             const fullName = document.getElementById('fullName').value.trim();
@@ -392,7 +324,7 @@
                         isUnderAge: isUnderAge,
                         selfieBase64: selfieBase64,
                         idCardBase64: idCardBase64,
-                        geoVerified: true,
+                        geoVerified: false,
                         timestamp: serverTimestamp()
                     });
                 }
