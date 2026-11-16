@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOT EXTRA (НЕ ЛИШНИЕ / АРТЫҚ ЕМЕС) — International Pitch Deck (Spring 2027)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #05080F;
+    color: #F1F5F9;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 56px 72px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    background: radial-gradient(circle at 85% 15%, rgba(249,115,22,0.12), rgba(2,132,199,0.08) 45%, #090D16 80%);
+    border-top: 6px solid #F97316;
+  }
+  .slide.active {
+    display: flex;
+  }
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(148,163,184,0.2);
+    padding-bottom: 16px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #F97316;
+    font-weight: 700;
+  }
+  .badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(2,132,199,0.2);
+    border: 1px solid rgba(56,189,248,0.4);
+    color: #38BDF8;
+    font-weight: 700;
+  }
+  h1, h2 {
+    font-family: 'Unbounded', sans-serif;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  h1 { font-size: clamp(42px, 6vw, 84px); font-weight: 900; color: #FFFFFF; }
+  h2 { font-size: clamp(26px, 3.2vw, 44px); font-weight: 800; color: #FFFFFF; margin-bottom: 18px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .card {
+    background: rgba(15,23,42,0.85);
+    border: 1px solid rgba(51,65,85,0.8);
+    border-radius: 16px;
+    padding: 22px;
+  }
+  .card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 6px;
+  }
+  .card .role {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #F97316;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #CBD5E1;
+  }
+  .stat-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: #F97316;
+  }
+  .slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(148,163,184,0.18);
+    padding-top: 16px;
+    font-size: 12px;
+    color: #94A3B8;
+  }
+  .controls {
+    position: fixed;
+    bottom: 20px;
+    right: 72px;
+    z-index: 100;
+    display: flex;
+    gap: 10px;
+  }
+  .btn {
+    background: #1E293B;
+    color: #FFF;
+    border: 1px solid #334155;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .btn:hover { background: #F97316; color: #090D16; border-color: #F97316; }
+  @media print {
+    body { overflow: visible; height: auto; }
+    .slide { position: relative; display: flex !important; page-break-after: always; height: 100vh; }
+    .controls { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <!-- SLIDE 1: COVER -->
+  <section class="slide active">
+    <div class="slide-header">
+      <span class="eyebrow">BIG MOVIE STUDIO & IBA JANA MEN · INTERNATIONAL PITCH DECK</span>
+      <span class="badge">POST-PRODUCTION · RELEASE SPRING 2027</span>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px; color:#38BDF8;">PSYCHOLOGICAL SPORTS DRAMEDY · FEATURE FILM</div>
+      <h1>NOT EXTRA</h1>
+      <p style="font-size:18px; letter-spacing:4px; color:#94A3B8; text-transform:uppercase; margin:12px 0 28px;">
+        НЕ ЛИШНИЕ (RU) · АРТЫҚ ЕМЕС (KK) · WORKING TITLE: THE SCALES (ВЕСЫ)
+      </p>
+      <p style="font-size:26px; max-width:880px; font-weight:700; line-height:1.35; color:#F8FAFC; margin-bottom:20px;">
+        “The most unlikely man against the hardest distance: a 200-kilogram Rocky—or The Whale who stepped out of his room to run the marathon of his life.”
+      </p>
+    </div>
+    <div class="slide-footer">
+      <span>ASTANA, KAZAKHSTAN · 2026–2027</span>
+      <span>SLIDE 01 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: LOGLINE & CORE HOOK -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">02 · OFFICIAL LOGLINE & THEMATIC HOOK</span>
+      <span class="badge">207 KG → 42.2 KM</span>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h2>THE WEIGHT OF REDEMPTION</h2>
+        <p style="font-size:20px; line-height:1.6; color:#E2E8F0; margin-bottom:24px;">
+          Seeking redemption after accidentally causing a runner’s death, a <strong>200 kg stadium custodian</strong> assumes the deceased athlete’s identity and follows his handwritten training diary to run a full marathon. Along the 42.2 km journey, he discovers that the heaviest weight he must shed is not his flesh, but decades of childhood trauma, fear, and lies.
+        </p>
+        <div class="card" style="border-left:4px solid #F97316;">
+          <div class="role">THE BRASS SCALES MANIFESTO (AITYM ZHAKUPOV)</div>
+          <p>“Modern digital scales only measure meat, fat, and bone. Your fear and resentment weigh far more than all 200 kilograms of your body. True transformation begins with honesty.”</p>
+        </div>
+      </div>
+      <div class="grid-2" style="gap:16px;">
+        <div class="card"><div class="stat-num">207 KG</div><p>Protagonist’s starting physical weight & armor of childhood trauma</p></div>
+        <div class="card"><div class="stat-num" style="color:#38BDF8;">42.2 KM</div><p>Full marathon distance filmed inside a live public race in Astana</p></div>
+        <div class="card"><div class="stat-num">5,000+</div><p>Real marathon runners surrounding the protagonist in Act III</p></div>
+        <div class="card"><div class="stat-num" style="color:#34D399;">SPRING 2027</div><p>Theatrical & International Release Window (March – May 2027)</p></div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>NOT EXTRA (НЕ ЛИШНИЕ) — PSYCHOLOGICAL SPORTS DRAMEDY</span>
+      <span>SLIDE 02 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: GENRE & VISUAL PALETTE -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">03 · CHROMATIC TIMELINE & VISUAL ARCHITECTURE</span>
+      <span class="badge">200 KG → 42.2 KM</span>
+    </div>
+    <div>
+      <h2>EVOLUTION OF THE FRAME</h2>
+      <div class="grid-4" style="margin-top:24px;">
+        <div class="card" style="border-top:4px solid #475569;">
+          <div class="role">STAGE 01 · 207 KG · 0 KM</div>
+          <h3>COLD STADIUM CONCRETE</h3>
+          <p>Claustrophobic under-stadium cubicle (#090D16), sleep apnea, untied shoelaces, and the high-visibility orange custodian vest.</p>
+        </div>
+        <div class="card" style="border-top:4px solid #F97316;">
+          <div class="role">STAGE 02 · 198 KG · 10 KM</div>
+          <h3>JANA MEN ORANGE PULSE</h3>
+          <p>Rehabilitation center "The Extras": brass apothecary scales, learning to tie knots and write letters with Elvira.</p>
+        </div>
+        <div class="card" style="border-top:4px solid #0284C7;">
+          <div class="role">STAGE 03 · 182 KG · 35 KM</div>
+          <h3>BLUE MARATHON JACKET</h3>
+          <p>Shattered social-media illusions, spiritual fasting discipline (Oraza), and the blue jacket finally zipping shut.</p>
+        </div>
+        <div class="card" style="border-top:4px solid #38BDF8;">
+          <div class="role">STAGE 04 · 42.2 KM</div>
+          <h3>OPEN HORIZON CATHARSIS</h3>
+          <p>10 meters before the finish arch, Rasul turns his back on the medal to save Artem’s daughter with an inhaler.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>CINEMATOGRAPHY BY MIKHAIL SIRYANOV · PRODUCTION DESIGN BY ASSEL ULZHEBAYEVA</span>
+      <span>SLIDE 03 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: STARRING CAST -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">04 · STARRING ENSEMBLE (MAIN CAST)</span>
+      <span class="badge">ACCLAIMED TALENT</span>
+    </div>
+    <div>
+      <h2>MAIN CAST</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="role">PROTAGONIST · RASUL / "SULTAN"</div>
+          <h3>YERSULTAN UAIS (Ерсултан Уаис)</h3>
+          <p>A 207 kg stadium custodian ("sad giant") who steps onto the marathon track under a borrowed name and discovers his true dignity.</p>
+        </div>
+        <div class="card">
+          <div class="role">FEMALE LEAD · ELVIRA</div>
+          <h3>GUZEL ZHAN (Гузель Жан)</h3>
+          <p>Administrator of the "Extras" clinic. Behind her military discipline lies personal grief and the silent mercy that transforms Rasul.</p>
+        </div>
+        <div class="card">
+          <div class="role">STORY CATALYST · ARTEM</div>
+          <h3>MIKHAIL KALYUZHNY (Михаил Калюжный)</h3>
+          <p>The mythic marathon runner whose sudden asthma death leaves Rasul with a blue race jacket, SOS tracker, and training diary.</p>
+        </div>
+        <div class="card">
+          <div class="role">PEOPLE'S ARTIST OF KAZAKHSTAN</div>
+          <h3>DULYGA AKMOLDA (Дулыга Акмолда)</h3>
+          <p>Monumental dramatic actor of Kazakh cinema bringing profound psychological gravitas to the ensemble.</p>
+        </div>
+        <div class="card">
+          <div class="role">CINEMA LEGEND</div>
+          <h3>YERBOLAT TOGUZAKOV (Ерболат Тогузаков)</h3>
+          <p>Iconic star ("Shal / The Old Man") infusing the story with warm folk irony and authentic human truth.</p>
+        </div>
+        <div class="card">
+          <div class="role">KEY SUPPORTING ROLE</div>
+          <h3>ANNA STARCHENKO (Анна Старченко)</h3>
+          <p>Acclaimed theater and screen actress bringing sharp contemporary texture and emotional contrast.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>FEATURING REAL ALUMNI OF THE IBA JANA MEN TRANSFORMATION PROJECT</span>
+      <span>SLIDE 04 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: FOUR-ACT NARRATIVE ARCHITECTURE -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">05 · NARRATIVE SYNOPSIS BY ACTS</span>
+      <span class="badge">DRAMATURGY</span>
+    </div>
+    <div>
+      <h2>ANATOMY OF REDEMPTION</h2>
+      <div class="grid-2" style="gap:20px;">
+        <div class="card">
+          <div class="role">ACT I · THE INCITING TRAGEDY</div>
+          <h3>10 METERS OF ETERNITY</h3>
+          <p>Illiterate 207 kg custodian Rasul witnesses runner Artem collapse on the night track. Tripping on untied laces, Rasul accidentally crushes Artem’s inhaler. Panicked, he takes Artem’s backpack, SOS watch, and diary.</p>
+        </div>
+        <div class="card">
+          <div class="role">ACT II (PART 1) · THE "EXTRAS" CLINIC</div>
+          <h3>THE BRASS SCALES & FIRST LETTERS</h3>
+          <p>Entering the JANA MEN center in Astana as "Sultan", Rasul faces mentor Aitym Zhakupov’s brass scales and learns from Elvira how to double-knot his laces and write his own name.</p>
+        </div>
+        <div class="card">
+          <div class="role">ACT II (PART 2) · DARK NIGHT OF THE SOUL</div>
+          <h3>COLLAPSE OF THE MYTH</h3>
+          <p>Humiliated on a livestream by influencer Dinara and confronted by Artem’s daughter Yulia—who exposes her father’s diary as a fabrication—Rasul leaps from the clinic roof in Artem’s blue jacket to run the marathon.</p>
+        </div>
+        <div class="card">
+          <div class="role">ACT III & EPILOGUE · THE MARATHON</div>
+          <h3>THE ULTIMATE VICTORY</h3>
+          <p>10 meters from the finish line, Rasul conquers the phantom of his abusive stepfather, turns his back on the finish arch, and walks backward to save Yulia from an asthma attack with a fresh inhaler.</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>WRITTEN BY KONSTANTIN MAYER & SERGEY BONDAREV</span>
+      <span>SLIDE 05 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: REALITY CROSSOVER & JANA MEN -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">06 · DOCUMENTARY AUTHENTICITY & TRANSMEDIA</span>
+      <span class="badge">BREAKING THE 4TH WALL</span>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h2>BEYOND FICTION: THE JANA MEN PHENOMENON</h2>
+        <p style="font-size:17px; line-height:1.65; color:#CBD5E1; margin-bottom:20px;">
+          Founded by General Producer <strong>Aitym Zhakupov</strong>, the real-life <strong>IBA JANA MEN</strong> movement has helped participants shed over 1,500+ kg of critical weight while overcoming deep psychological trauma.
+        </p>
+        <p style="font-size:17px; line-height:1.65; color:#CBD5E1;">
+          In <strong>NOT EXTRA</strong>, real alumni of JANA MEN appear alongside professional actors, and the climax was captured inside a live street race in Astana—fusing scripted cinema with visceral documentary truth.
+        </p>
+      </div>
+      <div class="card" style="border:1px solid #F97316;">
+        <div class="role">TRANSMEDIA MARKETING ENGINE</div>
+        <h3>LIVE TRANSFORMATION TO PREMIERE</h3>
+        <p style="margin-bottom:14px;">• Real-life physical transformation documented across YouTube & Instagram (@ne_lishnie_film) during post-production.</p>
+        <p style="margin-bottom:14px;">• Built-in audience of millions across Central Asia & CIS following Aitym Zhakupov and JANA MEN.</p>
+        <p>• Red-carpet Grand Premiere in Spring 2027 featuring the live stage reveal of the transformed cast.</p>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>IBA & IBA JANA MEN — GENERAL & STRATEGIC PARTNERS</span>
+      <span>SLIDE 06 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: KEY CREATIVE TEAM -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">07 · FILMMAKERS & CREATIVE LEADERSHIP</span>
+      <span class="badge">PRODUCERS & HEADS OF DEPT</span>
+    </div>
+    <div>
+      <h2>KEY CREATIVE TEAM</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="role">GENERAL PRODUCER · CAMEO</div>
+          <h3>AITYM ZHAKUPOV</h3>
+          <p>Founder of IBA JANA MEN, visionary producer, and on-screen Mentor.</p>
+        </div>
+        <div class="card">
+          <div class="role">ARTISTIC DIRECTOR · CO-WRITER</div>
+          <h3>KONSTANTIN MAYER</h3>
+          <p>Hit screenwriter & creative producer ("I Am Losing Weight", "Tolya-Robot", "Fizruk").</p>
+        </div>
+        <div class="card">
+          <div class="role">SHOWRUNNER · LEAD PRODUCER · CO-WRITER</div>
+          <h3>SERGEY BONDAREV</h3>
+          <p>Original concept author, showrunner, and head of Big Movie Studio (60+ projects).</p>
+        </div>
+        <div class="card">
+          <div class="role">EXECUTIVE PRODUCER</div>
+          <h3>BAKHYTZHAN KUNSHASHOVA</h3>
+          <p>Executive Producer (IBA JANA MEN) overseeing finance, legal, and Astana operations.</p>
+        </div>
+        <div class="card">
+          <div class="role">PRODUCER · DIRECTOR OF PHOTOGRAPHY</div>
+          <h3>MIKHAIL SIRYANOV</h3>
+          <p>International DOP & Producer ("DOMM", "Blue Escape", "KoKe", "Omir").</p>
+        </div>
+        <div class="card">
+          <div class="role">DIRECTOR</div>
+          <h3>RASUL SHARAFEDDINOV</h3>
+          <p>Acclaimed Kazakh director & dramatist ("The Debtor", "Astana — A Complex Story", "Inkar").</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>1ST AD: ELENA BEGAIDAROVA-LATAEVA · SOUND: EVGENY FETISOV · SFX MAKEUP: ANDREY TSIRULNIK</span>
+      <span>SLIDE 07 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: FULL OFFICIAL CREW CREDITS -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">08 · OFFICIAL PRODUCTION CREDITS (ALL DEPARTMENTS)</span>
+      <span class="badge">VERIFIED CREDITS</span>
+    </div>
+    <div>
+      <h2 style="font-size:28px; margin-bottom:14px;">COMPLETE PRODUCTION CREW</h2>
+      <div class="grid-3" style="gap:14px; font-size:12px;">
+        <div class="card" style="padding:16px;">
+          <div class="role">PRODUCTION & DIRECTION</div>
+          <p><strong>General Producer:</strong> Aitym Zhakupov<br>
+          <strong>Artistic Director:</strong> Konstantin Mayer<br>
+          <strong>Writers:</strong> K. Mayer, S. Bondarev<br>
+          <strong>Executive Producer:</strong> Bakhytzhan Kunshashova<br>
+          <strong>Producer / DOP:</strong> Mikhail Siryanov<br>
+          <strong>Showrunner / Line Producer:</strong> Sergey Bondarev<br>
+          <strong>Line Producer:</strong> Olga Oparina<br>
+          <strong>Unit Manager / Pyro:</strong> Vyacheslav Asadullin<br>
+          <strong>Director:</strong> Rasul Sharafeddinov<br>
+          <strong>1st AD:</strong> Elena Begaidarova-Lataeva<br>
+          <strong>Assistant Director:</strong> Arseniy Opekan<br>
+          <strong>Script Supervisor:</strong> Andrey Volkov</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="role">CAMERA, LIGHTING, EDIT & CASTING</div>
+          <p><strong>Casting Director:</strong> Asiya Rakhimova<br>
+          <strong>Casting Assistant:</strong> Valentina Danilova<br>
+          <strong>DIT / Film Editor:</strong> Daniil Mayer<br>
+          <strong>Playback Assistant:</strong> Maxim Pokhila<br>
+          <strong>Tech Director / Camera:</strong> Pavel Knebelev<br>
+          <strong>Steadicam:</strong> Ilya Tolstobrov<br>
+          <strong>Focus Puller:</strong> Doszhan Dildakhanov<br>
+          <strong>DJI Ronin 4D Tech:</strong> Yerkebulan Turganov<br>
+          <strong>Gaffer:</strong> Adil Appazov<br>
+          <strong>Lighting Crew:</strong> Y. Makhambetiyarov, D. Kolosovskiy, D. Zakirov, A. Yerzhanov, I. Tkachev, D. Aboshev, Y. Khamitov, S. Asanova</p>
+        </div>
+        <div class="card" style="padding:16px;">
+          <div class="role">ART, MAKEUP, SOUND & ADMIN</div>
+          <p><strong>Production Designer:</strong> Assel Ulzhebayeva<br>
+          <strong>Art Assistants:</strong> Azat Ibraimov, Evgeny Pak<br>
+          <strong>Makeup & Costume Designer:</strong> Andrey Tsirulnik<br>
+          <strong>Makeup/Costume Assts:</strong> D. Karpenkova, A. Nurbolatov, A. Beksultan, G. Yermekova<br>
+          <strong>Sound Director:</strong> Evgeny Fetisov<br>
+          <strong>Boom Operator:</strong> Maksat Sadibekov<br>
+          <strong>Backstage:</strong> A. Absalyamova, M. Novgorodova, K. Golubtsova<br>
+          <strong>Admin Unit:</strong> D. Tuleuov, A. Alzhanov, A. Bektemisov<br>
+          <strong>Craft / Transport:</strong> L. Nosenko, M. Kovalchuk, S. Sharapov, B. Zhanatayev</p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>SOURCE: OFFICIAL PRODUCTION CREDITS SHEET («Титры Группа НеЛишние.pdf»)</span>
+      <span>SLIDE 08 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: PRODUCTION ROADMAP & PARTNERS -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">09 · PRODUCTION PIPELINE & STRATEGIC PARTNERS</span>
+      <span class="badge">ROAD TO SPRING 2027</span>
+    </div>
+    <div>
+      <h2>PRODUCTION STATUS & TIMELINE</h2>
+      <div class="grid-3" style="margin-bottom:24px;">
+        <div class="card" style="border-top:4px solid #10B981;">
+          <div class="role" style="color:#10B981;">PHASE 01 · COMPLETED</div>
+          <h3>PRINCIPAL PHOTOGRAPHY</h3>
+          <p>Wrapped in Astana (Aug–Oct 2026), including studio sets, rehabilitation camp, and live marathon filming.</p>
+        </div>
+        <div class="card" style="border-top:4px solid #F97316;">
+          <div class="role">PHASE 02 · ACTIVE NOW</div>
+          <h3>POST-PRODUCTION (ROUGH CUT)</h3>
+          <p>Offline/Online editing, AI/CGI prologue morphing, DaVinci Resolve grading, and visceral 5.1/Atmos sound mix.</p>
+        </div>
+        <div class="card" style="border-top:4px solid #38BDF8;">
+          <div class="role" style="color:#38BDF8;">PHASE 03 · MARCH – MAY 2027</div>
+          <h3>SPRING 2027 RELEASE</h3>
+          <p>Grand theatrical premiere, wide CIS box-office rollout, international film festivals, and global VOD/streaming.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="role">STRATEGIC & PRODUCTION PARTNERS</div>
+        <p><strong>General Partner:</strong> International Boxing Association (IBA) · <strong>Strategic Partner:</strong> Team IBA JANA MEN · <strong>Production:</strong> Big Movie Studio · <strong>Supporting Partners:</strong> AIVA Group, Fit Arena Winox, SNB Originals, G Empire Hotel, Okadzaki, Selo Lesnoye, Ravil Medical Center, MB Clinic Dr. Metanov.</p>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>CURRENT STAGE: POST-PRODUCTION (ROUGH CUT AVAILABLE FOR ACCREDITED BUYERS)</span>
+      <span>SLIDE 09 / 10</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: INTERNATIONAL SALES & CONTACTS -->
+  <section class="slide">
+    <div class="slide-header">
+      <span class="eyebrow">10 · INTERNATIONAL SALES, FESTIVALS & PRESS CONTACT</span>
+      <span class="badge">WORLDWIDE RIGHTS</span>
+    </div>
+    <div class="grid-2">
+      <div>
+        <h2>JOIN THE MARATHON</h2>
+        <p style="font-size:18px; line-height:1.6; color:#CBD5E1; margin-bottom:24px;">
+          We invite international distributors, sales agents, festival programmers, and streaming platforms to request the private Rough Cut screener and Electronic Press Kit (EPK).
+        </p>
+        <div class="card" style="border-left:4px solid #38BDF8;">
+          <div class="role">TECHNICAL SPECIFICATIONS</div>
+          <p><strong>Title:</strong> NOT EXTRA / НЕ ЛИШНИЕ / АРТЫҚ ЕМЕС<br>
+          <strong>Genre:</strong> Psychological Sports Dramedy<br>
+          <strong>Format:</strong> 4K DCP · 2.39:1 Scope · 5.1 / Dolby Atmos · ~110 min<br>
+          <strong>Release Window:</strong> Spring 2027 (March – May 2027)</p>
+        </div>
+      </div>
+      <div class="card" style="border:2px solid #F97316; padding:32px;">
+        <div class="role">PRODUCTION & WORLD SALES OFFICE</div>
+        <h3 style="font-size:24px; margin-bottom:16px;">BIG MOVIE STUDIO</h3>
+        <p style="font-size:16px; margin-bottom:12px;"><strong>Showrunner & Lead Producer:</strong> Sergey Bondarev</p>
+        <p style="font-size:16px; margin-bottom:12px;"><strong>Email:</strong> sergey@sijicbond.site</p>
+        <p style="font-size:16px; margin-bottom:12px;"><strong>Phone / WhatsApp:</strong> +7 776 800 6262</p>
+        <p style="font-size:16px;"><strong>Official Instagram:</strong> @ne_lishnie_film</p>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>© 2026–2027 BIG MOVIE STUDIO & IBA JANA MEN · ALL RIGHTS RESERVED</span>
+      <span>SLIDE 10 / 10</span>
+    </div>
+  </section>
+</div>
+
+<div class="controls">
+  <button class="btn" onclick="prevSlide()">← PREV</button>
+  <button class="btn" onclick="nextSlide()">NEXT →</button>
+</div>
+
+<script>
+  let idx = 0;
+  const slides = document.querySelectorAll('.slide');
+  function showSlide(n) {
+    slides.forEach((s, i) => s.classList.toggle('active', i === n));
+  }
+  function nextSlide() { idx = (idx + 1) % slides.length; showSlide(idx); }
+  function prevSlide() { idx = (idx - 1 + slides.length) % slides.length; showSlide(idx); }
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
