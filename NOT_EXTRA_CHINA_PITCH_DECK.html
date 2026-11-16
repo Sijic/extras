@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOT EXTRA / 《绝不多余》 — Mainland China Export Pitch Deck & Lookbook</title>
+<title>NOT EXTRA / 《绝不多余》 / 《并非多余》 — Mainland China Export Pitch Deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg-deep: #070B12;
-    --bg-card: rgba(15, 23, 38, 0.88);
-    --border-subtle: rgba(148, 163, 184, 0.18);
-    --border-accent: rgba(249, 115, 22, 0.45);
+    --bg-card: rgba(15, 23, 38, 0.9);
+    --border-subtle: rgba(148, 163, 184, 0.2);
     --orange: #F97316;
     --blue: #0284C7;
     --sky: #38BDF8;
@@ -48,7 +47,7 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    padding: 46px 68px 42px 68px;
+    padding: 44px 64px 40px 64px;
     display: none;
     flex-direction: column;
     justify-content: space-between;
@@ -63,7 +62,6 @@
     display: flex;
   }
 
-  /* Slide Header */
   .slide-header {
     display: flex;
     align-items: center;
@@ -95,7 +93,7 @@
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2.2px;
     color: #CBD5E1;
   }
 
@@ -111,19 +109,18 @@
     color: var(--sky);
   }
 
-  /* Main Slide Body */
   .slide-body {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px 0;
+    padding: 18px 0;
     min-height: 0;
   }
 
   h1 {
     font-family: 'Unbounded', 'Noto Sans SC', sans-serif;
-    font-size: 62px;
+    font-size: 58px;
     font-weight: 900;
     line-height: 1.05;
     letter-spacing: -0.5px;
@@ -133,7 +130,7 @@
 
   h2 {
     font-family: 'Unbounded', 'Noto Sans SC', sans-serif;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1.18;
     color: #FFFFFF;
@@ -147,21 +144,20 @@
     font-weight: 600;
     color: var(--sky);
     letter-spacing: 1px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
   }
 
-  /* Grids & Cards */
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 26px;
+    gap: 24px;
     align-items: stretch;
   }
 
   .grid-12 {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 24px;
+    gap: 22px;
     align-items: stretch;
   }
 
@@ -189,45 +185,37 @@
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: 14px;
-    padding: 20px 22px;
+    padding: 18px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .card-orange {
-    border-left: 4px solid var(--orange);
-  }
-
-  .card-blue {
-    border-left: 4px solid var(--blue);
-  }
-
-  .card-gold {
-    border-left: 4px solid var(--gold);
-  }
+  .card-orange { border-left: 4px solid var(--orange); }
+  .card-blue { border-left: 4px solid var(--blue); }
+  .card-gold { border-left: 4px solid var(--gold); }
 
   .card-tag {
     font-size: 10.5px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.8px;
+    letter-spacing: 1.6px;
     color: var(--orange);
     margin-bottom: 6px;
   }
 
   .card h3 {
     font-family: 'Unbounded', 'Noto Sans SC', sans-serif;
-    font-size: 16px;
+    font-size: 15.5px;
     font-weight: 700;
     color: #FFFFFF;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     line-height: 1.3;
   }
 
   .card p {
-    font-size: 13.5px;
-    line-height: 1.55;
+    font-size: 13px;
+    line-height: 1.54;
     color: #CBD5E1;
   }
 
@@ -236,16 +224,16 @@
     padding-top: 8px;
     border-top: 1px solid rgba(148, 163, 184, 0.14);
     font-family: 'Noto Sans SC', sans-serif;
-    font-size: 12.5px;
-    line-height: 1.5;
+    font-size: 12px;
+    line-height: 1.48;
     color: #94A3B8;
   }
 
   .img-box {
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-subtle);
-    background: #05070B;
+    background: #060911;
     position: relative;
   }
 
@@ -253,7 +241,19 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
+  }
+
+  .img-box img.portrait-top {
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .img-box img.portrait-contain {
+    object-fit: contain;
+    object-position: top center;
+    background: #090D16;
   }
 
   .img-caption {
@@ -261,15 +261,14 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 10px 14px;
-    background: linear-gradient(to top, rgba(7, 11, 18, 0.95), rgba(7, 11, 18, 0.4), transparent);
-    font-size: 11px;
+    padding: 8px 12px;
+    background: linear-gradient(to top, rgba(7, 11, 18, 0.95), rgba(7, 11, 18, 0.55), transparent);
+    font-size: 10.5px;
     font-weight: 600;
     color: #E2E8F0;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
   }
 
-  /* Slide Footer */
   .slide-footer {
     display: flex;
     align-items: center;
@@ -282,11 +281,10 @@
     flex-shrink: 0;
   }
 
-  /* Controls */
   .nav-controls {
     position: fixed;
-    bottom: 14px;
-    right: 68px;
+    bottom: 12px;
+    right: 64px;
     z-index: 100;
     display: flex;
     gap: 8px;
@@ -349,46 +347,57 @@
         <span class="slide-num-pill">SLIDE 01 / 12</span>
         <span class="eyebrow">MAINLAND CHINA EXPORT PITCH DECK & LOOKBOOK · 中国大陆发行推介手册</span>
       </div>
-      <span class="header-badge">EARLY POST-PRODUCTION (ROUGH CUT) · RELEASE: SPRING 2027</span>
+      <span class="header-badge">EARLY POST-PRODUCTION (ROUGH CUT STAGE) · RELEASE: SPRING 2027</span>
     </div>
 
     <div class="slide-body">
       <div class="grid-12" style="align-items: center;">
-        <div class="col-7">
-          <div style="display:inline-block; padding:6px 14px; border-radius:6px; background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.45); color:#F97316; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:18px;">
+        <div class="col-6">
+          <div style="display:inline-block; padding:6px 14px; border-radius:6px; background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.45); color:#F97316; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">
             INSPIRATIONAL SPORTS DRAMEDY · 励志体育轻喜剧 / 剧情片
           </div>
           <h1>NOT EXTRA</h1>
-          <div style="font-family:'Noto Sans SC', sans-serif; font-size:44px; font-weight:900; color:#38BDF8; letter-spacing:2px; margin:6px 0 10px 0;">
-            《绝不多余》 <span style="font-size:20px; font-weight:500; color:#94A3B8;">(Original Title: НЕ ЛИШНИЕ / Ne Lishniye)</span>
+          <div style="font-family:'Noto Sans SC', sans-serif; font-size:38px; font-weight:900; color:#38BDF8; letter-spacing:1.5px; margin:8px 0 12px 0;">
+            《绝不多余》 / 《并非多余》
+            <div style="font-size:16px; font-weight:500; color:#94A3B8; margin-top:4px;">Original Title: Ne Lishniye (НЕ ЛИШНИЕ)</div>
           </div>
 
-          <p style="font-size:22px; font-weight:700; line-height:1.45; color:#F8FAFC; margin:22px 0; padding-left:18px; border-left:4px solid #F97316;">
+          <p style="font-size:20px; font-weight:700; line-height:1.45; color:#F8FAFC; margin:18px 0; padding-left:18px; border-left:4px solid #F97316;">
             “200 kg. 42.2 km. You can’t outrun your past—but you can choose what weight to carry.”<br>
-            <span style="font-size:16px; font-weight:500; color:#CBD5E1; font-family:'Noto Sans SC', sans-serif;">
+            <span style="font-size:15px; font-weight:500; color:#CBD5E1; font-family:'Noto Sans SC', sans-serif;">
               200公斤。42.2公里。你无法逃避过去，但你可以选择背负怎样的重量前行。
             </span>
           </p>
 
-          <div class="grid-2" style="gap:14px; margin-top:26px;">
-            <div class="card" style="padding:14px 18px;">
+          <div class="grid-2" style="gap:14px; margin-top:22px;">
+            <div class="card" style="padding:14px 16px;">
               <div class="card-tag">PRODUCTION STATUS · 项目状态</div>
-              <div style="font-size:15px; font-weight:700; color:#FFF;">Early Post-Production (Rough Cut Stage)</div>
-              <div style="font-size:12px; color:#94A3B8; margin-top:2px;">后期制作阶段（粗剪已完成） | 院线公映：2027年春季</div>
+              <div style="font-size:14.5px; font-weight:700; color:#FFF;">Early Post-Production (Rough Cut Stage)</div>
+              <div style="font-size:12px; color:#94A3B8; margin-top:3px;">后期制作阶段（粗剪进行中） | 院线公映：2027年春季</div>
             </div>
-            <div class="card" style="padding:14px 18px;">
+            <div class="card" style="padding:14px 16px;">
               <div class="card-tag" style="color:#38BDF8;">PRESENTATION CREDIT · 出品制作</div>
-              <div style="font-size:15px; font-weight:700; color:#FFF;">Big Movie Studio × JANA MEN Movement</div>
-              <div style="font-size:12px; color:#94A3B8; margin-top:2px;">Astana, Kazakhstan · 哈萨克斯坦阿斯塔纳</div>
+              <div style="font-size:14.5px; font-weight:700; color:#FFF;">Big Movie Studio × JANA MEN Movement</div>
+              <div style="font-size:12px; color:#94A3B8; margin-top:3px;">Astana, Kazakhstan · 哈萨克斯坦阿斯塔纳</div>
             </div>
           </div>
         </div>
 
-        <div class="col-5">
-          <div class="img-box" style="height:560px; border-color:rgba(249,115,22,0.4);">
-            <img src="https://i.postimg.cc/xT8z85KR/n.jpg" alt="NOT EXTRA Official Key Art">
+        <div class="col-6" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="img-box" style="height:295px; border-color:rgba(249,115,22,0.45);">
+            <img src="./public/stills/still_stadium_vest.jpg" alt="Rasul in Orange Vest at the Stadium">
             <div class="img-caption">
-              OFFICIAL KEY ART · 《绝不多余》概念海报 — 200 KG TO 42.2 KM MARATHON
+              ACTUAL FILM STILL · 实拍剧照：200公斤球场清洁工拉苏尔（叶尔苏丹·乌艾斯 饰）
+            </div>
+          </div>
+          <div class="grid-2" style="gap:14px; height:225px;">
+            <div class="img-box" style="height:100%;">
+              <img src="./public/stills/still_bridge_rasul.jpg" alt="Astana Bridge Scene">
+              <div class="img-caption">ACT I: ASTANA BRIDGE · 阿斯塔纳大桥实拍</div>
+            </div>
+            <div class="img-box" style="height:100%;">
+              <img src="./public/stills/still_astana_marathon_crowd.jpg" alt="Astana Marathon Live Crowd">
+              <div class="img-caption">ACT III: 42.2 KM ASTANA MARATHON · 万人马拉松实拍</div>
             </div>
           </div>
         </div>
@@ -396,7 +405,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>PREPARED FOR BEIJING HUGOEAST MEDIA & MAJOR MAINLAND DISTRIBUTORS</span>
+      <span>PREPARED FOR BEIJING HUGOEAST MEDIA (北京和观映像) & MAJOR MAINLAND DISTRIBUTORS</span>
       <span>OFFICIAL DOMAIN: SIJICBOND.SITE · SERGEY@SIJICBOND.SITE</span>
     </div>
   </section>
@@ -417,31 +426,31 @@
 
       <div class="grid-12" style="gap:24px;">
         <div class="col-7" style="display:flex; flex-direction:column; gap:18px;">
-          <div class="card card-orange" style="padding:24px;">
+          <div class="card card-orange" style="padding:22px;">
             <div class="card-tag">OFFICIAL LOGLINE · 一句话故事梗概</div>
-            <p style="font-size:17.5px; font-weight:600; color:#FFFFFF; line-height:1.58;">
+            <p style="font-size:16.5px; font-weight:600; color:#FFFFFF; line-height:1.56;">
               A 200-kg invisible stadium janitor accidentally causes a runner’s death, steals his identity, enters a strict weight-loss camp to run the Astana Marathon, and discovers his “hero” was a con man—ultimately running not to impersonate a dead man, but to save a life and reclaim his own soul.
             </p>
-            <div class="zh-note" style="font-size:14px; color:#E2E8F0;">
+            <div class="zh-note" style="font-size:13.5px; color:#E2E8F0;">
               一名体重200公斤、在体育场被视作“透明人”的清洁工，在一起意外中导致一名马拉松跑者身亡。为了赎罪，他冒用逝者身份进入严苛的减重训练营，备战阿斯塔纳全程马拉松。当他发现自己崇拜的“人生导师”其实是个骗子时，他决定不再活在别人的谎言里——而是为了挽救一条生命、赢回自己的尊严而跑完全程。
             </div>
           </div>
 
-          <div class="card card-blue" style="padding:24px;">
+          <div class="card card-blue" style="padding:22px;">
             <div class="card-tag" style="color:#38BDF8;">HIGH-CONCEPT MARKET HOOK · 商业类型融合定位</div>
-            <p style="font-size:16.5px; font-weight:600; color:#F8FAFC; line-height:1.55;">
+            <p style="font-size:16px; font-weight:600; color:#F8FAFC; line-height:1.54;">
               The emotional weight-loss transformation of <strong style="color:#F97316;">“YOLO” (《热辣滚烫》)</strong> meets the gripping redemption arc of <strong style="color:#38BDF8;">“The Whale” (《鲸》)</strong> and the kinetic underdog drive of classic <strong style="color:#EAB308;">Hong Kong action cinema</strong>.
             </p>
-            <div class="zh-note" style="font-size:13.5px; color:#CBD5E1;">
+            <div class="zh-note" style="font-size:13px; color:#CBD5E1;">
               兼具《热辣滚烫》真实燃魂的蜕变共鸣、《鲸》直击人心的救赎深度，以及黄金时代香港动作电影的草根逆袭热血感。温暖励志、笑泪交织，极具大众院线破圈潜力。
             </div>
           </div>
         </div>
 
-        <div class="col-5" style="display:flex; flex-direction:column; gap:18px;">
-          <div class="img-box" style="height:265px;">
-            <img src="https://i.postimg.cc/fL7x7bLr/peremeny.png" alt="Transformation Concept">
-            <div class="img-caption">EMOTIONAL SPORTS DRAMEDY · 温暖热血的蜕变之旅</div>
+        <div class="col-5" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="img-box" style="height:270px;">
+            <img src="./public/stills/still_rasul_aitym_camp.jpg" alt="Rasul and Mentor Aitym at the Camp">
+            <div class="img-caption">ACTUAL FILM STILL · 拉苏尔初入“绝不多余”减重训练营直面导师艾特姆</div>
           </div>
 
           <div class="grid-2" style="gap:14px; flex:1;">
@@ -461,7 +470,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — LOGLINE & HIGH-CONCEPT HOOK</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — LOGLINE & HIGH-CONCEPT HOOK</span>
       <span>BIG MOVIE STUDIO · SIJICBOND.SITE</span>
     </div>
   </section>
@@ -480,54 +489,51 @@
       <h2>WHY THIS STORY RESONATES IN MAINLAND CHINA</h2>
       <div class="zh-sub">跨越国界的情感公约数：自律重塑尊严 × 黄金年代港片精神图腾</div>
 
-      <div class="grid-2" style="gap:24px; margin-bottom:20px;">
-        <div class="card card-orange" style="padding:26px;">
-          <div class="card-tag">01 · UNIVERSAL EMOTIONAL CORE · 国民级情感共鸣</div>
-          <h3>Rebuilding Self-Worth Through Physical Discipline</h3>
-          <p style="font-size:14.5px; margin-bottom:10px;">
-            In <strong>NOT EXTRA</strong>, severe obesity is portrayed not as a punchline, but as emotional armor built around childhood trauma and silent shame. Through grueling athletic discipline, brotherhood, and honest self-reflection, our protagonist learns to love and respect himself.
-          </p>
-          <p style="font-size:14.5px;">
-            This mirrors the exact psychological and inspirational wave that propelled <strong>“YOLO” (《热辣滚烫》)</strong> to a RMB 3.4+ billion box-office phenomenon in China: <em>“You only live once—win just once for yourself.”</em>
-          </p>
-          <div class="zh-note" style="font-size:13px; color:#E2E8F0;">
-            <strong>与《热辣滚烫》同频的励志内核：</strong>影片将肥胖刻画为抵御童年创伤的“心理盔甲”。男主角通过极限体能训练与团队互助重拾人格尊严，完美契合当代中国年轻观众“为自己赢一次”的强烈情感诉求。
+      <div class="grid-2" style="gap:24px; margin-bottom:18px;">
+        <div class="card card-orange" style="padding:22px;">
+          <div>
+            <div class="card-tag">01 · UNIVERSAL EMOTIONAL CORE · 国民级情感共鸣</div>
+            <h3>Rebuilding Self-Worth Through Physical Discipline</h3>
+            <p style="font-size:13.5px; margin-bottom:10px;">
+              In <strong>NOT EXTRA</strong>, severe obesity is portrayed not as a punchline, but as emotional armor built around childhood trauma and silent shame. Through grueling athletic discipline, brotherhood, and honest self-reflection, our protagonist learns to love and respect himself.
+            </p>
+            <p style="font-size:13.5px;">
+              This mirrors the exact psychological and inspirational wave that propelled <strong>“YOLO” (《热辣滚烫》)</strong> to a RMB 3.4+ billion box-office phenomenon in China: <em>“You only live once—win just once for yourself.”</em>
+            </p>
+          </div>
+          <div class="img-box" style="height:155px; margin-top:12px;">
+            <img src="./public/stills/still_camp_dining.jpg" alt="Camp Brotherhood Scene">
+            <div class="img-caption">ACTUAL FILM STILL · 训练营伙伴互助与严苛自律</div>
+          </div>
+          <div class="zh-note">
+            <strong>与《热辣滚烫》同频的励志内核：</strong>男主角通过极限体能训练与团队互助重拾人格尊严，完美契合中国年轻观众“为自己赢一次”的情感诉求。
           </div>
         </div>
 
-        <div class="card card-gold" style="padding:26px;">
-          <div class="card-tag" style="color:#EAB308;">02 · HONG KONG GOLDEN ERA DNA · 黄金港片文化密码</div>
-          <h3>1980s Jackie Chan & Bruce Lee as the Moral Compass</h3>
-          <p style="font-size:14.5px; margin-bottom:10px;">
-            Inside Rasul’s cramped under-stadium room, faded posters of <strong>Jackie Chan (成龙)</strong> and <strong>Bruce Lee (李小龙)</strong> cover the concrete walls. Likewise, the training diary that guides Rasul is filled with classic aphorisms from 1980s Hong Kong martial arts cinema (“Be like water”, “Get up one more time than you fall”).
-          </p>
-          <p style="font-size:14.5px;">
-            For Chinese audiences, this creates an immediate, heartwarming cultural bridge—showing how classic Chinese-language cinema inspired a generation across Central Asia to never surrender.
-          </p>
-          <div class="zh-note" style="font-size:13px; color:#E2E8F0;">
-            <strong>天然的中国文化亲近感：</strong>男主角房间贴满成龙与李小龙的海报，日记本中的武道哲学成为支撑他跑完马拉松的精神信仰。这一设定能瞬间唤醒中国观众的集体记忆与文化自豪感。
+        <div class="card card-gold" style="padding:22px;">
+          <div>
+            <div class="card-tag" style="color:#EAB308;">02 · HONG KONG GOLDEN ERA DNA · 黄金港片文化密码</div>
+            <h3>1980s Jackie Chan & Bruce Lee as the Moral Compass</h3>
+            <p style="font-size:13.5px; margin-bottom:10px;">
+              Inside Rasul’s cramped under-stadium room, faded posters of <strong>Jackie Chan (成龙)</strong> and <strong>Bruce Lee (李小龙)</strong> cover the concrete walls. Likewise, the training diary that guides Rasul is filled with classic aphorisms from 1980s Hong Kong martial arts cinema (“Be like water”, “Don’t wait for change—create change”).
+            </p>
+            <p style="font-size:13.5px;">
+              For Chinese audiences, this creates an immediate, heartwarming cultural bridge—showing how classic Chinese-language cinema inspired a generation across Central Asia to never surrender.
+            </p>
           </div>
-        </div>
-      </div>
-
-      <div class="grid-3" style="gap:18px;">
-        <div class="card" style="padding:16px 20px;">
-          <div class="card-tag" style="color:#38BDF8;">FAMILY & RECONCILIATION · 亲情和解</div>
-          <p style="font-size:13px;">Father-daughter forgiveness (Artyom & Yulia) and maternal warmth (Elvira) anchor the third-act climax in traditional family values.</p>
-        </div>
-        <div class="card" style="padding:16px 20px;">
-          <div class="card-tag" style="color:#38BDF8;">COLLECTIVE BROTHERHOOD · 集体互助精神</div>
-          <p style="font-size:13px;">The JANA MEN camp celebrates camaraderie, mutual support, and collective resilience—uplifting, positive social energy (正能量).</p>
-        </div>
-        <div class="card" style="padding:16px 20px;">
-          <div class="card-tag" style="color:#38BDF8;">BELT & ROAD NEIGHBORS · 丝路光影纽带</div>
-          <p style="font-size:13px;">Set in modern Astana, offering Chinese moviegoers a fresh, visually striking, yet culturally familiar neighbor-country story.</p>
+          <div class="img-box" style="height:155px; margin-top:12px;">
+            <img src="./public/stills/still_room_posters_80s.jpg" alt="Rasul in Room with 1980s Action Posters">
+            <div class="img-caption">ACTUAL FILM STILL · 拉苏尔贴满80年代动作片海报的球场储物间</div>
+          </div>
+          <div class="zh-note">
+            <strong>天然的中国文化亲近感：</strong>男主角房间贴满80年代经典海报，日记本中的成龙与李小龙武道哲学成为支撑他跑完马拉松的精神信仰。
+          </div>
         </div>
       </div>
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — CULTURAL BRIDGE FOR MAINLAND CHINA</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — CULTURAL BRIDGE FOR MAINLAND CHINA</span>
       <span>POSITIVE SOCIAL ENERGY · 温暖励志 · 院线合家欢共鸣</span>
     </div>
   </section>
@@ -548,45 +554,45 @@
 
       <div class="grid-12" style="gap:24px;">
         <div class="col-6">
-          <div class="card card-orange" style="height:100%; padding:24px;">
+          <div class="card card-orange" style="height:100%; padding:22px;">
             <div>
               <div class="card-tag">USP 01 · REAL PHYSICAL TRANSFORMATION · 真实身体蜕变</div>
-              <h3 style="font-size:20px;">Lead Actor Inside the Real JANA MEN Boot Camp</h3>
-              <p style="font-size:14.5px; margin-bottom:14px;">
+              <h3 style="font-size:19px;">Lead Actor Inside the Real JANA MEN Boot Camp</h3>
+              <p style="font-size:14px; margin-bottom:12px;">
                 Lead actor <strong>Ersultan Uais</strong> underwent an actual, medically supervised weight-loss and athletic conditioning regimen inside the real <strong>JANA MEN</strong> rehabilitation camp during production.
               </p>
-              <p style="font-size:14.5px; margin-bottom:14px;">
-                There are no fake CGI cheats for the core emotional journey: every drop of sweat, heavy breath, muscle tremor, and physical milestone on screen is 100% authentic, supported by real JANA MEN alumni who collectively shed over <strong>1,500+ kg</strong>.
+              <p style="font-size:14px; margin-bottom:12px;">
+                There are no fake fat-suit CGI cheats for the core emotional journey: every drop of sweat, heavy breath, muscle tremor, and physical milestone on screen is 100% authentic, supported by real JANA MEN alumni who collectively shed over <strong>1,500+ kg</strong>.
               </p>
             </div>
-            <div class="img-box" style="height:210px; margin-top:10px;">
-              <img src="https://i.postimg.cc/d02H7vr5/Rasul-kast.png" alt="Lead Actor Ersultan Uais">
-              <div class="img-caption">ERSULTAN UAIS AS RASUL — AUTHENTIC PHYSICAL COMMITMENT</div>
+            <div class="img-box" style="height:225px; margin-top:8px;">
+              <img src="./public/stills/still_janamen_orange_lineup.jpg" alt="Real JANA MEN Camp Lineup">
+              <div class="img-caption">ACTUAL FILM STILL · 男主角叶尔苏丹·乌艾斯与 JANA MEN 真实减重学员实拍</div>
             </div>
             <div class="zh-note">
-              <strong>真实减重实录：</strong>男主角叶尔苏丹·乌艾斯在医学监督下进入真实的 JANA MEN 训练营进行体能重塑，片中队友均为真实减重成功者（累计减重超1500公斤），呈现极致的纪实震撼感。
+              <strong>真实减重实录：</strong>男主角叶尔苏丹·乌艾斯在医学监督下进入真实的 JANA MEN 训练营进行体能重塑，片中队友均为真实减重成功者（累计减重超1500公斤）。
             </div>
           </div>
         </div>
 
         <div class="col-6">
-          <div class="card card-blue" style="height:100%; padding:24px;">
+          <div class="card card-blue" style="height:100%; padding:22px;">
             <div>
               <div class="card-tag" style="color:#38BDF8;">USP 02 · LIVE MARATHON CLIMAX · 万人马拉松实景拍摄</div>
-              <h3 style="font-size:20px;">Filmed Live Inside the Official Astana Marathon</h3>
-              <p style="font-size:14.5px; margin-bottom:14px;">
+              <h3 style="font-size:19px;">Filmed Live Inside the Official Astana Marathon</h3>
+              <p style="font-size:14px; margin-bottom:12px;">
                 Rather than staging a small crowd on a closed backlot, the entire Third-Act climax was embedded directly into the live <strong>Astana Marathon</strong> among <strong>thousands of real runners</strong>.
               </p>
-              <p style="font-size:14.5px; margin-bottom:14px;">
+              <p style="font-size:14px; margin-bottom:12px;">
                 Multi-camera Steadicam and DJI Ronin 4D units ran alongside the actors inside the actual race stream—delivering breathtaking big-screen scale, kinetic urgency, and documentary-level immersion.
               </p>
             </div>
-            <div class="img-box" style="height:210px; margin-top:10px;">
-              <img src="https://i.postimg.cc/kM2w6vnj/Krosovki.png" alt="Live Marathon Filming">
-              <div class="img-caption">42.2 KM LIVE RACE CAPTURE — THOUSANDS OF REAL RUNNERS ON SCREEN</div>
+            <div class="img-box" style="height:225px; margin-top:8px;">
+              <img src="./public/stills/still_astana_marathon_crowd.jpg" alt="Live Astana Marathon Crowd">
+              <div class="img-caption">ACTUAL FILM STILL · 阿斯塔纳官方马拉松数千名真实跑者实景航拍与跟拍</div>
             </div>
             <div class="zh-note">
-              <strong>真实现场大场面：</strong>第三幕高潮戏直接深入阿斯塔纳官方马拉松赛事，在数千名真实跑者洪流中完成实景跟拍，大银幕临场感与视听冲击力极强。
+              <strong>真实现场大场面：</strong>第三幕高潮戏直接深入阿斯塔纳官方马拉松赛事，在数千名真实跑者洪流中完成实景跟拍，大银幕临场感极强。
             </div>
           </div>
         </div>
@@ -594,7 +600,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — PRODUCTION USP</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — PRODUCTION USP</span>
       <span>100% AUTHENTIC SWEAT, SCALE & EMOTION</span>
     </div>
   </section>
@@ -613,16 +619,20 @@
       <h2>THREE-ACT DRAMATIC ARC</h2>
       <div class="zh-sub">从幽闭恐惧的地下储物间，到42.2公里终点线前的生命抉择</div>
 
-      <div class="grid-3" style="gap:22px; flex:1;">
-        <div class="card card-orange" style="padding:22px;">
+      <div class="grid-3" style="gap:20px; flex:1;">
+        <div class="card card-orange" style="padding:20px;">
           <div>
+            <div class="img-box" style="height:145px; margin-bottom:12px;">
+              <img src="./public/stills/still_track_night.jpg" alt="Act I Night Track Tragedy">
+              <div class="img-caption">ACT I · 深夜跑道上的意外</div>
+            </div>
             <div class="card-tag">ACT I · THE INCITING TRAGEDY · 第一幕：意外与潜逃</div>
             <h3>The Bridge Mirage & The Fatal Track</h3>
-            <p style="margin-bottom:12px;">
-              The film opens with a sunlit dream of a lean athlete running over Astana’s bridge—before morphing into reality: <strong>Rasul</strong>, a 200-kg illiterate stadium janitor living in a claustrophobic room lined with Jackie Chan posters.
+            <p style="margin-bottom:8px;">
+              The film opens with a sunlit dream on Astana’s bridge before morphing into reality: <strong>Rasul</strong>, a 200-kg illiterate stadium janitor living in a claustrophobic room lined with Jackie Chan posters.
             </p>
             <p>
-              One night on the stadium track, marathon runner <strong>Artyom</strong> collapses from an asthma attack. Rushing to help, Rasul trips over his untied shoelaces and accidentally crushes Artyom’s inhaler. Panicked, Rasul takes Artyom’s backpack containing a screaming SOS heart-rate watch and a handwritten marathon training diary, fleeing to Astana.
+              At night on the stadium track, runner <strong>Artyom</strong> collapses from asthma. Rasul rushes to help, trips over his untied shoelaces, and accidentally crushes Artyom’s inhaler. Panicked, Rasul takes Artyom’s backpack, SOS watch, and training diary, fleeing to Astana.
             </p>
           </div>
           <div class="zh-note">
@@ -630,31 +640,39 @@
           </div>
         </div>
 
-        <div class="card card-blue" style="padding:22px;">
+        <div class="card card-blue" style="padding:20px;">
           <div>
+            <div class="img-box" style="height:145px; margin-bottom:12px;">
+              <img src="./public/stills/still_elvira_shoelaces.jpg" alt="Act II Elvira and Rasul">
+              <div class="img-caption">ACT II · 艾尔薇拉教会拉苏尔系紧鞋带与识字</div>
+            </div>
             <div class="card-tag" style="color:#38BDF8;">ACT II · PURGATORY & BROTHERHOOD · 第二幕：淬炼与觉醒</div>
             <h3>The “Not Extra” Camp & Brass Scales</h3>
-            <p style="margin-bottom:12px;">
-              Assuming the alias “Sultan”, Rasul enters the strict <strong>“Not Extra” (JANA MEN)</strong> weight-loss camp led by mentor <strong>Aitym</strong> and administrator <strong>Elvira</strong>. When Rasul hides street food, Aitym confronts him with brass apothecary scales—placing 1 gram against a pastry to prove hidden fear weighs more than fat.
+            <p style="margin-bottom:8px;">
+              Assuming the alias “Sultan”, Rasul enters the strict <strong>“Not Extra” (JANA MEN)</strong> weight-loss camp led by mentor <strong>Aitym</strong> and administrator <strong>Elvira</strong>. Aitym confronts him with brass scales—proving hidden fear weighs more than fat.
             </p>
             <p>
-              Elvirashows Rasul his first maternal kindness, teaching him how to tie a secure double-knot and write his first letters. Through grueling workouts, fasting discipline, and brotherhood among the camp’s heavy men, Rasul breaks his physical and mental barriers.
+              Elvira shows Rasul his first maternal kindness, teaching him how to tie a secure double-knot and write his first letters. Through grueling workouts and brotherhood among the camp’s heavy men, Rasul breaks his physical and mental barriers.
             </p>
           </div>
           <div class="zh-note">
-            <strong>第二幕：</strong>拉苏尔化名“苏丹”进入减重营。导师艾特姆用黄铜天平点醒他“内心的恐惧比脂肪更重”，管理员艾尔薇拉教会他系紧鞋带与识字写字，他在汗水与兄弟情中迎来蜕变。
+            <strong>第二幕：</strong>拉苏尔化名“苏丹”进入减重营。导师艾特姆点醒他“内心的恐惧比脂肪更重”，管理员艾尔薇拉教会他系紧鞋带与识字写字，他在汗水与兄弟情中迎来蜕变。
           </div>
         </div>
 
-        <div class="card card-gold" style="padding:22px;">
+        <div class="card card-gold" style="padding:20px;">
           <div>
+            <div class="img-box" style="height:145px; margin-bottom:12px;">
+              <img src="./public/stills/still_finish_arch.jpg" alt="Act III Finish Arch">
+              <div class="img-caption">ACT III · 42.2公里终点拱门前的抉择</div>
+            </div>
             <div class="card-tag" style="color:#EAB308;">ACT III · THE 42.2 KM CHOICE · 第三幕：真相与救赎</div>
             <h3>Shattered Myth & The Finish Line</h3>
-            <p style="margin-bottom:12px;">
-              On the eve of the race, Artyom’s estranged daughter <strong>Yulia</strong> arrives and shatters Rasul’s idol: Artyom was actually a disgraced con man whose heroic diary was a fabrication written to win her forgiveness.
+            <p style="margin-bottom:8px;">
+              On the eve of the race, Artyom’s daughter <strong>Yulia</strong> arrives and shatters Rasul’s idol: Artyom was actually a disgraced con man whose heroic diary was a fabrication written to win her forgiveness.
             </p>
             <p>
-              Refusing to let the dream die, Rasul leaps from the camp roof in Artyom’s blue race jacket and enters the <strong>42.2 km Astana Marathon</strong>. Just 10 meters from the finish arch, Rasul overcomes his childhood trauma, turns his back on the finish line, and walks backward against the crowd to save Yulia from a fatal asthma attack with an inhaler—reclaiming his real name and soul.
+              Refusing to surrender, Rasul enters the <strong>42.2 km Astana Marathon</strong> under bib #261. Just 10 meters from the finish arch, Rasul turns his back on the finish line and walks backward against the crowd to save Yulia from a fatal asthma attack with an inhaler—reclaiming his own soul.
             </p>
           </div>
           <div class="zh-note">
@@ -665,7 +683,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — SYNOPSIS & THREE-ACT STRUCTURE</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — SYNOPSIS & THREE-ACT STRUCTURE</span>
       <span>SCREENPLAY BY KONSTANTIN MAYER & SERGEY BONDAREV</span>
     </div>
   </section>
@@ -677,7 +695,7 @@
         <span class="slide-num-pill">SLIDE 06 / 12</span>
         <span class="eyebrow">MAIN CHARACTERS & ENSEMBLE · 核心角色与演员阵容</span>
       </div>
-      <span class="header-badge">CHARACTER ARCS</span>
+      <span class="header-badge">CHARACTER ARCS & REAL CAST FACES</span>
     </div>
 
     <div class="slide-body">
@@ -685,14 +703,15 @@
       <div class="zh-sub">鲜活立体的群像塑造：每一个“多余的人”都值得被世界看见</div>
 
       <div class="grid-4" style="gap:18px; flex:1;">
-        <div class="card" style="padding:18px;">
+        <div class="card" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:175px; margin-bottom:14px;">
-              <img src="https://i.postimg.cc/d02H7vr5/Rasul-kast.png" alt="Rasul - Ersultan Uais">
+            <div class="img-box" style="height:190px; margin-bottom:12px;">
+              <img src="./public/stills/still_stadium_vest.jpg" class="portrait-top" alt="Rasul - Ersultan Uais">
+              <div class="img-caption">ERSULTAN UAIS · 叶尔苏丹·乌艾斯</div>
             </div>
             <div class="card-tag">PROTAGONIST · 男主角</div>
             <h3>Rasul / “Sultan”</h3>
-            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:8px;">Played by Ersultan Uais</div>
+            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:6px;">Played by Ersultan Uais</div>
             <p style="font-size:12.5px;">
               A 200-kg gentle giant and stadium janitor who locked his childhood trauma inside a fortress of weight. Stepping onto the marathon track under a borrowed name, he sheds his protective armor to find his true voice.
             </p>
@@ -702,14 +721,15 @@
           </div>
         </div>
 
-        <div class="card" style="padding:18px;">
+        <div class="card" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:175px; margin-bottom:14px;">
-              <img src="https://i.postimg.cc/PqpyDhYK/celovek.png" alt="Elvira - Guzel Zhan">
+            <div class="img-box" style="height:190px; margin-bottom:12px;">
+              <img src="./public/stills/still_elvira_office.jpg" class="portrait-top" alt="Elvira - Guzel Zhan">
+              <div class="img-caption">GUZEL ZHAN · 古泽尔·詹</div>
             </div>
             <div class="card-tag">FEMALE LEAD · 女主角</div>
             <h3>Elvira</h3>
-            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:8px;">Played by Guzel Zhan</div>
+            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:6px;">Played by Guzel Zhan</div>
             <p style="font-size:12.5px;">
               The strict, military-postured administrator of the “Not Extra” camp. Guarding her own unspoken personal grief, she becomes Rasul’s human anchor—teaching him to tie his shoelaces, read, and trust again.
             </p>
@@ -719,14 +739,15 @@
           </div>
         </div>
 
-        <div class="card" style="padding:18px;">
+        <div class="card" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:175px; margin-bottom:14px;">
-              <img src="https://i.postimg.cc/DZhTS3n7/Ajtym1.jpg" alt="Mentor Aitym - Aitym Zhakupov">
+            <div class="img-box" style="height:190px; margin-bottom:12px;">
+              <img src="./public/cast/aitym_zhakupov.png" class="portrait-top" alt="Mentor Aitym - Aitym Zhakupov">
+              <div class="img-caption">AITYM ZHAKUPOV · 艾特姆·贾库波夫</div>
             </div>
             <div class="card-tag">THE MENTOR · 精神导师</div>
             <h3>Mentor Aitym</h3>
-            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:8px;">Played by Aitym Zhakupov</div>
+            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:6px;">Played by Aitym Zhakupov</div>
             <p style="font-size:12.5px;">
               Real-life founder of the JANA MEN movement portraying himself. A relentless strategist of human willpower who strips away self-pity and performs “spiritual surgery” with his brass scales.
             </p>
@@ -736,16 +757,23 @@
           </div>
         </div>
 
-        <div class="card" style="padding:18px;">
+        <div class="card" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:175px; margin-bottom:14px;">
-              <img src="https://i.postimg.cc/jSzdSnkN/dnevnik.png" alt="Artyom & Yulia">
+            <div class="grid-2" style="gap:8px; height:190px; margin-bottom:12px;">
+              <div class="img-box" style="height:190px;">
+                <img src="./public/cast/mikhail_kalyuzhny.png" class="portrait-top" alt="Mikhail Kalyuzhny as Artyom">
+                <div class="img-caption">M. KALYUZHNY</div>
+              </div>
+              <div class="img-box" style="height:190px;">
+                <img src="./public/cast/zhasmin_begalinova.png" class="portrait-top" alt="Zhasmin Begalinova as Yulia">
+                <div class="img-caption">ZH. BEGALINOVA</div>
+              </div>
             </div>
             <div class="card-tag">CATALYST & LEGACY · 核心羁绊</div>
             <h3>Artyom & Yulia</h3>
-            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:8px;">Mikhail Kalyuzhny & Ensemble</div>
+            <div style="font-size:12px; font-weight:700; color:#38BDF8; margin-bottom:6px;">M. Kalyuzhny & Zh. Begalinova</div>
             <p style="font-size:12.5px;">
-              <strong>Artyom</strong> is the flawed ex-con runner whose diary sparks Rasul’s journey; <strong>Yulia</strong> is his estranged marathon-running daughter whose life Rasul ultimately saves at the finish line. Supported by Kazakh legends <strong>Dulyga Akmolda</strong>, <strong>Yerbolat Toguzakov</strong> & <strong>Anna Starchenko</strong>.
+              <strong>Artyom</strong> is the flawed ex-con runner whose diary sparks Rasul’s journey; <strong>Yulia</strong> is his estranged marathon-running daughter whose life Rasul saves at the finish line. Supported by Kazakh legends <strong>Dulyga Akmolda</strong> & <strong>Yerbolat Toguzakov</strong>.
             </p>
           </div>
           <div class="zh-note">
@@ -756,7 +784,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — MAIN CHARACTERS & ENSEMBLE</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — MAIN CHARACTERS & ENSEMBLE</span>
       <span>STARRING ERSULTAN UAIS, GUZEL ZHAN, MIKHAIL KALYUZHNY, DULYGA AKMOLDA, YERBOLAT TOGUZAKOV</span>
     </div>
   </section>
@@ -777,51 +805,51 @@
 
       <div class="grid-12" style="gap:24px;">
         <div class="col-6">
-          <div class="card card-orange" style="height:100%; padding:24px;">
+          <div class="card card-orange" style="height:100%; padding:22px;">
             <div>
               <div class="card-tag">01 · COLOR TIMELINE · 视觉色彩演进</div>
               <h3>From Brutalist Grey-Blue to Marathon Orange & Sky Blue</h3>
-              <p style="font-size:14px; margin-bottom:14px;">
+              <p style="font-size:13.5px; margin-bottom:10px;">
                 <strong>Act I (Isolation):</strong> Cold, desaturated slate-grey and industrial concrete (#090D16) inside the stadium bowels, punctured only by Rasul’s high-visibility orange janitor vest.
               </p>
-              <p style="font-size:14px; margin-bottom:14px;">
+              <p style="font-size:13.5px; margin-bottom:10px;">
                 <strong>Act II (Awakening):</strong> Warm kinetic pulses of JANA MEN orange (#F97316) and brass highlights inside the training center.
               </p>
-              <p style="font-size:14px;">
-                <strong>Act III (Liberation):</strong> Electric marathon blue (#0284C7) and open sunlit horizons as Rasul runs through the heart of modern Astana.
+              <p style="font-size:13.5px;">
+                <strong>Act III (Liberation):</strong> Electric marathon blue (#0284C7) and open sunlit horizons as Rasul runs under bib #261 through the heart of modern Astana.
               </p>
             </div>
-            <div class="grid-2" style="gap:12px; margin-top:14px;">
-              <div class="img-box" style="height:150px;">
-                <img src="https://i.postimg.cc/Z54244Kw/Kamorka2.jpg" alt="Act I Look">
-                <div class="img-caption">ACT I: COLD CONCRETE ISOLATION</div>
+            <div class="grid-2" style="gap:12px; margin-top:12px;">
+              <div class="img-box" style="height:165px;">
+                <img src="./public/stills/still_room_posters_80s.jpg" alt="Act I Cold Isolation Still">
+                <div class="img-caption">ACT I: BRUTALIST STADIUM ISOLATION</div>
               </div>
-              <div class="img-box" style="height:150px;">
-                <img src="https://i.postimg.cc/zXjjHmcf/finis.jpg" alt="Act III Look">
-                <div class="img-caption">ACT III: MARATHON HORIZON</div>
+              <div class="img-box" style="height:165px;">
+                <img src="./public/stills/still_rasul_bib261.jpg" alt="Act III Blue Marathon Jacket Still">
+                <div class="img-caption">ACT III: BIB #261 & OPEN HORIZON</div>
               </div>
             </div>
           </div>
         </div>
 
         <div class="col-6">
-          <div class="card card-blue" style="height:100%; padding:24px;">
+          <div class="card card-blue" style="height:100%; padding:22px;">
             <div>
               <div class="card-tag" style="color:#38BDF8;">02 · VISCERAL ASMR SOUNDSCAPE · 沉浸式声学景观</div>
               <h3>The Heartbeat & Breath as a Living Character</h3>
-              <p style="font-size:14px; margin-bottom:14px;">
+              <p style="font-size:13.5px; margin-bottom:10px;">
                 Designed by award-winning Sound Director <strong>Evgeny Fetisov</strong>, the film’s audio architecture places the audience directly inside a 200-kg body fighting for every meter:
               </p>
-              <p style="font-size:14px; margin-bottom:10px;">
-                • <strong>Biometric SOS Metronome:</strong> Artyom’s smartwatch alarm (155 → 185 BPM) drives the rhythmic editing pace of the training and marathon sequences.
+              <p style="font-size:13.5px; margin-bottom:8px;">
+                • <strong>Biometric SOS Metronome:</strong> Artyom’s smartwatch alarm (155 → 188 BPM) drives the rhythmic editing pace of the training and marathon sequences.
               </p>
-              <p style="font-size:14px;">
+              <p style="font-size:13.5px;">
                 • <strong>Tactile ASMR Detail:</strong> Heavy respiratory rhythms, shoelaces tightening, brass scales balancing, and rubber soles striking wet tartan.
               </p>
             </div>
-            <div class="img-box" style="height:150px; margin-top:14px;">
-              <img src="https://i.postimg.cc/GpC8BDZY/Whats-App-Image-2026-03-09-at-16.jpg" alt="Pulse 180 Smartwatch & Diary">
-              <div class="img-caption">180 BPM SOS TRACKER & TRAINING DIARY — RHYTHMIC ENGINE OF THE FILM</div>
+            <div class="img-box" style="height:165px; margin-top:12px;">
+              <img src="./public/stills/still_diary_watch.jpg" alt="Diary and Smartwatch Still from Film">
+              <div class="img-caption">ACTUAL FILM STILL · 实拍剧照：阿尔乔姆的手写训练日记与心率追踪器</div>
             </div>
           </div>
         </div>
@@ -829,7 +857,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — VISUAL LANGUAGE & SOUND DESIGN</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — VISUAL LANGUAGE & SOUND DESIGN</span>
       <span>4K CINEMA SCOPE · DOLBY 5.1 / ATMOS THEATRICAL MIX</span>
     </div>
   </section>
@@ -849,10 +877,11 @@
       <div class="zh-sub">集结独联体票房冠军编剧、资深国际制片人与真实社会运动创始人</div>
 
       <div class="grid-4" style="gap:18px; flex:1;">
-        <div class="card card-orange" style="padding:18px;">
+        <div class="card card-orange" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:170px; margin-bottom:12px;">
-              <img src="https://i.postimg.cc/DZhTS3n7/Ajtym1.jpg" alt="Aitym Zhakupov">
+            <div class="img-box" style="height:195px; margin-bottom:12px;">
+              <img src="./public/cast/aitym_zhakupov.png" class="portrait-top" alt="Aitym Zhakupov">
+              <div class="img-caption">AITYM ZHAKUPOV · 艾特姆·贾库波夫</div>
             </div>
             <div class="card-tag">GENERAL PRODUCER · 总制片人</div>
             <h3>Aitym Zhakupov</h3>
@@ -865,10 +894,11 @@
           </div>
         </div>
 
-        <div class="card card-blue" style="padding:18px;">
+        <div class="card card-blue" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:170px; margin-bottom:12px;">
-              <img src="https://i.postimg.cc/cJvYY3h6/IMAGE-FILE-CACHE-PROFILE-PROVIDER.gif" alt="Sergey Bondarev">
+            <div class="img-box" style="height:195px; margin-bottom:12px;">
+              <img src="./public/crew/sergey_bondarev.gif" class="portrait-contain" alt="Sergey Bondarev">
+              <div class="img-caption">SERGEY BONDAREV · 谢尔盖·邦达列夫</div>
             </div>
             <div class="card-tag" style="color:#38BDF8;">SHOWRUNNER & LEAD PRODUCER</div>
             <h3>Sergey Bondarev</h3>
@@ -881,10 +911,11 @@
           </div>
         </div>
 
-        <div class="card card-gold" style="padding:18px;">
+        <div class="card card-gold" style="padding:16px;">
           <div>
-            <div class="img-box" style="height:170px; margin-bottom:12px;">
-              <img src="https://i.postimg.cc/j2SRwH6m/majer-konstantin.jpg" alt="Konstantin Mayer">
+            <div class="img-box" style="height:195px; margin-bottom:12px;">
+              <img src="./public/crew/konstantin_mayer.jpg" class="portrait-top" alt="Konstantin Mayer">
+              <div class="img-caption">KONSTANTIN MAYER · 康斯坦丁·迈耶</div>
             </div>
             <div class="card-tag" style="color:#EAB308;">CREATIVE PRODUCER & CO-WRITER</div>
             <h3>Konstantin Mayer</h3>
@@ -897,14 +928,16 @@
           </div>
         </div>
 
-        <div class="card" style="padding:18px; border-left:4px solid #10B981;">
+        <div class="card" style="padding:16px; border-left:4px solid #10B981;">
           <div>
-            <div class="grid-2" style="gap:8px; height:170px; margin-bottom:12px;">
-              <div class="img-box" style="height:170px;">
-                <img src="https://i.postimg.cc/pXMv5ZWC/Rezisser.jpg" alt="Rasul Sharafeddinov">
+            <div class="grid-2" style="gap:8px; height:195px; margin-bottom:12px;">
+              <div class="img-box" style="height:195px;">
+                <img src="./public/crew/rasul_sharafeddinov.jpg" class="portrait-top" alt="Rasul Sharafeddinov">
+                <div class="img-caption">DIRECTOR</div>
               </div>
-              <div class="img-box" style="height:170px;">
-                <img src="https://i.postimg.cc/PJX1CRRL/600x900-(2).png" alt="Mikhail Siryanov">
+              <div class="img-box" style="height:195px;">
+                <img src="./public/crew/mikhail_siryanov.png" class="portrait-top" alt="Mikhail Siryanov">
+                <div class="img-caption">DP & PRODUCER</div>
               </div>
             </div>
             <div class="card-tag" style="color:#10B981;">DIRECTOR & DP / PRODUCER</div>
@@ -921,7 +954,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — KEY CREATIVE POWERHOUSE</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — KEY CREATIVE POWERHOUSE</span>
       <span>EXECUTIVE PRODUCER: BAKHYTZHAN KUNSHASHOVA · EDITOR: DANIIL MAYER</span>
     </div>
   </section>
@@ -938,22 +971,26 @@
 
     <div class="slide-body">
       <h2>FLAGSHIP ANTHEM & CHINA MARKETING ENGINE</h2>
-      <div class="zh-sub">经典金曲《Я это ты》(I Am You) 官方授权改编 × 中国区专属中文主题曲联动方案</div>
+      <div class="zh-sub">经典金曲《Я это ты》(I Am You / 《我是你》) 官方授权改编 × 中国区专属中文主题曲联动方案</div>
 
       <div class="grid-12" style="gap:24px;">
         <div class="col-5">
-          <div class="card card-blue" style="height:100%; padding:26px;">
+          <div class="card card-blue" style="height:100%; padding:24px;">
             <div>
               <div class="card-tag" style="color:#38BDF8;">01 · REFERENCE PROMO REEL NOTE · 粗剪样片说明</div>
-              <h3 style="font-size:20px;">3-Minute Chinese-Subtitled Assembly</h3>
-              <p style="font-size:14.5px; margin-bottom:14px;">
+              <h3 style="font-size:19px;">3-Minute Chinese-Subtitled Assembly</h3>
+              <p style="font-size:14px; margin-bottom:12px;">
                 The current <strong>3-minute promo reel with Chinese subtitles</strong> (provided for early buyer review) is an early <strong>rough-cut assembly</strong> utilizing temporary reference music (temp track) and pre-DI color.
               </p>
-              <p style="font-size:14.5px;">
+              <p style="font-size:14px;">
                 Final theatrical orchestral & electronic score, full CGI prologue morphing, and theatrical sound mixing are currently in active production for Spring 2027 delivery.
               </p>
             </div>
-            <div class="zh-note" style="font-size:13.5px; color:#E2E8F0;">
+            <div class="img-box" style="height:165px; margin-top:12px;">
+              <img src="./public/stills/still_aitym_mentor.jpg" alt="Rough Cut Reel Still">
+              <div class="img-caption">3-MIN CHINESE SUBTITLED ROUGH CUT · 3分钟中文字幕粗剪审片片段</div>
+            </div>
+            <div class="zh-note" style="font-size:13px; color:#E2E8F0;">
               <strong>关于当前3分钟中字推介片的重要说明：</strong>目前供买方审阅的3分钟中文字幕视频为早期粗剪片段（使用临时参考配乐 Temp Music），最终成片将配备全新原创交响电子配乐与完整视效调色。
             </div>
           </div>
@@ -963,9 +1000,9 @@
           <div class="card card-gold" style="height:100%; padding:26px;">
             <div>
               <div class="card-tag" style="color:#EAB308;">02 · FLAGSHIP SONG & CHINA STAR INTEGRATION · 旗舰主题曲与中文版特邀合制</div>
-              <h3 style="font-size:22px;">Official Rights Secured: Murat Nasyrov’s Iconic Hit “Ya Eto Ty” (“I Am You” / 《我是你》)</h3>
+              <h3 style="font-size:21px;">Official Rights Secured: Murat Nasyrov’s Iconic Hit “Ya Eto Ty” (“I Am You” / 《我是你》)</h3>
               <p style="font-size:14.5px; margin-bottom:14px;">
-                The production has officially secured the adaptation rights to legendary singer-songwriter <strong>Murat Nasyrov’s</strong> timeless hit <strong>“Ya Eto Ty” (《Я это ты》 / “I Am You”)</strong>—creating a soaring emotional anthem for the film’s climax.
+                The production has officially secured the adaptation rights to legendary singer-songwriter <strong>Murat Nasyrov’s</strong> timeless hit <strong>“Ya Eto Ty” (《Я это ты》 / “I Am You” / 《我是你》)</strong>—creating a soaring emotional anthem for the film’s climax.
               </p>
               <div style="padding:16px 18px; border-radius:12px; background:rgba(234,179,8,0.12); border:1px solid rgba(234,179,8,0.4); margin-bottom:12px;">
                 <div style="font-size:11px; font-weight:800; color:#EAB308; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:6px;">
@@ -977,7 +1014,7 @@
               </div>
             </div>
             <div class="zh-note" style="font-size:13.5px; color:#E2E8F0;">
-              <strong>超级宣发引爆点：</strong>剧组已正式取得传奇金曲《Я это ты》（我是你）的官方改编权。我们为中国发行伙伴提供独家联合宣发机会——可特邀在中国拥有极高国民度的哈萨克斯坦国宝歌手<strong>迪玛希 (Dimash)</strong> 或中国一线歌手录制<strong>专属中文版/中哈合唱版主题曲</strong>，引爆全网音乐与短视频宣发。
+              <strong>超级宣发引爆点：</strong>剧组已正式取得传奇金曲《Я это ты》（《我是你》）的官方改编权。我们为中国发行伙伴提供独家联合宣发机会——可特邀在中国拥有极高国民度的哈萨克斯坦国宝歌手<strong>迪玛希 (Dimash)</strong> 或中国一线歌手录制<strong>专属中文版/中哈合唱版主题曲</strong>，引爆全网音乐与短视频宣发。
             </div>
           </div>
         </div>
@@ -985,7 +1022,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — MUSIC STRATEGY & CHINA CO-MARKETING</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — MUSIC STRATEGY & CHINA CO-MARKETING</span>
       <span>HIGH-IMPACT THEATRICAL PROMOTION FOR MAINLAND CHINA</span>
     </div>
   </section>
@@ -1004,24 +1041,24 @@
       <h2>POST-PRODUCTION & DELIVERY SCHEDULE</h2>
       <div class="zh-sub">清晰的后期制作节点，确保2027年春季全球及中国区高标准母带交付</div>
 
-      <div class="grid-3" style="gap:24px; margin-bottom:24px;">
-        <div class="card card-orange" style="padding:26px;">
+      <div class="grid-3" style="gap:24px; margin-bottom:22px;">
+        <div class="card card-orange" style="padding:24px;">
           <div class="card-tag">STAGE 01 · NOVEMBER 2026 · 2026年11月</div>
-          <h3 style="font-size:22px;">Rough Cut Assembly Review</h3>
-          <p style="font-size:14.5px; margin-bottom:14px;">
+          <h3 style="font-size:21px;">Rough Cut Assembly Review</h3>
+          <p style="font-size:14px; margin-bottom:14px;">
             • Principal photography 100% wrapped in Astana.<br>
-            • Full narrative Rough Cut assembly completed.<br>
+            • Full narrative Rough Cut assembly in active review.<br>
             • Private rough-cut screener & 3-minute Chinese-subtitled promo reel available for accredited Chinese buyers and partners.
           </p>
           <div class="zh-note">
-            <strong>2026年11月（当前阶段）：</strong>全片实景拍摄杀青，粗剪版本（Rough Cut）组装完成，向核心合作方开放内部审片与中字推介片段。
+            <strong>2026年11月（当前阶段 · 粗剪进行中）：</strong>全片实景拍摄杀青，粗剪版本（Rough Cut in Progress）进入内部审片阶段，向核心合作方开放中字推介片段。
           </div>
         </div>
 
-        <div class="card card-blue" style="padding:26px;">
+        <div class="card card-blue" style="padding:24px;">
           <div class="card-tag" style="color:#38BDF8;">STAGE 02 · WINTER 2026 / 2027 · 2026/27年冬季</div>
-          <h3 style="font-size:22px;">VFX, Score, DI & Sound Mix</h3>
-          <p style="font-size:14.5px; margin-bottom:14px;">
+          <h3 style="font-size:21px;">VFX, Score, DI & Sound Mix</h3>
+          <p style="font-size:14px; margin-bottom:14px;">
             • High-precision VFX morphing (Act I bridge sequence).<br>
             • Recording of original score & flagship “Ya Eto Ty” adaptation.<br>
             • DaVinci Resolve theatrical DI color grading.<br>
@@ -1032,10 +1069,10 @@
           </div>
         </div>
 
-        <div class="card card-gold" style="padding:26px;">
+        <div class="card card-gold" style="padding:24px;">
           <div class="card-tag" style="color:#EAB308;">STAGE 03 · SPRING 2027 (MAR – MAY) · 2027年春季</div>
-          <h3 style="font-size:22px;">Master Delivery & Release</h3>
-          <p style="font-size:14.5px; margin-bottom:14px;">
+          <h3 style="font-size:21px;">Master Delivery & Release</h3>
+          <p style="font-size:14px; margin-bottom:14px;">
             • Full delivery of unencrypted/encrypted <strong>4K DCP</strong>.<br>
             • Complete <strong>English & Simplified/Traditional Chinese subtitled masters</strong> and dialogue lists.<br>
             • Complete censorship & import documentation package.<br>
@@ -1051,7 +1088,7 @@
         <div>
           <div class="card-tag" style="margin-bottom:2px;">TECHNICAL DELIVERY SPECIFICATIONS · 技术交付标准</div>
           <div style="font-size:14px; color:#E2E8F0;">
-            <strong>Image:</strong> 4K (4096×1716) 2.39:1 Scope · 24 fps &nbsp;|&nbsp; <strong>Audio:</strong> 5.1 Surround & Dolby Atmos + Full M&E Stems (方便中文配音译制) &nbsp;|&nbsp; <strong>Runtime:</strong> ~110 min
+            <strong>Image:</strong> 4K (4096 x 1716) 2.39:1 Scope · 24 fps &nbsp;|&nbsp; <strong>Audio:</strong> 5.1 Surround & Dolby Atmos + Full M&E Stems (方便中文配音译制) &nbsp;|&nbsp; <strong>Runtime:</strong> ~110–115 min
           </div>
         </div>
         <span class="header-badge" style="background:rgba(16,185,129,0.2); border-color:#10B981; color:#34D399;">ON SCHEDULE FOR SPRING 2027</span>
@@ -1059,7 +1096,7 @@
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — POST-PRODUCTION ROADMAP</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — POST-PRODUCTION ROADMAP</span>
       <span>FULL M&E STEMS & CHINESE SUBTITLED MASTERS GUARANTEED</span>
     </div>
   </section>
@@ -1083,13 +1120,13 @@
           <div>
             <div class="card-tag">01 · TERRITORIES & AVAILABLE RIGHTS · 授权区域与权利范围</div>
             <h3 style="font-size:21px; margin-bottom:14px;">All Rights Available for Greater China</h3>
-            <p style="font-size:14.5px; margin-bottom:12px;">
+            <p style="font-size:14px; margin-bottom:12px;">
               <strong>Territories Open:</strong><br>
               • Mainland China (中国大陆)<br>
               • Hong Kong SAR & Macau SAR (中国香港、中国澳门)<br>
               • Taiwan Region (中国台湾)
             </p>
-            <p style="font-size:14.5px;">
+            <p style="font-size:14px;">
               <strong>Available Windows & Channels:</strong><br>
               • <strong>Theatrical Rights (院线发行权):</strong> Quota / Revenue-sharing or Flat-fee import.<br>
               • <strong>Digital / VOD / SVOD / TV (新媒体与电视版权):</strong> Major Chinese streaming platforms & broadcast channels.<br>
@@ -1105,24 +1142,24 @@
           <div>
             <div class="card-tag" style="color:#38BDF8;">02 · FLEXIBLE DEAL STRUCTURES · 灵活务实的合作机制</div>
             <h3 style="font-size:21px; margin-bottom:14px;">Early Pre-Buy, Co-Distribution & MOU</h3>
-            <p style="font-size:14.5px; margin-bottom:12px;">
-              At the current <strong>Rough Cut stage</strong>, we welcome flexible commercial structures tailored for Chinese acquisition partners (including <strong>Beijing Hugoeast Media / 北京聚合影联</strong> and major mainland distributors):
+            <p style="font-size:14px; margin-bottom:12px;">
+              At the current <strong>Rough Cut stage (粗剪进行中)</strong>, we welcome flexible commercial structures tailored for Chinese acquisition partners (specifically prepared for <strong>Beijing Hugoeast Media / 北京和观映像</strong> and major mainland distributors):
             </p>
-            <p style="font-size:14.5px; margin-bottom:12px;">
+            <p style="font-size:14px; margin-bottom:12px;">
               • <strong>Early Pre-Buy Agreement (早期预购协议):</strong> Preferential acquisition terms with input on Mandarin OST & localized cut.<br>
               • <strong>Co-Distribution / Strategic Partnership (联合发行):</strong> Joint festival launch and talent tour in China (featuring Aitym Zhakupov & cast).<br>
               • <strong>Memorandum of Understanding (MOU / 合作备忘录):</strong> Priority territory hold with immediate private Rough Cut screener access.
             </p>
           </div>
           <div class="zh-note">
-            <strong>粗剪阶段优先合作窗口：</strong>支持签订合作备忘录（MOU）、早期预购或中国区联合宣发。可配合中国发行方需求提供全套官方批片/引进文件及主创来华路演支持。
+            <strong>专为北京和观映像 (Beijing Hugoeast Media) 等核心伙伴开放优先合作窗口：</strong>支持签订合作备忘录（MOU）、早期预购或中国区联合宣发，提供全套官方引进申报材料及主创来华路演支持。
           </div>
         </div>
       </div>
     </div>
 
     <div class="slide-footer">
-      <span>NOT EXTRA / 《绝不多余》 — COMMERCIAL PARTNERSHIP & RIGHTS</span>
+      <span>NOT EXTRA / 《绝不多余》 / 《并非多余》 — COMMERCIAL PARTNERSHIP & RIGHTS</span>
       <span>CLEAN CHAIN OF TITLE · DIRECT FROM PRODUCTION STUDIO</span>
     </div>
   </section>
@@ -1138,55 +1175,61 @@
     </div>
 
     <div class="slide-body">
-      <div class="grid-12" style="gap:28px; align-items:center;">
+      <div class="grid-12" style="gap:26px; align-items:center;">
         <div class="col-7">
-          <div style="display:inline-block; padding:6px 14px; border-radius:6px; background:rgba(2,132,199,0.18); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:16px;">
+          <div style="display:inline-block; padding:6px 14px; border-radius:6px; background:rgba(2,132,199,0.18); border:1px solid rgba(56,189,248,0.4); color:#38BDF8; font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;">
             BIG MOVIE STUDIO × IBA JANA MEN MOVEMENT
           </div>
-          <h2 style="font-size:38px; margin-bottom:10px;">LET’S BRING 《绝不多余》 TO CHINESE AUDIENCES</h2>
-          <p style="font-size:17px; color:#CBD5E1; line-height:1.6; margin-bottom:24px;">
-            We warmly invite Chinese distributors and acquisition executives to request the private <strong>Rough Cut Screener</strong>, the <strong>3-Minute Chinese-Subtitled Promo Reel</strong>, and the complete screenplay package.
+          <h2 style="font-size:34px; margin-bottom:10px;">LET’S BRING 《绝不多余》 / 《并非多余》 TO CHINA</h2>
+          <p style="font-size:16px; color:#CBD5E1; line-height:1.58; margin-bottom:20px;">
+            We warmly invite <strong>Beijing Hugoeast Media (北京和观映像)</strong> and Chinese acquisition executives to request the private <strong>Rough Cut Screener</strong>, the <strong>3-Minute Chinese-Subtitled Promo Reel</strong>, and the complete screenplay package.
           </p>
 
-          <div class="card card-orange" style="padding:26px;">
+          <div class="card card-orange" style="padding:24px;">
             <div class="card-tag">DIRECT EXECUTIVE CONTACT · 领衔制片人直联方式</div>
-            <h3 style="font-size:24px; margin-bottom:14px;">Sergey Bondarev · 谢尔盖·邦达列夫</h3>
-            <p style="font-size:15px; color:#E2E8F0; margin-bottom:16px;">
+            <h3 style="font-size:22px; margin-bottom:12px;">Sergey Bondarev · 谢尔盖·邦达列夫</h3>
+            <p style="font-size:14.5px; color:#E2E8F0; margin-bottom:14px;">
               <strong>Showrunner & Lead Producer</strong> — Big Movie Studio
             </p>
 
-            <div class="grid-2" style="gap:14px;">
-              <div style="background:rgba(7,11,18,0.75); padding:14px 16px; border-radius:10px; border:1px solid var(--border-subtle);">
-                <div style="font-size:10.5px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.5px;">OFFICIAL CORPORATE EMAIL · 官方邮箱</div>
-                <div style="font-size:15px; font-weight:700; color:#F97316; margin-top:4px;">sergey@sijicbond.site</div>
-                <div style="font-size:13px; color:#CBD5E1; margin-top:2px;">sijicbond@gmail.com</div>
+            <div class="grid-2" style="gap:12px;">
+              <div style="background:rgba(7,11,18,0.75); padding:12px 14px; border-radius:10px; border:1px solid var(--border-subtle);">
+                <div style="font-size:10px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.4px;">OFFICIAL CORPORATE EMAIL · 官方邮箱</div>
+                <div style="font-size:14.5px; font-weight:700; color:#F97316; margin-top:4px;">sergey@sijicbond.site</div>
+                <div style="font-size:12.5px; color:#CBD5E1; margin-top:2px;">sijicbond@gmail.com</div>
               </div>
 
-              <div style="background:rgba(7,11,18,0.75); padding:14px 16px; border-radius:10px; border:1px solid var(--border-subtle);">
-                <div style="font-size:10.5px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.5px;">WECHAT / PHONE · 微信及电话联系</div>
-                <div style="font-size:15px; font-weight:700; color:#38BDF8; margin-top:4px;">+7 776 800 6262</div>
-                <div style="font-size:12px; color:#CBD5E1; margin-top:2px;">WeChat ID & Direct Line Available on Request</div>
+              <div style="background:rgba(7,11,18,0.75); padding:12px 14px; border-radius:10px; border:1px solid var(--border-subtle);">
+                <div style="font-size:10px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.4px;">WECHAT / PHONE · 微信及电话联系</div>
+                <div style="font-size:14.5px; font-weight:700; color:#38BDF8; margin-top:4px;">+7 776 800 6262</div>
+                <div style="font-size:11.5px; color:#CBD5E1; margin-top:2px;">WeChat ID & Direct Line Available on Request</div>
               </div>
 
-              <div style="background:rgba(7,11,18,0.75); padding:14px 16px; border-radius:10px; border:1px solid var(--border-subtle);">
-                <div style="font-size:10.5px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.5px;">OFFICIAL WEBSITE · 官方网站域名</div>
-                <div style="font-size:15px; font-weight:700; color:#FFFFFF; margin-top:4px;">sijicbond.site</div>
+              <div style="background:rgba(7,11,18,0.75); padding:12px 14px; border-radius:10px; border:1px solid var(--border-subtle);">
+                <div style="font-size:10px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.4px;">OFFICIAL WEBSITE · 官方网站域名</div>
+                <div style="font-size:14.5px; font-weight:700; color:#FFFFFF; margin-top:4px;">sijicbond.site</div>
               </div>
 
-              <div style="background:rgba(7,11,18,0.75); padding:14px 16px; border-radius:10px; border:1px solid var(--border-subtle);">
-                <div style="font-size:10.5px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.5px;">STUDIO HEADQUARTERS · 制片厂地址</div>
-                <div style="font-size:15px; font-weight:700; color:#FFFFFF; margin-top:4px;">Astana, Kazakhstan</div>
-                <div style="font-size:12px; color:#CBD5E1; margin-top:2px;">哈萨克斯坦 · 阿斯塔纳</div>
+              <div style="background:rgba(7,11,18,0.75); padding:12px 14px; border-radius:10px; border:1px solid var(--border-subtle);">
+                <div style="font-size:10px; color:#94A3B8; text-transform:uppercase; letter-spacing:1.4px;">STUDIO HEADQUARTERS · 制片厂地址</div>
+                <div style="font-size:14.5px; font-weight:700; color:#FFFFFF; margin-top:4px;">Astana, Kazakhstan</div>
+                <div style="font-size:11.5px; color:#CBD5E1; margin-top:2px;">哈萨克斯坦 · 阿斯塔纳</div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="col-5">
-          <div class="img-box" style="height:500px; border-color:rgba(56,189,248,0.4);">
-            <img src="https://i.postimg.cc/h4x3wFyB/Risunok1.png" alt="NOT EXTRA Lookbook Poster">
+        <div class="col-5" style="display:flex; flex-direction:column; gap:14px;">
+          <div class="img-box" style="height:245px; border-color:rgba(56,189,248,0.4);">
+            <img src="./public/stills/still_elvira_office.jpg" alt="Guzel Zhan as Elvira">
             <div class="img-caption">
-              NOT EXTRA / 《绝不多余》 — THEATRICAL RELEASE: SPRING 2027 (2027年春季)
+              ACTUAL FILM STILL · 女主角艾尔薇拉（古泽尔·詹 饰）实拍剧照
+            </div>
+          </div>
+          <div class="img-box" style="height:245px; border-color:rgba(249,115,22,0.4);">
+            <img src="./public/stills/still_finish_arch.jpg" alt="Astana Marathon Finish Arch">
+            <div class="img-caption">
+              NOT EXTRA / 《绝不多余》 / 《并非多余》 — SPRING 2027 (2027年春季)
             </div>
           </div>
         </div>
@@ -1195,7 +1238,7 @@
 
     <div class="slide-footer">
       <span>© 2026–2027 BIG MOVIE STUDIO & IBA JANA MEN MOVEMENT · ALL RIGHTS RESERVED</span>
-      <span>THANK YOU · 期待与中国合作伙伴携手共赢</span>
+      <span>THANK YOU · 期待与北京和观映像 (BEIJING HUGOEAST MEDIA) 携手共赢</span>
     </div>
   </section>
 
