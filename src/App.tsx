@@ -1127,14 +1127,14 @@ export default function App() {
             {/* Direct PDF Pitch Deck Download Buttons */}
             <div className="flex flex-wrap gap-3">
               <a
-                href="./Not_Extra_Pitch_Deck_CHINA.pdf"
+                href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="download-china-pdf-btn"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-slate-950 font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#F97316]/25"
               >
                 <FileDown className="w-4 h-4" />
-                <span>{t.sales.downloadChinaDeck} (Not_Extra_Pitch_Deck_CHINA.pdf)</span>
+                <span>{t.sales.downloadChinaDeck} (NOT_EXTRA_CHINA_PITCH_DECK.pdf)</span>
               </a>
               <a
                 href="./NE_LISHNIE_Film_Pitch_Deck_RU.pdf"
@@ -1334,12 +1334,12 @@ export default function App() {
                   <span>{t.hero.ctaTeaser}</span>
                 </button>
                 <a
-                  href="./Not_Extra_Pitch_Deck_CHINA.pdf"
+                  href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-xs font-mono font-bold uppercase tracking-wider text-[#38BDF8]"
                 >
-                  <span>Not_Extra_Pitch_Deck_CHINA.pdf ↗</span>
+                  <span>NOT_EXTRA_CHINA_PITCH_DECK.pdf ↗</span>
                 </a>
               </div>
             </div>
@@ -1420,7 +1420,7 @@ export default function App() {
               </div>
             </div>
           </div>
-          {/* 5. Interactive Visual Presentation Viewer (Not_Extra_Pitch_Deck_CHINA.pdf & «НЕ ЛИШНИЕ» Pitch Deck) */}
+          {/* 5. Interactive Visual Presentation Viewer (NOT_EXTRA_CHINA_PITCH_DECK.pdf & «НЕ ЛИШНИЕ» Pitch Deck) */}
           <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
@@ -1429,18 +1429,18 @@ export default function App() {
                 </div>
                 <h3 className="font-unbounded font-bold text-lg sm:text-2xl text-white mt-1">
                   {lang === 'zh'
-                    ? '《绝不多余》中国区推介手册 (Not_Extra_Pitch_Deck_CHINA.pdf) 预览'
-                    : 'Презентация для Китая (Not_Extra_Pitch_Deck_CHINA.pdf) и Каст-презентация «НЕ ЛИШНИЕ»'}
+                    ? '《绝不多余》 / 《并非多余》中国区推介手册 (NOT_EXTRA_CHINA_PITCH_DECK.pdf) 预览'
+                    : 'Презентация для Китая (NOT_EXTRA_CHINA_PITCH_DECK.pdf) и Каст-презентация «НЕ ЛИШНИЕ»'}
                 </h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 <a
-                  href="./Not_Extra_Pitch_Deck_CHINA.pdf"
+                  href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-4 py-2 rounded-xl bg-[#F97316] text-slate-950 font-unbounded font-bold text-xs uppercase"
                 >
-                  Not_Extra_Pitch_Deck_CHINA.pdf ↗
+                  NOT_EXTRA_CHINA_PITCH_DECK.pdf ↗
                 </a>
                 <a
                   href="./NE_LISHNIE_Film_Pitch_Deck_RU.pdf"
@@ -1454,17 +1454,17 @@ export default function App() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[1, 2, 3, 4, 5, 6, 9, 12].map((sNum) => (
+              {[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12].slice(0, 8).map((sNum) => (
                 <a
                   key={`cn-${sNum}`}
-                  href="./Not_Extra_Pitch_Deck_CHINA.pdf"
+                  href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group rounded-2xl overflow-hidden border border-slate-800 hover:border-[#F97316] bg-slate-950 transition-all"
                 >
                   <img
-                    src={`./slides/cn_slide_${String(sNum).padStart(2, '0')}.png`}
-                    alt={`Not_Extra_Pitch_Deck_CHINA Slide ${sNum}`}
+                    src={`./slides/cn_slide_${String(sNum).padStart(2, '0')}.png?v=5`}
+                    alt={`NOT_EXTRA_CHINA_PITCH_DECK Slide ${sNum}`}
                     className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
@@ -1591,13 +1591,13 @@ export default function App() {
                   </span>
                 </a>
                 <a
-                  href="./Not_Extra_Pitch_Deck_CHINA.pdf"
+                  href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0284C7] text-white font-unbounded font-bold text-xs uppercase tracking-wider"
                 >
                   <FileDown className="w-4 h-4" />
-                  <span>{t.sales.downloadChinaDeck} (Not_Extra_Pitch_Deck_CHINA.pdf)</span>
+                  <span>{t.sales.downloadChinaDeck} (NOT_EXTRA_CHINA_PITCH_DECK.pdf)</span>
                 </a>
               </div>
             </div>
