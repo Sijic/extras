@@ -231,6 +231,7 @@ export default function App() {
   };
 
   const handleJumpToSection = (sectionId: string) => {
+    soundEngine.playUiTick();
     const el = document.getElementById(sectionId);
     if (!el) return;
     if (lenisRef.current) {
@@ -341,7 +342,10 @@ export default function App() {
                   <button
                     key={item.code}
                     type="button"
-                    onClick={() => setLang(item.code)}
+                    onClick={() => {
+                      soundEngine.playUiTick();
+                      setLang(item.code);
+                    }}
                     data-testid={`lang-btn-${item.code}`}
                     className={`px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold tracking-wider transition-all ${
                       active
@@ -615,7 +619,11 @@ export default function App() {
                 min={0}
                 max={100}
                 value={Math.round(laceProgress * 100)}
-                onChange={(e) => setLaceProgress(Number(e.target.value) / 100)}
+                onChange={(e) => {
+                  const val = Number(e.target.value) / 100;
+                  setLaceProgress(val);
+                  soundEngine.playShoelacePull(val);
+                }}
                 aria-label="Tighten shoelace knot"
                 className="w-full h-1 bg-[#2A221E] rounded-full appearance-none cursor-pointer accent-[#E85D04]"
               />
@@ -698,7 +706,10 @@ export default function App() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-xl overflow-hidden mt-8">
                 <button
                   type="button"
-                  onClick={() => setScaleTilt(-14)}
+                  onClick={() => {
+                    setScaleTilt(-14);
+                    soundEngine.playScaleTilt('left');
+                  }}
                   className="text-left p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
                 >
                   <div className="font-mono text-[10px] font-bold tracking-[0.2em] text-[#E85D04] uppercase mb-2">
@@ -709,7 +720,10 @@ export default function App() {
 
                 <button
                   type="button"
-                  onClick={() => setScaleTilt(14)}
+                  onClick={() => {
+                    setScaleTilt(14);
+                    soundEngine.playScaleTilt('right');
+                  }}
                   className="text-left p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
                 >
                   <div className="font-mono text-[10px] font-bold tracking-[0.2em] text-[#FFEDD7] uppercase mb-2">
@@ -841,7 +855,10 @@ export default function App() {
                 <button
                   key={st.id}
                   type="button"
-                  onClick={() => setActiveTrackIdx(idx)}
+                  onClick={() => {
+                    soundEngine.playUiTick();
+                    setActiveTrackIdx(idx);
+                  }}
                   className={`text-left p-5 transition-colors relative ${
                     active ? 'bg-[#171210]' : 'bg-[#0C0908] hover:bg-[#130E0C]'
                   }`}
