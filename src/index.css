@@ -2,39 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-void: #0B0807;
+  --bg-plinth: #130F0D;
+  --bg-elevated: #1A1411;
+  --ink-cream: #FBF3E8;
+  --ink-warm: #E9DEC9;
+  --ink-muted: #9E948B;
+  --ink-dim: #6C635C;
+  --accent-ember: #E85D04;
+  --accent-brass: #D4A373;
+  --hairline: rgba(255, 237, 215, 0.10);
+  --hairline-strong: rgba(255, 237, 215, 0.18);
+  --hairline-dashed: rgba(255, 237, 215, 0.16);
+}
+
 @layer base {
   body {
-    background-color: #090D16;
-    color: #F1F5F9;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-void);
+    color: var(--ink-cream);
+    font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.01em;
   }
 }
 
 .font-unbounded {
-  font-family: 'Unbounded', 'Inter', sans-serif;
+  font-family: 'Unbounded', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
-.font-bebas {
-  font-family: 'Bebas Neue', 'Inter', sans-serif;
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* Subtle cinematic film grain */
-.film-grain {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
+/* ORYZO / Lusion darkroom dashed architectural dividers */
+.hairline-dashed {
+  border-top: 1px dashed var(--hairline-dashed);
 }
 
-/* Custom scrollbar */
+.hairline-dashed-b {
+  border-bottom: 1px dashed var(--hairline-dashed);
+}
+
+/* Zero-FPS-cost 35mm cinema film grain veil */
+.cinema-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* Custom precision darkroom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #090D16;
+  background: #0B0807;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1E293B;
-  border-radius: 4px;
+  background: #2B231E;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #F97316;
+  background: #E85D04;
 }

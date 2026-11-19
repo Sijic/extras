@@ -1,5 +1,4 @@
 import React from 'react';
-import { HeartPulse, Footprints, Weight } from 'lucide-react';
 import { Lang } from '../data/filmData';
 
 interface SosHudWidgetProps {
@@ -31,98 +30,82 @@ export const SosHudWidget: React.FC<SosHudWidgetProps> = ({
       : `${weightNum} KG`;
 
   const phases = [
-    { id: 'hero', label: 'ACT I', km: '0.0' },
-    { id: 'scales', label: 'ACT II', km: '14.5' },
-    { id: 'track', label: 'ACT III', km: '42.2' },
-    { id: 'sales', label: 'B2B', km: 'BUY' },
+    { id: 'hero', label: 'I' },
+    { id: 'scales', label: 'II' },
+    { id: 'track', label: 'III' },
+    { id: 'sales', label: 'B2B' },
   ];
 
   return (
     <div
       data-testid="sos-hud-widget"
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-[250px] sm:w-[285px] rounded-2xl bg-[#090D16]/90 backdrop-blur-xl border border-slate-700/80 shadow-2xl p-3.5 sm:p-4 select-none transition-colors"
+      className="fixed bottom-3.5 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 max-w-[calc(100vw-24px)] rounded-full bg-[#110D0B]/92 backdrop-blur-xl px-3.5 sm:px-5 py-2 select-none transition-all duration-300"
       style={{
-        borderColor: isSos ? 'rgba(249, 115, 22, 0.85)' : 'rgba(51, 65, 85, 0.85)',
+        border: isSos
+          ? '1px solid rgba(232, 93, 4, 0.8)'
+          : '1px solid rgba(255, 237, 215, 0.14)',
         boxShadow: isSos
-          ? '0 0 28px rgba(249, 115, 22, 0.28), inset 0 1px 0 rgba(255,255,255,0.12)'
-          : '0 12px 32px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255,255,255,0.08)',
+          ? '0 10px 36px rgba(232, 93, 4, 0.25), inset 0 1px 0 rgba(255, 237, 215, 0.08)'
+          : '0 14px 36px rgba(0, 0, 0, 0.72), inset 0 1px 0 rgba(255, 237, 215, 0.06)',
       }}
     >
-      {/* Top Watch Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-2 mb-2.5">
-        <div className="flex items-center gap-1.5">
-          <span
-            className={`w-2 h-2 rounded-full ${
-              isSos ? 'bg-red-500 animate-ping' : 'bg-[#F97316] animate-pulse'
-            }`}
-          />
-          <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-slate-300">
-            ARTYOM SOS-WATCH
-          </span>
-        </div>
-        <span
-          className={`font-mono text-[10px] font-extrabold px-1.5 py-0.5 rounded ${
-            isSos
-              ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-              : 'bg-slate-800 text-[#38BDF8]'
-          }`}
-        >
-          {isSos ? 'SOS ALERT' : 'BIOMETRIC'}
-        </span>
-      </div>
+      <div className="flex items-center gap-3 sm:gap-5">
+        {/* Live SOS Status Dot + Telemetry Counters */}
+        <div className="flex items-center gap-2.5 sm:gap-4 font-mono text-[10px] sm:text-[11px] tracking-wider whitespace-nowrap">
+          <div className="flex items-center gap-1.5">
+            <span
+              className={`w-2 h-2 rounded-full ${
+                isSos ? 'bg-[#E85D04] animate-ping' : 'bg-[#E85D04]'
+              }`}
+            />
+            <span className="text-[#9E948B] hidden md:inline uppercase">SOS-WATCH</span>
+          </div>
 
-      {/* 3 Live Telemetry Counters */}
-      <div className="grid grid-cols-3 gap-2 text-center mb-3">
-        <div className="bg-slate-950/90 border border-slate-800/90 rounded-xl p-2">
-          <div className="flex items-center justify-center gap-1 text-[9px] text-slate-400 uppercase font-mono">
-            <Footprints className="w-2.5 h-2.5 text-[#38BDF8]" />
-            <span>DIST</span>
-          </div>
-          <div className="font-unbounded font-extrabold text-xs sm:text-sm text-[#38BDF8] mt-0.5">
-            {km}
-          </div>
-          <div className="text-[8px] font-mono text-slate-500">OF 42.2 KM</div>
-        </div>
+          <span className="text-[#FFEDD7]/20 hidden md:inline">|</span>
 
-        <div className="bg-slate-950/90 border border-slate-800/90 rounded-xl p-2">
-          <div className="flex items-center justify-center gap-1 text-[9px] text-slate-400 uppercase font-mono">
-            <Weight className="w-2.5 h-2.5 text-[#F97316]" />
-            <span>ARMOR</span>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[#FBF3E8] font-bold">{km}</span>
+            <span className="text-[#7E746B] text-[9px]">/ 42.2 KM</span>
           </div>
-          <div className="font-unbounded font-extrabold text-xs sm:text-sm text-white mt-0.5 truncate">
-            {weightDisplay}
+
+          <span className="text-[#FFEDD7]/20">|</span>
+
+          <div className="flex items-baseline gap-1">
+            <span className="text-[#D4A373] font-bold">{weightDisplay}</span>
           </div>
-          <div className="text-[8px] font-mono text-slate-500">INERTIA</div>
+
+          <span className="text-[#FFEDD7]/20">|</span>
+
+          <div className="flex items-baseline gap-1">
+            <span className={`font-bold ${isSos ? 'text-[#E85D04]' : 'text-[#FBF3E8]'}`}>
+              {bpm}
+            </span>
+            <span className={`text-[9px] ${isSos ? 'text-[#E85D04] font-bold' : 'text-[#7E746B]'}`}>
+              {isSos ? 'SOS' : 'BPM'}
+            </span>
+          </div>
         </div>
 
-        <div className="bg-slate-950/90 border border-slate-800/90 rounded-xl p-2">
-          <div className="flex items-center justify-center gap-1 text-[9px] text-slate-400 uppercase font-mono">
-            <HeartPulse className="w-2.5 h-2.5 text-red-400" />
-            <span>PULSE</span>
-          </div>
-          <div
-            className={`font-unbounded font-extrabold text-xs sm:text-sm mt-0.5 ${
-              isSos ? 'text-red-400' : 'text-[#F97316]'
-            }`}
-          >
-            {bpm}
-          </div>
-          <div className="text-[8px] font-mono text-slate-500">BPM</div>
-        </div>
-      </div>
+        {/* Hairline Separator */}
+        <div className="w-px h-4 bg-[#FFEDD7]/15 hidden sm:block" />
 
-      {/* Tactile Phase Jump Buttons */}
-      <div className="grid grid-cols-4 gap-1">
-        {phases.map((ph) => (
-          <button
-            key={ph.id}
-            type="button"
-            onClick={() => onJumpToSection(ph.id)}
-            className="px-1.5 py-1 rounded-lg bg-slate-900 hover:bg-[#F97316] text-slate-300 hover:text-slate-950 border border-slate-800 font-mono text-[9px] font-bold uppercase tracking-wider transition-colors text-center"
-          >
-            {ph.label}
-          </button>
-        ))}
+        {/* Compact Tactile Act Jump Pills */}
+        <div className="hidden sm:flex items-center gap-1">
+          {phases.map((ph) => (
+            <button
+              key={ph.id}
+              type="button"
+              onClick={() => onJumpToSection(ph.id)}
+              className={`px-2 py-0.5 rounded-full font-mono text-[10px] font-medium tracking-wider transition-colors ${
+                ph.id === 'sales'
+                  ? 'text-[#E85D04] hover:bg-[#E85D04] hover:text-[#0B0807] border border-[#E85D04]/40'
+                  : 'text-[#A69B91] hover:text-[#FBF3E8] hover:bg-[#FFEDD7]/10'
+              }`}
+            >
+              {ph.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

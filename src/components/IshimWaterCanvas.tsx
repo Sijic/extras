@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 interface IshimWaterCanvasProps {
-  shatterProgress: number; // 0 = sunlit Ishim river, 1 = shattered cold concrete #090D16
+  shatterProgress: number; // 0 = warm golden Ishim river mirage, 1 = darkroom raw concrete #0B0807
 }
 
 export const IshimWaterCanvas: React.FC<IshimWaterCanvasProps> = ({ shatterProgress }) => {
@@ -26,52 +26,53 @@ export const IshimWaterCanvas: React.FC<IshimWaterCanvasProps> = ({ shatterProgr
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
     window.addEventListener('resize', resize, { passive: true });
 
     const render = () => {
-      time += 0.018;
+      time += 0.014;
       const w = window.innerWidth;
       const h = window.innerHeight;
       const s = Math.max(0, Math.min(1, progressRef.current));
 
-      // Interpolate background from warm sunlit Ishim reflection to cold stadium concrete #090D16
-      const rBg = Math.round(24 - s * 15);
-      const gBg = Math.round(36 - s * 23);
-      const bBg = Math.round(58 - s * 36);
+      // Interpolate darkroom canvas from warm twilight walnut (#1A120D) to deep obsidian (#0B0807)
+      const rBg = Math.round(26 - s * 15);
+      const gBg = Math.round(18 - s * 10);
+      const bBg = Math.round(13 - s * 6);
       ctx.fillStyle = `rgb(${rBg}, ${gBg}, ${bBg})`;
       ctx.fillRect(0, 0, w, h);
 
-      // Sunlit water caustics (fades as shatterProgress increases)
+      // Subtle warm sunlight Ishim caustics (warm cream & ember gold, zero cheap neon cyan)
       if (s < 0.92) {
-        const waveAlpha = (1 - s) * 0.22;
-        for (let i = 0; i < 14; i++) {
-          const yBase = (h / 14) * i;
+        const waveAlpha = (1 - s) * 0.14;
+        for (let i = 0; i < 12; i++) {
+          const yBase = (h / 12) * i;
           ctx.beginPath();
-          for (let x = 0; x <= w; x += 48) {
+          for (let x = 0; x <= w; x += 56) {
             const yOffset =
-              Math.sin(x * 0.008 + time + i * 0.6) * (14 * (1 - s * 0.7)) +
-              Math.cos(x * 0.015 - time * 1.2 + i) * 6;
+              Math.sin(x * 0.007 + time + i * 0.65) * (12 * (1 - s * 0.65)) +
+              Math.cos(x * 0.013 - time * 1.1 + i) * 5;
             if (x === 0) ctx.moveTo(x, yBase + yOffset);
             else ctx.lineTo(x, yBase + yOffset);
           }
-          ctx.strokeStyle = i % 2 === 0
-            ? `rgba(249, 115, 22, ${waveAlpha})`
-            : `rgba(56, 189, 248, ${waveAlpha * 0.85})`;
-          ctx.lineWidth = 1.6;
+          ctx.strokeStyle =
+            i % 3 === 0
+              ? `rgba(232, 93, 4, ${waveAlpha})`
+              : `rgba(255, 237, 215, ${waveAlpha * 0.55})`;
+          ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
 
-      // Cold concrete industrial grid & orange vest pulse when shattered
+      // Precision darkroom concrete hairlines when shattered
       if (s > 0.12) {
-        const concreteAlpha = Math.min(1, (s - 0.12) / 0.88) * 0.18;
-        ctx.strokeStyle = `rgba(148, 163, 184, ${concreteAlpha * 0.45})`;
+        const concreteAlpha = Math.min(1, (s - 0.12) / 0.88) * 0.09;
+        ctx.strokeStyle = `rgba(255, 237, 215, ${concreteAlpha})`;
         ctx.lineWidth = 1;
-        const step = 72;
+        const step = 96;
         for (let x = 0; x < w; x += step) {
           ctx.beginPath();
           ctx.moveTo(x, 0);

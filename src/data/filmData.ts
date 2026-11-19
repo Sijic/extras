@@ -404,7 +404,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'IBA JANA MEN қозғалысының негізін қалаушы және фильмнің бас продюсері. Кадрда өз рөлін сомдап, жез таразы философиясы арқылы кейіпкерлердің рухын оятады.',
       zh: 'IBA JANA MEN 真实减重公益运动创始人兼总制片人。在片中本色出演铁血而慈悲的导师艾特姆，其“黄铜天平”戏份是全片的精神内核。',
     },
-    photo: 'https://i.postimg.cc/DZhTS3n7/Ajtym1.jpg',
+    photo: './crew/aitym.jpg',
   },
   {
     name: {
@@ -425,7 +425,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Түпнұсқа идея авторы, шоураннер және Big Movie Studio жетекші продюсері. 60-тан астам жобаның авторы, өндіріс пен халықаралық дистрибуцияны басқарады.',
       zh: '原创故事概念发起人、剧集总监兼 Big Movie Studio 领衔制片人。拥有60余部影视制作经验，全面统筹本片创意、万人马拉松实景拍摄及国际发行合作。',
     },
-    photo: 'https://i.postimg.cc/cJvYY3h6/IMAGE-FILE-CACHE-PROFILE-PROVIDER.gif',
+    photo: './crew/sergey_bondarev.gif',
     link: 'https://www.kinopoisk.ru/name/10238377/',
     linkLabel: 'Kinopoisk ↗',
   },
@@ -448,7 +448,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: '«Я худею», «Толя-робот» және «Физрук» хиттерінің сценарий авторы. Теміртау тумасы ретінде терең драма мен жарқын драмедиді шебер ұштастырған.',
       zh: '现象级励志喜剧大片《我是如何减肥的》(I Am Losing Weight) 王牌编剧，出生于铁米尔套，深谙大众情感共鸣与商业叙事节奏。',
     },
-    photo: 'https://i.postimg.cc/j2SRwH6m/majer-konstantin.jpg',
+    photo: './crew/konstantin_mayer.jpg',
     link: 'https://www.kinopoisk.ru/name/2206458/',
     linkLabel: 'Kinopoisk ↗',
   },
@@ -471,7 +471,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Қаржылық жоспарлауды, заңдық базаны және Астанадағы түсірілім логистикасын басқарады.',
       zh: '全面负责影片预算管控、法务合规、阿斯塔纳市政协调及大型实景拍摄执行。',
     },
-    photo: 'https://i.postimg.cc/MZv4T31H/Bahyt.png',
+    photo: './crew/bakhytzhan_kunshashova.png',
   },
   {
     name: {
@@ -492,7 +492,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Қазақстандық режиссер әрі драматург («Борышкер», «Іңкәр»), психологиялық драма шебері.',
       zh: '哈萨克斯坦知名导演兼剧作家（代表作《债务人》《阿斯塔纳故事》），擅长细腻动人的现实主义情感表达。',
     },
-    photo: 'https://i.postimg.cc/pXMv5ZWC/Rezisser.jpg',
+    photo: './crew/rasul_sharafeddinov.jpg',
     link: 'https://www.kinopoisk.ru/name/6874809/',
     linkLabel: 'Kinopoisk ↗',
   },
@@ -515,7 +515,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Халықаралық деңгейдегі қоюшы-оператор әрі продюсер («DOMM», «Blue Escape», «КоКе», «Omir»).',
       zh: '国际级摄影指导兼制片人（曾参与好莱坞、印度及HBO项目），以极具冲击力的镜头语言构建全片色彩演进。',
     },
-    photo: 'https://i.postimg.cc/PJX1CRRL/600x900-(2).png',
+    photo: './crew/mikhail_siryanov.png',
     link: 'https://www.kinopoisk.ru/name/7080215/',
     linkLabel: 'Kinopoisk ↗',
   },
@@ -538,7 +538,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Ірі халықаралық экшен-жобалардың тәжірибелі екінші режиссері.',
       zh: '资深国际动作片第一副导演，精准把控万人马拉松实景跟拍与特技调度。',
     },
-    photo: 'https://i.postimg.cc/tJkmnQdg/1st.jpg',
+    photo: './crew/elena_begaidarova.jpg',
   },
   {
     name: {
@@ -559,7 +559,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: '25 жылдық тәжірибесі бар «Жыл дыбыс режиссері», фильмнің ASMR дыбыстық әлемін жасаушы.',
       zh: '从业25年的“年度最佳声音指导”，打造出极具生理沉浸感的呼吸声、鞋带摩擦与心率警报声学空间。',
     },
-    photo: 'https://i.postimg.cc/Prhdwkyv/fetisov.png',
+    photo: './crew/evgeny_fetisov.png',
   },
   {
     name: {
@@ -580,7 +580,7 @@ export const KEY_CREW_DATA: KeyCrewMember[] = [
       kk: 'Кейіпкердің киім мен грим эволюциясын жасаған жетекші шебер.',
       zh: '顶尖造型与服装设计指导，细腻呈现男主角从球场清洁工服到蓝色马拉松战袍的视觉蜕变。',
     },
-    photo: 'https://i.postimg.cc/zBZG2HCd/andrej.png',
+    photo: './crew/andrey_tsirulnik.png',
   },
 ];
 
@@ -658,7 +658,7 @@ export const HORIZONTAL_TRACK_STAGES = [
       kk: 'Стадион трибунасы астындағы қараңғылық (#090D16). Расулдың тар бөлмесінде Джеки Чан мен Брюс Лидің постерлері ілінген. Түнгі жолақта шешілген бау қайғылы оқиғаға әкеліп соғады.',
       zh: '体育场看台下的深灰幽闭空间（#090D16）。拉苏尔狭窄的房间墙上贴满80年代成龙与李小龙的香港动作片海报——这是他唯一的精神寄托。深夜跑道上散落的鞋带引发意外悲剧，跑者阿尔乔姆哮喘身亡，留下尖叫报警的SOS心率表与训练日记。',
     },
-    image: 'https://i.postimg.cc/Z54244Kw/Kamorka2.jpg',
+    image: './stills/still_stadium_vest.jpg',
   },
   {
     id: 'stage-2',
@@ -680,7 +680,7 @@ export const HORIZONTAL_TRACK_STAGES = [
       kk: '«Артық емес» лагерінде кадр #F97316 қызғылт сары энергияға толады. Басты рөлдегі Ерсұлтан Уаис түсірілім кезінде JANA MEN лагерінде нақты медициналық бақылаумен салмақ тастады.',
       zh: '进入“绝不多余”减重训练营，画面燃起 #F97316 的热血橙色。男主角叶尔苏丹·乌艾斯在拍摄期间于真实的 JANA MEN 训练营接受医学监督减重，汗水与肌肉颤抖100%真实（宛如《热辣滚烫》的极限蜕变）。导师艾特姆以黄铜天平叩问内心，艾尔薇拉教会他系紧人生第一个双结。',
     },
-    image: 'https://i.postimg.cc/GpC8BDZY/Whats-App-Image-2026-03-09-at-16.jpg',
+    image: './stills/still_rasul_aitym_camp.jpg',
   },
   {
     id: 'stage-3',
@@ -702,7 +702,7 @@ export const HORIZONTAL_TRACK_STAGES = [
       kk: 'Артемнің қызы Юля әкесінің алаяқ болғанын айтып, күнделік аңызын талқандайды. Бірақ көк марафон күртешесі (#0284C7) Расулдың кеудесіне дәл қонып, ол мыңдаған нақты марафоншылардың ағынына қосылады.',
       zh: '尤莉亚揭穿父亲阿尔乔姆实为骗子的真相，精神偶像轰然倒塌。但那件蓝色马拉松战袍（#0284C7）终于在拉苏尔胸前拉上了拉链。他从训练营雨棚跃下，汇入阿斯塔纳官方马拉松数千名真实跑者的滚滚洪流。',
     },
-    image: 'https://i.postimg.cc/kM2w6vnj/Krosovki.png',
+    image: './stills/still_astana_marathon_crowd.jpg',
   },
   {
     id: 'stage-4',
@@ -724,7 +724,7 @@ export const HORIZONTAL_TRACK_STAGES = [
       kk: 'Пульсометр 188 BPM (SOS) соғады. Мәре аркасына 10 метр қалғанда Расул балалық шақ қорқынышын жеңіп, медальдан бас тартады да, демікпеден құлаған Юляны ингалятормен құтқару үшін кері жүреді.',
       zh: '心率表飙升至188 BPM发出刺耳SOS警报。在距离终点拱门仅10米处，拉苏尔战胜了童年继父的梦魇。睁开眼面对触手可及的奖牌，他却毅然背对终点逆流而回，用吸入器救下哮喘发作倒地的尤莉亚，找回了自己的真名“拉苏尔”。',
     },
-    image: 'https://i.postimg.cc/zXjjHmcf/finis.jpg',
+    image: './stills/still_finish_arch.jpg',
   },
 ];
 
@@ -819,7 +819,7 @@ export const I18N = {
     sales: {
       tag: 'СЦЕНА 05 · ЗАКРЫТЫЙ ПРОДЮСЕРСКИЙ ТЕРМИНАЛ (B2B BUYERS ROOM)',
       title: 'International Sales, Greater China & Festival Desk',
-      sub: 'Официальный B2B-паспорт проекта, дорожная карта постпродакшна, музыкальное предложение и прямые контакты для закупщиков (Beijing Hugoeast Media & мировых дистрибьюторов).',
+      sub: 'Официальный B2B-паспорт проекта, дорожная карта постпродакшна, музыкальное предложение и прямые контакты для дистрибьюторов Большого Китая и международных закупщиков.',
       specsTitle: 'Инженерный паспорт проекта (Technical & Market Specs)',
       roadmapTitle: 'Интерактивная шкала готовности (Post-Production Roadmap)',
       dealTitle: 'Условия сделки и открытые права (Commercial Terms & Rights)',
@@ -899,7 +899,7 @@ export const I18N = {
     sales: {
       tag: 'SCENE 05 · B2B PRODUCER TERMINAL (INTERNATIONAL SALES & BUYERS ROOM)',
       title: 'International Sales, Greater China & Festival Desk',
-      sub: 'Engineered for Beijing Hugoeast Media, major Mainland Chinese distributors, international buyers, and festival programmers.',
+      sub: 'Engineered for Mainland China, Hong Kong, Macau & Taiwan distributors, international buyers, and festival programmers.',
       specsTitle: 'Technical & Market Passport (Engineering Grid)',
       roadmapTitle: 'Post-Production & Delivery Roadmap (2026–2027)',
       dealTitle: 'Commercial Partnership & Available Rights',
@@ -1002,7 +1002,7 @@ export const I18N = {
     title: '《绝不多余》 (NOT EXTRA)',
     subTitle: 'NOT EXTRA · 励志体育轻喜剧 / 剧情片 · 哈萨克斯坦',
     genre: '励志体育轻喜剧 / 剧情片 (Inspirational Sports Dramedy)',
-    statusPill: '后期制作阶段（粗剪已完成 / ROUGH CUT STAGE）',
+    statusPill: '后期制作阶段（粗剪进行中 / ROUGH CUT IN PROGRESS）',
     releasePill: '院线公映档期：2027年春季（3月至5月）',
     soundOn: '开启沉浸音效 · ASMR',
     soundOff: '静音模式',
@@ -1057,17 +1057,17 @@ export const I18N = {
       collapseCredits: '收起完整演职员表',
     },
     sales: {
-      tag: '第五幕 · 大中华区及国际买方专属终端 (BUYERS ROOM · BEIJING HUGOEAST MEDIA)',
+      tag: '第五幕 · 大中华区及国际买方专属终端 (GREATER CHINA BUYERS ROOM)',
       title: '大中华区版权合作、后期进度与联合宣发方案',
-      sub: '专为北京聚合影联 (Beijing Hugoeast Media) 及中国大陆主流院线发行方定制的B2B审片与商务中心。',
+      sub: '专为大中华区（中国大陆、港澳台）主流院线及新媒体发行伙伴定制的B2B审片与商务中心。',
       specsTitle: '影片技术规格与发行参数 (Technical & Market Specs)',
       roadmapTitle: '后期制作与母带交付时间表 (Post-Production Roadmap)',
       dealTitle: '大中华区版权开放范围与合作模式 (Commercial Partnership)',
       dealBody:
         '全面开放中国大陆、中国香港、中国澳门及中国台湾地区全媒体版权（院线发行、流媒体VOD/SVOD、电视及航空衍生版权）。在当前粗剪阶段（Rough Cut），支持签订早期预购协议（Pre-Buy）、联合发行（Co-Distribution）或合作备忘录（MOU），并为认证买方开放内部全片粗剪审片链接。',
-      musicTitle: '旗舰音乐联合宣发：《Я это ты》(我是你) × 迪玛希 (Dimash) 中文版定制',
+      musicTitle: '旗舰音乐联合宣发："Ya Eto Ty" ("I Am You" / 《我是你》) × 迪玛希 (Dimash)',
       musicBody:
-        '剧组已正式获得传奇歌手穆拉特·纳asy罗夫经典金曲《Я это ты》（《我是你》/ I Am You）的官方改编授权。中国合作方专属权益：可联合制作并特邀在中国极具国民度的哈萨克斯坦国宝级歌手迪玛希（Dimash Qudaibergen）或中国一线歌手录制专属中文版/双语版主题曲，引爆全网短视频与院线宣发。',
+        '剧组已正式获得传奇歌手穆拉特·纳西罗夫经典金曲 "Ya Eto Ty" ("I Am You" / 《我是你》) 的官方改编授权。中国合作方专属权益：可联合制作并特邀在中国极具国民度的哈萨克斯坦国宝级歌手迪玛希（Dimash Qudaibergen）或中国一线歌手录制专属中文版/双语版主题曲，引爆全网短视频与院线宣发。',
       screeningRoomTitle: '3分钟中文字幕粗剪推介片审片室 (Reference Promo Screening Room)',
       disclaimerBadge: 'Work-in-Progress Rough Cut Reference — Temp Un-cleared Music for Tonal Preview Only',
       disclaimerText:

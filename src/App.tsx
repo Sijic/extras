@@ -22,11 +22,11 @@ import {
   ShieldCheck,
   Disc,
   Film,
-  Compass,
   Eye,
   Award,
   CheckCircle2,
   Clock,
+  ArrowUpRight,
 } from 'lucide-react';
 import {
   Lang,
@@ -52,7 +52,6 @@ const LANG_BUTTONS: Array<{ code: Lang; label: string }> = [
 ];
 
 export default function App() {
-  // Detect ?market=cn or saved language
   const [isChinaMarketUrl, setIsChinaMarketUrl] = useState<boolean>(false);
   const [lang, setLang] = useState<Lang>(() => {
     try {
@@ -74,7 +73,7 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [heroShatter, setHeroShatter] = useState<number>(0);
   const [laceProgress, setLaceProgress] = useState<number>(0);
-  const [scaleTilt, setScaleTilt] = useState<number>(-14); // degrees (-18 to +18)
+  const [scaleTilt, setScaleTilt] = useState<number>(-14);
   const [xrayCoords, setXrayCoords] = useState<{ x: number; y: number }>({ x: 260, y: 140 });
   const [mobileXraySlider, setMobileXraySlider] = useState<number>(52);
   const [activeTrackIdx, setActiveTrackIdx] = useState<number>(0);
@@ -113,7 +112,7 @@ export default function App() {
     }
     document.documentElement.lang = lang;
     if (lang === 'zh') {
-      document.title = '《绝不多余》 (NOT EXTRA) — 官方互动网站与大中华区发行专区 (2027春季)';
+      document.title = '《绝不多余》 / 《并非多余》 (NOT EXTRA) — 官方互动网站与大中华区发行专区 (2027春季)';
     } else if (lang === 'en') {
       document.title = 'NOT EXTRA — Official Interactive Film Experience (Spring 2027)';
     } else if (lang === 'kk') {
@@ -123,7 +122,7 @@ export default function App() {
     }
   }, [lang]);
 
-  // Initialize Lenis smooth scroll with dynamic weight physics + GSAP ScrollTrigger sync
+  // Lenis smooth scroll with dynamic weight physics + GSAP ScrollTrigger sync
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.5,
@@ -139,16 +138,11 @@ export default function App() {
       setScrollProgress(prog);
       soundEngine.setScrollProgress(prog);
 
-      // Kinetic typography reaction to scroll velocity
       setTitleWeightVar({
-        tracking: Math.max(-2, Math.min(8, Math.abs(vel) * 0.45)),
-        skew: Math.max(-4, Math.min(4, vel * 0.12)),
+        tracking: Math.max(-2, Math.min(7, Math.abs(vel) * 0.4)),
+        skew: Math.max(-3, Math.min(3, vel * 0.1)),
       });
 
-      // Dynamic weight inertia:
-      // First 25% of page feels heavy/viscous (207 kg body physics)
-      // Middle feels balanced
-      // Marathon track feels fast & responsive
       const lenisInternal = lenis as unknown as { options?: { wheelMultiplier?: number; duration?: number } };
       if (lenisInternal.options) {
         if (prog < 0.25) {
@@ -171,7 +165,6 @@ export default function App() {
     };
     rafId = requestAnimationFrame(raf);
 
-    // Check direct hash navigation (e.g. /#sales) on initial load
     if (window.location.hash) {
       const targetId = window.location.hash.replace('#', '');
       setTimeout(() => {
@@ -188,7 +181,7 @@ export default function App() {
     };
   }, []);
 
-  // Setup GSAP ScrollTriggers for Scene 1 (Hero Shatter), Scene 2 (Shoelace Knot), Scene 4 (42.2km Track)
+  // GSAP ScrollTriggers for Scene 1 (Hero Shatter), Scene 2 (Shoelace Knot), Scene 4 (42.2km Track)
   useEffect(() => {
     const ctx = gsap.context(() => {
       if (heroSectionRef.current) {
@@ -265,71 +258,71 @@ export default function App() {
   const currentTrackStage = HORIZONTAL_TRACK_STAGES[activeTrackIdx];
 
   return (
-    <div className="min-h-screen bg-[#090D16] text-slate-100 overflow-x-hidden relative selection:bg-[#F97316] selection:text-slate-950">
-      {/* Sticky Glassmorphic Top Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#090D16]/80 backdrop-blur-xl border-b border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
-          {/* Logo & Working/Export Title */}
+    <div className="min-h-screen bg-[#0B0807] text-[#FBF3E8] overflow-x-hidden relative selection:bg-[#E85D04] selection:text-[#0B0807]">
+      {/* Subtle 35mm Cinema Grain Overlay (0 FPS cost) */}
+      <div className="fixed inset-0 cinema-grain pointer-events-none z-30 opacity-60" aria-hidden="true" />
+
+      {/* Minimalist Darkroom Slate Top Navigation (ORYZO / Lusion × Linear) */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0B0807]/82 backdrop-blur-xl border-b border-[#FFEDD7]/10">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-3">
+          {/* Minimalist Film Slate Monogram */}
           <a
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
               handleJumpToSection('hero');
             }}
-            className="flex items-center gap-2.5 group min-w-0"
+            className="flex items-center gap-3 group min-w-0"
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#F97316] to-[#0284C7] p-[1.5px] flex-shrink-0 shadow-lg shadow-[#F97316]/20">
-              <div className="w-full h-full bg-[#090D16] rounded-[10px] flex items-center justify-center font-unbounded font-black text-xs text-white group-hover:bg-transparent transition-colors">
-                42.2
-              </div>
+            <div className="w-8 h-8 rounded-full border border-[#FFEDD7]/25 group-hover:border-[#E85D04] flex items-center justify-center font-mono font-bold text-[10px] text-[#FFEDD7] group-hover:text-[#E85D04] transition-colors flex-shrink-0">
+              42.2
             </div>
             <div className="truncate">
-              <div className="font-unbounded font-extrabold text-xs sm:text-base text-white tracking-wider truncate">
+              <div className="font-unbounded font-bold text-xs sm:text-sm text-[#FBF3E8] tracking-[0.14em] uppercase truncate">
                 {t.title}
               </div>
-              <div className="text-[10px] text-slate-400 tracking-widest uppercase hidden md:block truncate">
-                Big Movie Studio × JANA MEN
+              <div className="font-mono text-[9px] text-[#8E847C] tracking-[0.22em] uppercase hidden md:block truncate">
+                BIG MOVIE STUDIO · JANA MEN
               </div>
             </div>
           </a>
 
-          {/* Scrollytelling Scene Navigation */}
-          <nav className="hidden xl:flex items-center gap-6 text-[11px] font-bold uppercase tracking-widest text-slate-300">
-            <button onClick={() => handleJumpToSection('hero')} className="hover:text-[#F97316] transition-colors">
+          {/* Quiet Uppercase Editorial Navigation */}
+          <nav className="hidden xl:flex items-center gap-7 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-[#A69B91]">
+            <button onClick={() => handleJumpToSection('hero')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.hero}
             </button>
-            <button onClick={() => handleJumpToSection('lace')} className="hover:text-[#F97316] transition-colors">
+            <button onClick={() => handleJumpToSection('lace')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.lace}
             </button>
-            <button onClick={() => handleJumpToSection('scales')} className="hover:text-[#F97316] transition-colors">
+            <button onClick={() => handleJumpToSection('scales')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.scales}
             </button>
-            <button onClick={() => handleJumpToSection('track')} className="hover:text-[#38BDF8] transition-colors">
+            <button onClick={() => handleJumpToSection('track')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.track}
             </button>
-            <button onClick={() => handleJumpToSection('cast')} className="hover:text-[#F97316] transition-colors">
+            <button onClick={() => handleJumpToSection('cast')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.cast}
             </button>
             <a
               href="#sales"
               onClick={() => handleJumpToSection('sales')}
-              className="px-3 py-1.5 rounded-lg bg-[#0284C7]/20 border border-[#0284C7]/50 text-[#38BDF8] hover:bg-[#0284C7] hover:text-white transition-all"
+              className="px-3.5 py-1.5 rounded-full border border-[#E85D04]/55 text-[#E85D04] hover:bg-[#E85D04] hover:text-[#0B0807] transition-all"
             >
               {t.nav.sales}
             </a>
           </nav>
 
-          {/* Right Controls: Procedural Sound Toggle + 4-Language Switcher (RU / EN / KK / 中文) */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
-            {/* Web Audio API Toggle */}
+          {/* Right Precision Controls: Procedural Web Audio + 4-Language Switcher */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             <button
               type="button"
               onClick={handleToggleSound}
               data-testid="sound-toggle-btn"
-              className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider transition-all ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border font-mono text-[10px] font-medium uppercase tracking-[0.14em] transition-all ${
                 soundEnabled
-                  ? 'bg-[#F97316]/20 border-[#F97316] text-[#F97316] shadow-md shadow-[#F97316]/20'
-                  : 'bg-slate-900/90 border-slate-700/80 text-slate-400 hover:text-white'
+                  ? 'bg-[#E85D04]/15 border-[#E85D04] text-[#E85D04]'
+                  : 'bg-transparent border-[#FFEDD7]/15 text-[#9E948B] hover:text-[#FBF3E8] hover:border-[#FFEDD7]/35'
               }`}
               title="Procedural Web Audio API (Breath -> Metronome -> 188 BPM SOS)"
             >
@@ -337,9 +330,8 @@ export default function App() {
               <span className="hidden sm:inline">{soundEnabled ? t.soundOn : t.soundOff}</span>
             </button>
 
-            {/* 4-Language Switcher */}
             <div
-              className="flex items-center bg-slate-900/95 border border-slate-700/80 rounded-xl p-1"
+              className="flex items-center rounded-full border border-[#FFEDD7]/14 bg-[#130F0D]/90 p-0.5"
               role="group"
               aria-label="4-Language Switcher"
             >
@@ -351,10 +343,10 @@ export default function App() {
                     type="button"
                     onClick={() => setLang(item.code)}
                     data-testid={`lang-btn-${item.code}`}
-                    className={`px-2 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-xs font-bold tracking-wider transition-all ${
+                    className={`px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-semibold tracking-wider transition-all ${
                       active
-                        ? 'bg-[#F97316] text-slate-950 shadow-sm shadow-[#F97316]/40'
-                        : 'text-slate-400 hover:text-white'
+                        ? 'bg-[#FFEDD7] text-[#0B0807]'
+                        : 'text-[#9E948B] hover:text-[#FBF3E8]'
                     }`}
                   >
                     {item.label}
@@ -366,167 +358,172 @@ export default function App() {
         </div>
       </header>
 
-      {/* Fixed SOS Heart-Rate Monitor HUD Widget */}
+      {/* Precision Bottom-Centered SOS Telemetry Dock (Zero Overlap) */}
       <SosHudWidget
         scrollProgress={scrollProgress}
         lang={lang}
         onJumpToSection={handleJumpToSection}
       />
 
-      {/* ==================== SCENE 1 (HERO): THE MIRAGE TRAP ON ASTANA BRIDGE ==================== */}
+      {/* ==================== SCENE 1 (HERO): DARKROOM CINEMA EDITORIAL (ORYZO / LUSION) ==================== */}
       <section
         id="hero"
         ref={heroSectionRef}
-        className="relative min-h-[125vh] flex flex-col justify-center pt-24 pb-20 overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-between pt-20 sm:pt-22 pb-20 sm:pb-24 overflow-hidden"
       >
-        {/* Lightweight 60fps 2D Canvas Shader: Sunlit Ishim River -> Cold Concrete Shatter */}
+        {/* Lightweight 60fps 2D Canvas Shader: Warm Ishim Caustics -> Concrete Hairlines */}
         <IshimWaterCanvas shatterProgress={heroShatter} />
 
-        {/* Key Art Overlay with Dynamic Shatter Opacity */}
+        {/* Clean Single-Frame 1080p Film Still Crossfade (ZERO ghosting / ZERO baked text!) */}
         <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none transition-opacity duration-500"
+          className="absolute inset-0 bg-cover bg-center pointer-events-none transition-opacity duration-300"
           style={{
-            backgroundImage: `url('./cast/directors_cut_stadium.webp')`,
-            opacity: 0.35 + heroShatter * 0.25,
-            filter: `saturate(${1.15 - heroShatter * 0.35}) contrast(${1.08 + heroShatter * 0.2})`,
+            backgroundImage: `url('./stills/still_astana_marathon_crowd.jpg')`,
+            opacity: Math.max(0, 0.42 * (1 - heroShatter * 2.2)),
+            filter: 'contrast(1.06) saturate(0.88)',
+          }}
+        />
+        <div
+          className="absolute inset-0 bg-cover bg-center pointer-events-none transition-opacity duration-300"
+          style={{
+            backgroundImage: `url('./stills/still_stadium_vest.jpg')`,
+            opacity: Math.max(0, Math.min(0.56, (heroShatter - 0.25) * 1.15)),
+            filter: 'contrast(1.12) saturate(1.04)',
           }}
         />
 
-        {/* SVG Concrete Crack Graphic Line that fractures across the screen on scroll */}
+        {/* Warm Darkroom Vignette (lets orange safety vest glow while cream text stays 100% legible) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[5]"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(11,8,7,0.78) 0%, rgba(11,8,7,0.44) 38%, rgba(11,8,7,0.82) 76%, #0B0807 100%)',
+          }}
+        />
+
+        {/* Hairline Ember Concrete Fracture Line reacting to scroll */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none z-10"
           viewBox="0 0 1440 900"
           preserveAspectRatio="none"
         >
           <path
-            d="M 0 180 L 340 290 L 520 220 L 780 460 L 960 410 L 1190 670 L 1440 740"
+            d="M 0 190 L 340 295 L 520 225 L 780 465 L 960 415 L 1190 675 L 1440 745"
             fill="none"
-            stroke="#F97316"
-            strokeWidth={1.5 + heroShatter * 3}
+            stroke="#E85D04"
+            strokeWidth={1 + heroShatter * 2}
             strokeDasharray="1800"
             strokeDashoffset={1800 - heroShatter * 1800}
-            opacity={0.25 + heroShatter * 0.65}
+            opacity={0.18 + heroShatter * 0.55}
           />
         </svg>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          {/* Scene & Status Pills */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-[11px] font-mono font-bold uppercase tracking-widest text-[#38BDF8]">
-              <Compass className="w-3.5 h-3.5 text-[#F97316]" />
-              {t.hero.bridgeTag}
-            </span>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 rounded-full bg-[#F97316]/15 border border-[#F97316]/40 text-[11px] font-bold uppercase tracking-wider text-[#F97316]">
-                {t.statusPill}
-              </span>
-              <span className="px-3 py-1 rounded-full bg-[#0284C7]/20 border border-[#0284C7]/50 text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
-                {t.releasePill}
-              </span>
+        <div className="relative z-20 max-w-[1380px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-6 sm:gap-8">
+          {/* Top Cinema Slate Metadata Strip (ORYZO restrained typography, zero pill clutter) */}
+          <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3.5 hairline-dashed-b font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.2em]">
+            <div className="flex items-center gap-3 text-[#E9DEC9]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04]" />
+              <span>{t.hero.bridgeTag}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-4 text-[#9E948B]">
+              <span className="text-[#E85D04]">{t.statusPill}</span>
+              <span className="text-[#FFEDD7]/20">·</span>
+              <span className="text-[#FBF3E8]">{t.releasePill}</span>
             </div>
           </div>
 
-          {/* Genre Eyebrow */}
-          <div className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#F97316] mb-3">
-            {t.genre}
+          {/* Center Monumental Kinetic Display Typography floating in Darkroom Negative Space */}
+          <div className="my-auto py-3 sm:py-6">
+            <div className="font-mono text-[10px] sm:text-xs font-medium uppercase tracking-[0.28em] text-[#D4A373] mb-3">
+              {t.genre}
+            </div>
+
+            <h1
+              className="font-unbounded font-black text-4xl sm:text-6xl md:text-7xl lg:text-[5.5rem] uppercase text-[#FFEDD7] leading-[0.98] tracking-[-0.03em] transition-transform duration-150 mb-3"
+              style={{
+                letterSpacing: `${-0.02 + titleWeightVar.tracking * 0.008}em`,
+                transform: `skewX(${titleWeightVar.skew}deg)`,
+              }}
+            >
+              {t.title}
+            </h1>
+
+            <div className="font-mono text-[11px] sm:text-xs uppercase tracking-[0.3em] text-[#A69B91]">
+              {t.subTitle}
+            </div>
           </div>
 
-          {/* Brutalist Kinetic Display Typography reacting to scroll velocity & mouse */}
-          <h1
-            className="font-unbounded font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl uppercase text-white leading-[1.02] tracking-tight transition-transform duration-150 mb-3"
-            style={{
-              letterSpacing: `${titleWeightVar.tracking}px`,
-              transform: `skewX(${titleWeightVar.skew}deg)`,
-            }}
-          >
-            {t.title}
-          </h1>
+          {/* Lower Editorial Strip: Hairline Dashed Grid (Fits 100% above bottom SOS Dock) */}
+          <div className="pt-6 hairline-dashed grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end">
+            {/* Left 7 Cols: Logline & High-Contrast Film Actions */}
+            <div className="lg:col-span-7 space-y-5">
+              <p className="text-xl sm:text-2xl md:text-[28px] font-medium text-[#FBF3E8] leading-[1.3] tracking-[-0.015em] max-w-2xl">
+                {t.hero.pitchLine}
+              </p>
+              <p className="text-sm sm:text-[15px] text-[#A69B91] leading-relaxed max-w-2xl">
+                {t.hero.hookLine}
+              </p>
 
-          <div className="text-xs sm:text-sm font-mono uppercase tracking-[0.28em] text-slate-400 mb-8">
-            {t.subTitle}
-          </div>
-
-          {/* Mirage vs Reality Interactive State Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-10">
-            <div className="lg:col-span-7 rounded-2xl bg-slate-900/75 backdrop-blur-xl border border-slate-800 p-6 sm:p-8 flex flex-col justify-between shadow-2xl">
-              <div>
-                <div className="flex items-center justify-between gap-2 text-xs font-mono uppercase tracking-wider mb-4">
-                  <span className={heroShatter < 0.45 ? 'text-[#38BDF8] font-bold' : 'text-slate-500'}>
-                    {t.hero.dreamState}
-                  </span>
-                  <span className={heroShatter >= 0.45 ? 'text-[#F97316] font-bold' : 'text-slate-500'}>
-                    {t.hero.realityState}
-                  </span>
-                </div>
-
-                {/* Visual Shatter Bar */}
-                <div className="w-full h-2 rounded-full bg-slate-950 overflow-hidden mb-6 border border-slate-800">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#38BDF8] via-[#F97316] to-red-500 transition-all duration-150"
-                    style={{ width: `${Math.max(12, Math.round(heroShatter * 100))}%` }}
-                  />
-                </div>
-
-                <p className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-snug mb-4">
-                  {t.hero.pitchLine}
-                </p>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-                  {t.hero.hookLine}
-                </p>
-              </div>
-
-              <div className="pt-6 mt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+              <div className="pt-2 flex flex-wrap items-center gap-3.5">
                 <a
                   href="#sales"
                   onClick={() => handleJumpToSection('sales')}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-slate-950 font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#F97316]/25"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[11px] uppercase tracking-[0.16em] transition-all"
                 >
-                  <Globe className="w-4 h-4" />
+                  <Globe className="w-3.5 h-3.5" />
                   <span>{t.hero.ctaSales}</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
                 </a>
 
                 <button
                   type="button"
                   onClick={() => setIsScreeningModalOpen(true)}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-slate-950/90 hover:bg-slate-800 border border-slate-700 text-white font-unbounded font-bold text-xs uppercase tracking-wider transition-all"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#130F0D]/80 hover:bg-[#1E1714] border border-[#FFEDD7]/20 hover:border-[#FFEDD7]/50 text-[#FBF3E8] font-mono font-semibold text-[11px] uppercase tracking-[0.16em] transition-all"
                 >
-                  <Play className="w-4 h-4 text-[#38BDF8] fill-current" />
+                  <Play className="w-3.5 h-3.5 text-[#E85D04] fill-current" />
                   <span>{t.hero.ctaTeaser}</span>
                 </button>
               </div>
             </div>
 
-            {/* Cultural Bridge / HK Cinema & YOLO Highlight Card */}
-            <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-slate-900/90 via-[#0B1324]/90 to-slate-950/90 backdrop-blur-xl border border-[#F97316]/40 p-6 sm:p-7 flex flex-col justify-between">
+            {/* Right 5 Cols: Mirage -> Reality Meter + Editorial Cultural Bridge */}
+            <div className="lg:col-span-5 lg:pl-8 lg:border-l lg:border-[#FFEDD7]/12 space-y-5">
+              {/* Hairline Mirage / Reality State Indicator */}
               <div>
-                <div className="inline-flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-widest text-[#F97316] mb-3">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>
-                    {lang === 'zh'
-                      ? '中哈文化桥梁 ·《热辣滚烫》× 黄金港片基因'
-                      : 'GLOBAL & ASIAN CULTURAL BRIDGE'}
+                <div className="flex items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.14em] mb-2">
+                  <span className={heroShatter < 0.45 ? 'text-[#FBF3E8]' : 'text-[#6C635C]'}>
+                    {t.hero.dreamState}
+                  </span>
+                  <span className={heroShatter >= 0.45 ? 'text-[#E85D04]' : 'text-[#6C635C]'}>
+                    {t.hero.realityState}
                   </span>
                 </div>
-                <h2 className="font-unbounded font-bold text-lg sm:text-xl text-white mb-3">
+                <div className="w-full h-[2px] bg-[#FFEDD7]/12 overflow-hidden">
+                  <div
+                    className="h-full bg-[#E85D04] transition-all duration-150"
+                    style={{ width: `${Math.max(10, Math.round(heroShatter * 100))}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E85D04]">
                   {lang === 'zh'
-                    ? '207公斤的心理盔甲 × 成龙与李小龙的精神图腾'
-                    : lang === 'ru'
-                    ? 'Резонанс «YOLO» (热辣滚烫) и код Джеки Чана 80-х'
-                    : 'The Resonance of "YOLO" (热辣滚烫) & 1980s Jackie Chan DNA'}
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    ? '中哈文化桥梁 ·《热辣滚烫》× 黄金港片基因'
+                    : 'CULTURAL BRIDGE · YOLO (热辣滚烫) × 80S HK CINEMA'}
+                </div>
+                <p className="text-xs sm:text-[13px] text-[#B8AEA4] leading-relaxed">
                   {lang === 'zh'
                     ? '男主角拉苏尔将童年创伤锁进207公斤的身体里，他狭小的球场储物间贴满80年代成龙与李小龙的海报。通过真实的极限减重与马拉松奔跑重塑自我尊严，高度契合《热辣滚烫》“为自己赢一次”的全民共鸣。'
                     : lang === 'ru'
-                    ? 'Расул прячет детскую травму внутри 207-килограммового тела, а единственным моральным компасом в его подтрибунной каморке служат плакаты боевиков 80-х с Джеки Чаном и Брюсом Ли. Фильм говорит на универсальном языке преодоления в духе народного хита «YOLO» (热辣滚烫).'
+                    ? 'Расул прячет детскую травму внутри 207-килограммового тела, а единственным моральным компасом в его подтрибунной каморке служат плакаты боевиков 80-х с Джеки Чаном и Брюсом Ли — в духе народного хита «YOLO» (热辣滚烫).'
                     : 'Rasul hides childhood trauma inside a 207-kg frame while 1980s Jackie Chan and Bruce Lee posters on his stadium room walls serve as his moral compass—echoing the massive inspirational wave of "YOLO" (热辣滚烫).'}
                 </p>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-[#7E746B]">
                 <span>207 KG INERTIA</span>
-                <span className="text-[#38BDF8]">{t.hero.scrollHint} ↓</span>
+                <span className="text-[#D4A373]">{t.hero.scrollHint} ↓</span>
               </div>
             </div>
           </div>
@@ -537,79 +534,82 @@ export default function App() {
       <section
         id="lace"
         ref={laceSectionRef}
-        className="relative py-24 sm:py-32 border-t border-slate-800/80 bg-gradient-to-b from-[#160B0E] via-[#090D16] to-[#090D16] overflow-hidden"
+        className="relative py-24 sm:py-32 hairline-dashed bg-gradient-to-b from-[#130A09] via-[#0D0807] to-[#0B0807] overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl mb-10">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#F97316] mb-3">
-              <Footprints className="w-4 h-4" />
-              <span>{t.lace.tag}</span>
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#E85D04] mb-4">
+                <Footprints className="w-3.5 h-3.5" />
+                <span>{t.lace.tag}</span>
+              </div>
+              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl lg:text-[42px] text-[#FFEDD7] leading-[1.12] tracking-[-0.02em]">
+                {t.lace.title}
+              </h2>
             </div>
-            <h2 className="font-unbounded font-extrabold text-2xl sm:text-4xl text-white mb-4">
-              {t.lace.title}
-            </h2>
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed">{t.lace.desc}</p>
+            <div className="lg:col-span-5">
+              <p className="text-sm sm:text-[15px] text-[#A69B91] leading-relaxed">{t.lace.desc}</p>
+            </div>
           </div>
 
-          {/* Interactive Scroll-Bound SVG Shoelace Bezier Knot on Red Running Tartan Texture */}
-          <div className="rounded-3xl bg-[#1A0D12]/90 border border-[#F97316]/30 p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono uppercase tracking-wider mb-4">
-              <span className={laceProgress < 0.5 ? 'text-red-400 font-bold' : 'text-slate-500'}>
+          {/* Darkroom Red-Tartan Architectural Shoelace Plinth */}
+          <div className="rounded-2xl bg-[#140B0A] border border-[#FFEDD7]/12 p-6 sm:p-10 relative overflow-hidden">
+            <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] mb-6 pb-4 hairline-dashed-b">
+              <span className={laceProgress < 0.5 ? 'text-[#E85D04]' : 'text-[#6C635C]'}>
                 {t.lace.untiedLabel}
               </span>
-              <span className="px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-[#F97316] font-bold">
-                KNOT TENSION: {Math.round(laceProgress * 100)}%
+              <span className="text-[#FBF3E8]">
+                KNOT TENSION · {Math.round(laceProgress * 100)}%
               </span>
-              <span className={laceProgress >= 0.5 ? 'text-emerald-400 font-bold' : 'text-slate-500'}>
+              <span className={laceProgress >= 0.5 ? 'text-[#D4A373]' : 'text-[#6C635C]'}>
                 {t.lace.tiedLabel}
               </span>
             </div>
 
             <svg
               viewBox="0 0 1000 240"
-              className="w-full h-40 sm:h-52 overflow-visible"
+              className="w-full h-36 sm:h-48 overflow-visible"
               aria-label="Interactive Shoelace Knot Animation"
             >
-              {/* Red Running Track Lane Lines */}
-              <line x1="0" y1="60" x2="1000" y2="60" stroke="rgba(255,255,255,0.12)" strokeWidth="2" strokeDasharray="16 12" />
-              <line x1="0" y1="180" x2="1000" y2="180" stroke="rgba(255,255,255,0.12)" strokeWidth="2" strokeDasharray="16 12" />
+              {/* Running Track Lane Hairlines */}
+              <line x1="0" y1="60" x2="1000" y2="60" stroke="rgba(255,237,215,0.10)" strokeWidth="1" strokeDasharray="12 10" />
+              <line x1="0" y1="180" x2="1000" y2="180" stroke="rgba(255,237,215,0.10)" strokeWidth="1" strokeDasharray="12 10" />
 
-              {/* Left Shoelace Strand */}
+              {/* Left Shoelace Strand (Ember Safety Orange) */}
               <path
                 d={`M 40,${40 + laceProgress * 80} C ${260 + laceProgress * 140},${
                   20 + laceProgress * 100
                 } ${380 + laceProgress * 100},${210 - laceProgress * 90} 500,120`}
                 fill="none"
-                stroke="#F97316"
-                strokeWidth="9"
+                stroke="#E85D04"
+                strokeWidth="7"
                 strokeLinecap="round"
               />
-              {/* Right Shoelace Strand */}
+              {/* Right Shoelace Strand (Warm Cream) */}
               <path
                 d={`M 960,${200 - laceProgress * 80} C ${740 - laceProgress * 140},${
                   220 - laceProgress * 100
                 } ${620 - laceProgress * 100},${30 + laceProgress * 90} 500,120`}
                 fill="none"
-                stroke="#38BDF8"
-                strokeWidth="9"
+                stroke="#FFEDD7"
+                strokeWidth="7"
                 strokeLinecap="round"
               />
 
-              {/* Central Knot Loop that tightens with scroll */}
+              {/* Central Knot Loop */}
               <ellipse
                 cx="500"
                 cy="120"
                 rx={Math.max(14, 72 - laceProgress * 56)}
                 ry={Math.max(14, 48 - laceProgress * 32)}
                 fill="none"
-                stroke="#FFFFFF"
-                strokeWidth={4 + laceProgress * 5}
+                stroke="#D4A373"
+                strokeWidth={3 + laceProgress * 4}
               />
             </svg>
 
-            {/* Manual Knot Slider for instant tactile feedback */}
-            <div className="mt-4 flex items-center gap-4">
-              <span className="text-[11px] font-mono uppercase text-slate-400">UNTIED</span>
+            <div className="mt-6 pt-5 hairline-dashed flex items-center gap-4">
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#8E847C]">UNTIED</span>
               <input
                 type="range"
                 min={0}
@@ -617,180 +617,185 @@ export default function App() {
                 value={Math.round(laceProgress * 100)}
                 onChange={(e) => setLaceProgress(Number(e.target.value) / 100)}
                 aria-label="Tighten shoelace knot"
-                className="w-full h-2 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-[#F97316]"
+                className="w-full h-1 bg-[#2A221E] rounded-full appearance-none cursor-pointer accent-[#E85D04]"
               />
-              <span className="text-[11px] font-mono uppercase text-emerald-400">TIED KNOT</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#FFEDD7]">TIED KNOT</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* ==================== SCENE 3: AITYM'S BRASS SCALES & DIARY X-RAY ==================== */}
-      <section id="scales" className="py-24 sm:py-32 border-t border-slate-800/80 bg-[#070A12]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-          {/* Part A: Interactive Brass Apothecary Scales */}
+      <section id="scales" className="py-24 sm:py-32 hairline-dashed bg-[#0B0807]">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-24">
+          {/* Part A: Interactive Brushed Brass Apothecary Scales */}
           <div>
-            <div className="max-w-3xl mb-10">
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#F97316] mb-3">
-                <Scale className="w-4 h-4" />
-                <span>{t.scales.tag}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12">
+              <div className="lg:col-span-7">
+                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#D4A373] mb-4">
+                  <Scale className="w-3.5 h-3.5" />
+                  <span>{t.scales.tag}</span>
+                </div>
+                <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] leading-[1.14]">
+                  {t.scales.title}
+                </h2>
               </div>
-              <h2 className="font-unbounded font-extrabold text-2xl sm:text-4xl text-white mb-4">
-                {t.scales.title}
-              </h2>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">{t.scales.desc}</p>
+              <div className="lg:col-span-5">
+                <p className="text-sm sm:text-[15px] text-[#A69B91] leading-relaxed">{t.scales.desc}</p>
+              </div>
             </div>
 
             <div
-              className="rounded-3xl bg-slate-900/75 border border-slate-800 p-6 sm:p-10 shadow-2xl"
+              className="rounded-2xl bg-[#110D0B] border border-[#FFEDD7]/10 p-6 sm:p-12"
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
-                const norm = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to +0.5
-                setScaleTilt(Math.round(norm * 32));
+                const norm = (e.clientX - rect.left) / rect.width - 0.5;
+                setScaleTilt(Math.round(norm * 30));
               }}
             >
-              {/* Interactive Balance Beam */}
-              <div className="relative h-44 sm:h-52 flex items-center justify-center my-4">
-                {/* Center Pillar */}
-                <div className="w-3 h-36 bg-gradient-to-b from-amber-400 to-amber-700 rounded-full z-10 shadow-lg" />
+              {/* Tactile Brushed Brass Balance Beam (Centered Fulcrum Pillar) */}
+              <div className="relative h-48 sm:h-56 flex items-center justify-center my-4">
+                {/* Centered Vertical Brass Stand + Base */}
+                <div className="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-2 flex flex-col items-center pointer-events-none z-0">
+                  <div className="w-3.5 h-3.5 -mt-1.5 rounded-full bg-[#D4A373] border-2 border-[#0B0807] z-20" />
+                  <div className="w-1 flex-1 bg-gradient-to-b from-[#D4A373] to-[#4A3623]" />
+                  <div className="w-20 h-1.5 rounded-full bg-[#5B422B]" />
+                </div>
 
-                {/* Tilting Brass Beam */}
                 <div
-                  className="w-full max-w-2xl h-3 bg-gradient-to-r from-[#F97316] via-amber-300 to-[#38BDF8] rounded-full relative transition-transform duration-200 ease-out flex items-center justify-between px-4"
+                  className="w-full max-w-2xl h-1.5 bg-gradient-to-r from-[#E85D04] via-[#D4A373] to-[#FFEDD7] rounded-full relative z-10 transition-transform duration-200 ease-out flex items-center justify-between px-4"
                   style={{ transform: `rotate(${scaleTilt}deg)` }}
                 >
                   {/* Left Pan: 207 KG Trauma */}
                   <div
-                    className="w-36 sm:w-48 -mt-20 p-3 rounded-2xl bg-slate-950/95 border border-[#F97316]/60 text-center shadow-xl"
+                    className="w-36 sm:w-48 -mt-20 p-3.5 rounded-xl bg-[#0B0807] border border-[#E85D04]/50 text-center"
                     style={{ transform: `rotate(${-scaleTilt}deg)` }}
                   >
-                    <div className="font-unbounded font-black text-base sm:text-lg text-[#F97316]">
+                    <div className="font-unbounded font-bold text-base sm:text-lg text-[#E85D04]">
                       207 KG
                     </div>
-                    <div className="text-[10px] text-slate-300 font-semibold mt-0.5">
+                    <div className="font-mono text-[9px] tracking-[0.18em] text-[#A69B91] mt-1 uppercase">
                       {lang === 'zh' ? '恐惧与童年创伤' : 'TRAUMA & FEAR'}
                     </div>
                   </div>
 
                   {/* Right Pan: 1 Gram Honesty */}
                   <div
-                    className="w-36 sm:w-48 -mt-20 p-3 rounded-2xl bg-slate-950/95 border border-[#38BDF8]/60 text-center shadow-xl"
+                    className="w-36 sm:w-48 -mt-20 p-3.5 rounded-xl bg-[#0B0807] border border-[#FFEDD7]/30 text-center"
                     style={{ transform: `rotate(${-scaleTilt}deg)` }}
                   >
-                    <div className="font-unbounded font-black text-base sm:text-lg text-[#38BDF8]">
+                    <div className="font-unbounded font-bold text-base sm:text-lg text-[#FFEDD7]">
                       1 GRAM
                     </div>
-                    <div className="text-[10px] text-slate-300 font-semibold mt-0.5">
+                    <div className="font-mono text-[9px] tracking-[0.18em] text-[#A69B91] mt-1 uppercase">
                       {lang === 'zh' ? '直面自我的诚实' : 'PURE HONESTY'}
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Pan Descriptions & Touch Buttons */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              {/* Clean Architectural Pan Controls */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-xl overflow-hidden mt-8">
                 <button
                   type="button"
                   onClick={() => setScaleTilt(-14)}
-                  className="text-left p-5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-[#F97316] transition-all"
+                  className="text-left p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
                 >
-                  <div className="text-xs font-mono font-bold text-[#F97316] uppercase mb-1">
+                  <div className="font-mono text-[10px] font-bold tracking-[0.2em] text-[#E85D04] uppercase mb-2">
                     {t.scales.leftPanTitle}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300">{t.scales.leftPanSub}</p>
+                  <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed">{t.scales.leftPanSub}</p>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setScaleTilt(14)}
-                  className="text-left p-5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-[#38BDF8] transition-all"
+                  className="text-left p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
                 >
-                  <div className="text-xs font-mono font-bold text-[#38BDF8] uppercase mb-1">
+                  <div className="font-mono text-[10px] font-bold tracking-[0.2em] text-[#FFEDD7] uppercase mb-2">
                     {t.scales.rightPanTitle}
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300">{t.scales.rightPanSub}</p>
+                  <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed">{t.scales.rightPanSub}</p>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Part B: Artyom's Diary X-Ray (Desktop Flashlight Mask + Mobile Before/After Slider) */}
+          {/* Part B: Artyom's Diary X-Ray (Darkroom Safelight Flashlight Mask) */}
           <div>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
               <div>
-                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#38BDF8] mb-2">
-                  <Eye className="w-4 h-4" />
+                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#D4A373] mb-2">
+                  <Eye className="w-3.5 h-3.5" />
                   <span>{t.scales.xrayHeader}</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-400 hidden md:block">
+                <p className="text-xs sm:text-sm text-[#9E948B] hidden md:block">
                   {t.scales.xrayHintDesktop}
                 </p>
-                <p className="text-xs sm:text-sm text-slate-400 md:hidden">
+                <p className="text-xs sm:text-sm text-[#9E948B] md:hidden">
                   {t.scales.xrayHintMobile}
                 </p>
               </div>
             </div>
 
-            {/* Desktop Flashlight Radial Mask + Mobile Split Slider Container */}
             <div
               ref={diaryBoxRef}
               onMouseMove={handleDiaryMouseMove}
-              className="relative rounded-3xl overflow-hidden border border-slate-700/80 bg-slate-950 select-none min-h-[280px] sm:min-h-[300px] cursor-crosshair shadow-2xl"
+              className="relative rounded-2xl overflow-hidden border border-[#FFEDD7]/14 bg-[#120E0C] select-none min-h-[280px] sm:min-h-[300px] cursor-crosshair"
             >
-              {/* Base Layer: Surface Motivational Fantasy (1980s Jackie Chan / Bruce Lee Quotes) */}
-              <div className="p-6 sm:p-10 bg-gradient-to-br from-slate-900 via-[#0E1726] to-slate-950 h-full flex flex-col justify-between">
-                <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#38BDF8] mb-3">
+              {/* Surface Layer: Warm Cream Archival Motivational Quote */}
+              <div className="p-7 sm:p-12 h-full flex flex-col justify-between">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-4">
                   {diaryData.surfaceTitle[lang]}
                 </div>
-                <blockquote className="font-unbounded font-bold text-lg sm:text-2xl text-slate-100 leading-relaxed mb-6">
+                <blockquote className="font-unbounded font-semibold text-lg sm:text-2xl text-[#FFEDD7] leading-relaxed mb-6">
                   {diaryData.surfaceQuote[lang]}
                 </blockquote>
-                <div className="text-[11px] font-mono uppercase tracking-widest text-slate-400">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#6C635C]">
                   SURFACE LAYER · MOTIVATIONAL MYTH
                 </div>
               </div>
 
-              {/* Desktop Radial Flashlight X-Ray Layer */}
+              {/* Desktop Darkroom Safelight X-Ray Layer */}
               <div
-                className="hidden md:flex absolute inset-0 p-6 sm:p-10 bg-[#1F090D] border-2 border-[#F97316] flex-col justify-between pointer-events-none"
+                className="hidden md:flex absolute inset-0 p-7 sm:p-12 bg-[#1F0905] border border-[#E85D04]/70 flex-col justify-between pointer-events-none"
                 style={{
-                  WebkitMaskImage: `radial-gradient(240px circle at ${xrayCoords.x}px ${xrayCoords.y}px, #000 35%, transparent 100%)`,
-                  maskImage: `radial-gradient(240px circle at ${xrayCoords.x}px ${xrayCoords.y}px, #000 35%, transparent 100%)`,
+                  WebkitMaskImage: `radial-gradient(250px circle at ${xrayCoords.x}px ${xrayCoords.y}px, #000 35%, transparent 100%)`,
+                  maskImage: `radial-gradient(250px circle at ${xrayCoords.x}px ${xrayCoords.y}px, #000 35%, transparent 100%)`,
                 }}
               >
-                <div className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#F97316] mb-3">
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#E85D04] mb-4">
                   {diaryData.xrayTitle[lang]}
                 </div>
-                <p className="font-unbounded font-bold text-lg sm:text-2xl text-amber-200 leading-relaxed mb-6">
+                <p className="font-unbounded font-semibold text-lg sm:text-2xl text-[#FFEDD7] leading-relaxed mb-6">
                   {diaryData.xrayTruth[lang]}
                 </p>
-                <div className="text-[11px] font-mono uppercase tracking-widest text-[#F97316]">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#E85D04]">
                   X-RAY REALITY · PONZI SCHEME & PRISON ARCHIVE
                 </div>
               </div>
 
-              {/* Mobile Tactile Before/After X-Ray Layer (375px safe, no heavy cursor effect) */}
+              {/* Mobile Split X-Ray Layer */}
               <div
-                className="md:hidden absolute inset-0 p-6 bg-[#1F090D] flex flex-col justify-between pointer-events-none"
+                className="md:hidden absolute inset-0 p-7 bg-[#1F0905] flex flex-col justify-between pointer-events-none"
                 style={{
                   clipPath: `inset(0 ${100 - mobileXraySlider}% 0 0)`,
                 }}
               >
-                <div className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#F97316] mb-2">
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E85D04] mb-2">
                   {diaryData.xrayTitle[lang]}
                 </div>
-                <p className="font-bold text-sm text-amber-100 leading-relaxed">
+                <p className="font-medium text-sm text-[#FFEDD7] leading-relaxed">
                   {diaryData.xrayTruth[lang]}
                 </p>
-                <div className="text-[10px] font-mono uppercase tracking-widest text-[#F97316] mt-3">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E85D04] mt-3">
                   X-RAY REALITY LAYER
                 </div>
               </div>
             </div>
 
-            {/* Mobile & Desktop X-Ray Slider Control */}
             <div className="mt-4 flex items-center gap-3 md:hidden">
-              <span className="text-[10px] font-mono text-[#38BDF8] uppercase">MYTH</span>
+              <span className="font-mono text-[10px] text-[#D4A373] uppercase">MYTH</span>
               <input
                 type="range"
                 min={0}
@@ -798,38 +803,38 @@ export default function App() {
                 value={mobileXraySlider}
                 onChange={(e) => setMobileXraySlider(Number(e.target.value))}
                 aria-label="Diary X-Ray Reveal Slider"
-                className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#F97316]"
+                className="w-full h-1 bg-[#2A221E] rounded-full appearance-none cursor-pointer accent-[#E85D04]"
               />
-              <span className="text-[10px] font-mono text-[#F97316] uppercase">TRUTH</span>
+              <span className="font-mono text-[10px] text-[#E85D04] uppercase">TRUTH</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ==================== SCENE 4A: 42.2 KM CHROMATIC TRACK ==================== */}
+      {/* ==================== SCENE 4A: 42.2 KM CHROMATIC TRACK (APPLE MIDNIGHT GALLERY) ==================== */}
       <section
         id="track"
         ref={trackPinSectionRef}
-        className="py-24 sm:py-32 border-t border-slate-800/80 relative overflow-hidden"
+        className="py-24 sm:py-32 hairline-dashed bg-[#080707] relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div>
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#38BDF8] mb-3">
-                <Film className="w-4 h-4 text-[#F97316]" />
+              <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#E85D04] mb-3">
+                <Film className="w-3.5 h-3.5" />
                 <span>{t.track.tag}</span>
               </div>
-              <h2 className="font-unbounded font-extrabold text-2xl sm:text-4xl text-white">
+              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7]">
                 {t.track.title}
               </h2>
             </div>
-            <p className="text-xs font-mono uppercase tracking-wider text-slate-400">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#7E746B]">
               {t.track.hint}
             </p>
           </div>
 
-          {/* 4-Stage Horizontal Selector Rail */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          {/* Linear-Style Hairline 4-Stage Selector Rail */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden mb-8">
             {HORIZONTAL_TRACK_STAGES.map((st, idx) => {
               const active = idx === activeTrackIdx;
               return (
@@ -837,20 +842,21 @@ export default function App() {
                   key={st.id}
                   type="button"
                   onClick={() => setActiveTrackIdx(idx)}
-                  className={`text-left p-4 rounded-2xl border transition-all ${
-                    active
-                      ? 'bg-slate-900 border-[#F97316] shadow-xl shadow-[#F97316]/15 scale-[1.01]'
-                      : 'bg-slate-950/70 border-slate-800/90 hover:border-slate-700'
+                  className={`text-left p-5 transition-colors relative ${
+                    active ? 'bg-[#171210]' : 'bg-[#0C0908] hover:bg-[#130E0C]'
                   }`}
                 >
-                  <div className="flex items-center justify-between text-[11px] font-mono font-bold mb-1">
-                    <span style={{ color: st.accent }}>{st.step}</span>
-                    <span className="text-white">{st.km}</span>
+                  {active && (
+                    <span className="absolute top-0 left-0 right-0 h-[2px] bg-[#E85D04]" />
+                  )}
+                  <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.16em] mb-1.5">
+                    <span className={active ? 'text-[#E85D04]' : 'text-[#7E746B]'}>{st.step}</span>
+                    <span className="text-[#E9DEC9]">{st.km}</span>
                   </div>
-                  <div className="font-unbounded font-black text-base sm:text-lg text-white">
+                  <div className="font-unbounded font-bold text-base sm:text-lg text-[#FFEDD7]">
                     {st.weight}
                   </div>
-                  <div className="text-[11px] text-slate-400 truncate mt-1">
+                  <div className="text-[11px] text-[#9E948B] truncate mt-1">
                     {st.title[lang]}
                   </div>
                 </button>
@@ -858,39 +864,37 @@ export default function App() {
             })}
           </div>
 
-          {/* Active Stage Showcase Card */}
-          <div
-            className="rounded-3xl bg-slate-900/80 backdrop-blur-xl border border-slate-800 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-2xl transition-all"
-            style={{ borderLeftWidth: '6px', borderLeftColor: currentTrackStage.accent }}
-          >
-            <div className="lg:col-span-5">
-              <div className="aspect-[16/10] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 relative">
+          {/* Active Film Still Plinth (100% Local Subtitle-Free 1080p Stills) */}
+          <div className="rounded-2xl bg-[#110D0B] border border-[#FFEDD7]/12 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-6">
+              <div className="aspect-[16/10] rounded-xl overflow-hidden bg-[#060505] border border-[#FFEDD7]/10 relative">
                 <img
-                  src={currentTrackStage.image}
+                  src={`${currentTrackStage.image}?v=6`}
                   alt={currentTrackStage.title[lang]}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-xl bg-slate-950/90 backdrop-blur-md border border-slate-800 flex items-center justify-between text-xs font-mono">
-                  <span className="font-bold text-[#F97316]">{currentTrackStage.bpm}</span>
-                  <span className="font-bold text-[#38BDF8]">{currentTrackStage.km}</span>
+                <div className="absolute bottom-3 left-3 right-3 px-3.5 py-2 rounded-full bg-[#0B0807]/85 backdrop-blur-md border border-[#FFEDD7]/12 flex items-center justify-between font-mono text-[10px] tracking-[0.16em]">
+                  <span className="text-[#E85D04] font-semibold">{currentTrackStage.bpm}</span>
+                  <span className="text-[#FFEDD7]">{currentTrackStage.km}</span>
                 </div>
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-4">
-              <div className="flex flex-wrap items-center gap-2.5">
-                <span className="px-3 py-1 rounded-lg bg-[#F97316]/20 text-[#F97316] font-mono font-bold text-xs">
+            <div className="lg:col-span-6 space-y-5">
+              <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em]">
+                <span className="text-[#E85D04] font-semibold">
                   {currentTrackStage.step} · {currentTrackStage.km}
                 </span>
-                <span className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-mono text-xs">
-                  COLOR CODE: {currentTrackStage.hex}
+                <span className="text-[#FFEDD7]/20">|</span>
+                <span className="text-[#9E948B]">
+                  GRADE {currentTrackStage.hex}
                 </span>
               </div>
-              <h3 className="font-unbounded font-bold text-xl sm:text-3xl text-white leading-snug">
+              <h3 className="font-unbounded font-bold text-xl sm:text-3xl text-[#FFEDD7] leading-snug">
                 {currentTrackStage.title[lang]}
               </h3>
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+              <p className="text-sm sm:text-[15px] text-[#B8AEA4] leading-relaxed">
                 {currentTrackStage.desc[lang]}
               </p>
             </div>
@@ -898,81 +902,82 @@ export default function App() {
         </div>
       </section>
 
-      {/* ==================== SCENE 4B: 3D BENTO GRID OF CAST & FULL OFFICIAL CREW ==================== */}
-      <section id="cast" className="py-24 sm:py-32 border-t border-slate-800/80 bg-[#070A12]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ==================== SCENE 4B: CAST & CREW EXHIBITION (APPLE MIDNIGHT GALLERY) ==================== */}
+      <section id="cast" className="py-24 sm:py-32 hairline-dashed bg-[#070606]">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
           <div className="max-w-3xl mb-14">
-            <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-[#F97316] mb-3">
-              <Award className="w-4 h-4" />
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em] text-[#E85D04] mb-3">
+              <Award className="w-3.5 h-3.5" />
               <span>{t.cast.tag}</span>
             </div>
-            <h2 className="font-unbounded font-extrabold text-2xl sm:text-4xl text-white mb-3">
+            <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] mb-3">
               {t.cast.title}
             </h2>
-            <p className="text-sm sm:text-base text-slate-400">{t.cast.sub}</p>
+            <p className="text-sm sm:text-[15px] text-[#9E948B]">{t.cast.sub}</p>
           </div>
 
-          {/* Modular Bento Cast Grid with Real Actor Portraits */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+          {/* 3x2 Lead Cast Exhibition Plinths */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
             {CAST_DATA.map((actor) => (
               <div
                 key={actor.id}
-                className={`group rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-slate-800/90 hover:border-[#F97316]/60 overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-xl ${
+                className={`group rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 hover:border-[#FFEDD7]/30 overflow-hidden flex flex-col justify-between transition-all duration-300 ${
                   actor.spanClass || ''
                 }`}
-                style={{
-                  boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.08)',
-                }}
               >
                 <div>
-                  <div className="aspect-[4/5] bg-[#060911] relative overflow-hidden border-b border-slate-800/80 flex items-center justify-center">
+                  <div className="aspect-[4/5] bg-[#060505] relative overflow-hidden border-b border-[#FFEDD7]/10 flex items-center justify-center">
                     <img
-                      src={`${actor.image}?v=5`}
+                      src={`${actor.image}?v=6`}
                       alt={actor.actor[lang]}
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-700"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                    <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#F97316] text-slate-950 font-mono font-extrabold text-[10px] uppercase tracking-wider">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D0A09] via-[#0D0A09]/15 to-transparent" />
+                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#0B0807]/85 backdrop-blur-md border border-[#FFEDD7]/15 text-[#FFEDD7] font-mono text-[9px] font-medium uppercase tracking-[0.18em]">
                       {actor.badge[lang]}
                     </span>
-                    <div className="absolute bottom-3.5 left-5 right-5">
-                      <h3 className="font-unbounded font-bold text-lg sm:text-xl text-white">
+                    <div className="absolute bottom-4 left-5 right-5">
+                      <h3 className="font-unbounded font-bold text-lg sm:text-xl text-[#FFEDD7]">
                         {actor.actor[lang]}
                       </h3>
-                      <div className="text-xs font-semibold text-[#38BDF8] mt-0.5">
+                      <div className="font-mono text-[10px] tracking-[0.08em] text-[#D4A373] mt-1">
                         {actor.characterName[lang]} · {actor.role[lang]}
                       </div>
                     </div>
                   </div>
 
-                  <div className="p-5 sm:p-6">
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <div className="p-6">
+                    <p className="text-xs sm:text-[13.5px] text-[#B8AEA4] leading-relaxed">
                       {actor.desc[lang]}
                     </p>
                   </div>
                 </div>
 
-                <div className="px-5 py-3.5 bg-slate-950/90 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
-                  <span className="font-unbounded font-bold text-[#F97316]">{actor.metric}</span>
-                  <span className="text-[11px] text-slate-400 text-right">{actor.metricLabel[lang]}</span>
+                <div className="px-6 py-3.5 bg-[#0B0807]/80 border-t border-[#FFEDD7]/10 flex items-center justify-between gap-2 text-xs">
+                  <span className="font-mono font-bold text-[11px] text-[#E85D04] tracking-wider">
+                    {actor.metric}
+                  </span>
+                  <span className="font-mono text-[10px] text-[#7E746B] text-right">
+                    {actor.metricLabel[lang]}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Complete Ensemble Cast Gallery with Real Actor Faces from Pitch Deck */}
+          {/* Complete Ensemble Cast Gallery (All 17 Portraits + Wide JANA MEN Group Frame) */}
           <div className="mb-20">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 pb-4 hairline-dashed-b">
               <div>
-                <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#38BDF8] mb-1">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#D4A373] mb-1.5">
                   {lang === 'zh'
-                    ? '完整演员阵容 · 真实面孔与角色群像 (OFFICIAL PITCH DECK CAST)'
+                    ? '完整演员阵容 · 真实面孔与角色群像 (OFFICIAL CAST)'
                     : lang === 'en'
-                    ? 'FULL ENSEMBLE CAST · OFFICIAL PITCH DECK PORTRAITS'
+                    ? 'FULL ENSEMBLE CAST · OFFICIAL PORTRAITS'
                     : 'ПОЛНЫЙ АКТЁРСКИЙ АНСАМБЛЬ ФИЛЬМА (ОФИЦИАЛЬНЫЙ КАСТ)'}
                 </div>
-                <h3 className="font-unbounded font-extrabold text-xl sm:text-2xl text-white">
+                <h3 className="font-unbounded font-bold text-xl sm:text-2xl text-[#FFEDD7]">
                   {lang === 'zh'
                     ? '《绝不多余》全明星与 JANA MEN 真实学员阵容'
                     : lang === 'en'
@@ -988,29 +993,29 @@ export default function App() {
                 return (
                   <div
                     key={idx}
-                    className={`group rounded-2xl bg-[#070B13] border border-slate-800 hover:border-[#38BDF8]/60 overflow-hidden flex flex-col justify-between transition-all hover:-translate-y-1 shadow-lg ${
+                    className={`group rounded-2xl bg-[#0E0B0A] border border-[#FFEDD7]/10 hover:border-[#FFEDD7]/30 overflow-hidden flex flex-col justify-between transition-all ${
                       isWideGroup ? 'col-span-2 sm:col-span-2 md:col-span-3' : ''
                     }`}
                   >
                     <div
                       className={`${
                         isWideGroup ? 'h-full min-h-[260px]' : 'aspect-[4/5]'
-                      } w-full bg-[#060911] relative overflow-hidden flex items-center justify-center`}
+                      } w-full bg-[#060505] relative overflow-hidden flex items-center justify-center`}
                     >
                       <img
-                        src={`${item.image}?v=5`}
+                        src={`${item.image}?v=6`}
                         alt={item.name[lang]}
                         className={`w-full h-full ${
                           isWideGroup ? 'object-cover object-center' : 'object-cover object-top'
-                        } group-hover:scale-105 transition-transform duration-500`}
+                        } group-hover:scale-[1.03] transition-transform duration-700`}
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/15 to-transparent" />
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <div className="font-unbounded font-bold text-xs sm:text-sm text-white leading-snug">
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0807] via-[#0B0807]/15 to-transparent" />
+                      <div className="absolute bottom-3.5 left-3.5 right-3.5">
+                        <div className="font-unbounded font-bold text-xs sm:text-sm text-[#FFEDD7] leading-snug">
                           {item.name[lang]}
                         </div>
-                        <div className="text-[11px] font-medium text-[#F97316] mt-0.5 leading-tight">
+                        <div className="font-mono text-[10px] text-[#D4A373] mt-0.5 leading-tight">
                           {item.role[lang]}
                         </div>
                       </div>
@@ -1021,42 +1026,41 @@ export default function App() {
             </div>
           </div>
 
-          {/* Key Creative Team Bento Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+          {/* Key Creative Team (Local Self-Hosted Portraits — Instant in China) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden mb-10">
             {KEY_CREW_DATA.map((crew, idx) => (
               <div
                 key={idx}
-                className="rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 flex flex-col justify-between hover:border-slate-700 transition-colors"
-                style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)' }}
+                className="bg-[#0D0A09] hover:bg-[#140F0D] p-6 flex flex-col justify-between transition-colors"
               >
                 <div>
-                  <div className="flex items-center gap-3.5 mb-4">
+                  <div className="flex items-center gap-4 mb-4">
                     <img
                       src={crew.photo}
                       alt={crew.name[lang]}
-                      className="w-14 h-14 rounded-xl object-cover border border-slate-700 flex-shrink-0"
+                      className="w-14 h-14 rounded-xl object-cover object-top border border-[#FFEDD7]/15 flex-shrink-0 bg-[#060505]"
                       loading="lazy"
                     />
                     <div>
-                      <h4 className="font-unbounded font-bold text-sm sm:text-base text-white">
+                      <h4 className="font-unbounded font-bold text-sm text-[#FFEDD7]">
                         {crew.name[lang]}
                       </h4>
-                      <div className="text-[11px] font-semibold text-[#F97316] mt-0.5">
+                      <div className="font-mono text-[10px] text-[#E85D04] mt-1 leading-snug">
                         {crew.role[lang]}
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-[#A69B91] leading-relaxed">
                     {crew.bio[lang]}
                   </p>
                 </div>
                 {crew.link && !hideWesternSocials && (
-                  <div className="mt-4 pt-3 border-t border-slate-800/80">
+                  <div className="mt-4 pt-3 border-t border-[#FFEDD7]/10">
                     <a
                       href={crew.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#38BDF8] hover:text-white"
+                      className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D4A373] hover:text-[#FFEDD7] transition-colors"
                     >
                       {crew.linkLabel}
                     </a>
@@ -1067,33 +1071,33 @@ export default function App() {
           </div>
 
           {/* Expandable Full Official Crew Credits Roll */}
-          <div className="rounded-2xl bg-slate-900/90 border border-slate-800 overflow-hidden">
+          <div className="rounded-2xl bg-[#0F0B0A] border border-[#FFEDD7]/12 overflow-hidden">
             <button
               type="button"
               onClick={() => setShowFullCredits((v) => !v)}
-              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-800/50 transition-colors"
+              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#171210] transition-colors"
             >
-              <span className="font-unbounded font-bold text-xs sm:text-sm text-white">
+              <span className="font-mono font-semibold text-xs uppercase tracking-[0.16em] text-[#FFEDD7]">
                 {showFullCredits ? t.cast.collapseCredits : t.cast.expandCredits}
               </span>
               {showFullCredits ? (
-                <ChevronUp className="w-5 h-5 text-[#F97316]" />
+                <ChevronUp className="w-4 h-4 text-[#E85D04]" />
               ) : (
-                <ChevronDown className="w-5 h-5 text-[#F97316]" />
+                <ChevronDown className="w-4 h-4 text-[#E85D04]" />
               )}
             </button>
 
-            <div className={`p-6 border-t border-slate-800 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
+            <div className={`p-6 border-t border-[#FFEDD7]/10 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {FULL_CREDITS_DATA.map((dept, dIdx) => (
-                  <div key={dIdx} className="rounded-xl bg-slate-950/80 border border-slate-800/90 p-4 space-y-2.5">
-                    <h5 className="font-unbounded font-bold text-xs uppercase tracking-wider text-[#38BDF8] border-b border-slate-800 pb-2">
+                  <div key={dIdx} className="rounded-xl bg-[#0A0807] border border-[#FFEDD7]/10 p-5 space-y-2.5">
+                    <h5 className="font-mono font-bold text-[10px] uppercase tracking-[0.2em] text-[#D4A373] border-b border-[#FFEDD7]/10 pb-2.5">
                       {dept.department[lang]}
                     </h5>
                     {dept.members.map((m, mIdx) => (
-                      <div key={mIdx} className="text-xs border-b border-slate-900 pb-1.5 last:border-none">
-                        <div className="text-slate-400">{m.role[lang]}</div>
-                        <div className="font-semibold text-slate-100">{m.name[lang]}</div>
+                      <div key={mIdx} className="text-xs border-b border-[#FFEDD7]/6 pb-2 last:border-none">
+                        <div className="text-[#7E746B]">{m.role[lang]}</div>
+                        <div className="font-medium text-[#E9DEC9] mt-0.5">{m.name[lang]}</div>
                       </div>
                     ))}
                   </div>
@@ -1104,24 +1108,24 @@ export default function App() {
         </div>
       </section>
 
-      {/* ==================== SCENE 5 (#sales): B2B PRODUCER TERMINAL & BUYERS ROOM ==================== */}
+      {/* ==================== SCENE 5 (#sales): B2B BUYERS ROOM (LINEAR PRECISION INSTRUMENT) ==================== */}
       <section
         id="sales"
         data-testid="sales-section"
-        className="py-24 sm:py-32 border-t-2 border-[#F97316]/60 bg-gradient-to-b from-[#060911] via-[#090F1C] to-[#05080F] relative"
+        className="py-24 sm:py-32 border-t-2 border-[#E85D04]/70 bg-[#0B0807] relative"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-14">
           {/* Terminal Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 hairline-dashed-b">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#F97316]/15 border border-[#F97316]/40 text-xs font-mono font-bold uppercase tracking-widest text-[#F97316] mb-3">
-                <ShieldCheck className="w-4 h-4" />
+              <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-[#E85D04] mb-3">
+                <ShieldCheck className="w-3.5 h-3.5" />
                 <span>{t.sales.tag}</span>
               </div>
-              <h2 className="font-unbounded font-black text-2xl sm:text-4xl text-white mb-2">
+              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] mb-2">
                 {t.sales.title}
               </h2>
-              <p className="text-sm sm:text-base text-slate-300">{t.sales.sub}</p>
+              <p className="text-sm sm:text-[15px] text-[#A69B91]">{t.sales.sub}</p>
             </div>
 
             {/* Direct PDF Pitch Deck Download Buttons */}
@@ -1131,131 +1135,131 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-testid="download-china-pdf-btn"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-slate-950 font-unbounded font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#F97316]/25"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[11px] uppercase tracking-[0.14em] transition-all"
               >
-                <FileDown className="w-4 h-4" />
-                <span>{t.sales.downloadChinaDeck} (NOT_EXTRA_CHINA_PITCH_DECK.pdf)</span>
+                <FileDown className="w-3.5 h-3.5" />
+                <span>{t.sales.downloadChinaDeck}</span>
               </a>
               <a
                 href="./NE_LISHNIE_Film_Pitch_Deck_RU.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-unbounded font-bold text-xs uppercase tracking-wider transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-transparent hover:bg-[#171210] border border-[#FFEDD7]/20 text-[#FFEDD7] font-mono font-semibold text-[11px] uppercase tracking-[0.14em] transition-all"
               >
-                <FileDown className="w-4 h-4 text-[#38BDF8]" />
+                <FileDown className="w-3.5 h-3.5 text-[#D4A373]" />
                 <span>
                   {lang === 'ru'
-                    ? 'Скачать презентацию «НЕ ЛИШНИЕ» (RU PDF)'
+                    ? 'Каст-презентация «НЕ ЛИШНИЕ» (RU)'
                     : lang === 'zh'
-                    ? '下载原版全彩视觉推介册 (PDF)'
-                    : 'Download Original Visual Pitch Deck (PDF)'}
+                    ? '原版全彩视觉推介册 (PDF)'
+                    : 'Visual Pitch Deck (RU PDF)'}
                 </span>
               </a>
             </div>
           </div>
 
-          {/* 1. Engineering Technical & Market Passport Grid */}
+          {/* 1. Engineering Technical & Market Passport (Hairline Architectural Grid) */}
           <div>
-            <h3 className="font-unbounded font-bold text-sm sm:text-base uppercase tracking-wider text-[#38BDF8] mb-4">
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-4">
               {t.sales.specsTitle}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">TITLES</div>
-                <div className="font-bold text-xs sm:text-sm text-white mt-1">NOT EXTRA / 《绝不多余》</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">НЕ ЛИШНИЕ · АРТЫҚ ЕМЕС</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden">
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">TITLES</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7] mt-1.5">NOT EXTRA / 《绝不多余》</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">《并非多余》 · НЕ ЛИШНИЕ</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">GENRE</div>
-                <div className="font-bold text-xs sm:text-sm text-[#F97316] mt-1">Sports Dramedy</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">励志体育轻喜剧 / 剧情片</div>
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">GENRE</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#E85D04] mt-1.5">Sports Dramedy</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">励志体育轻喜剧 / 剧情片</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">MASTER FORMAT</div>
-                <div className="font-bold text-xs sm:text-sm text-white mt-1">4K DCP · 2.39:1 Scope</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">24 fps · Full DI Grading</div>
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">MASTER FORMAT</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7] mt-1.5">4K DCP · 2.39:1</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">4096 × 1716 · 24 fps DI</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">AUDIO & STEMS</div>
-                <div className="font-bold text-xs sm:text-sm text-white mt-1">5.1 & Dolby Atmos</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">Full M&E Stems for Dubbing</div>
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">AUDIO & STEMS</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7] mt-1.5">5.1 & Dolby Atmos</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">Full M&E Stems for Dubbing</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">RUNTIME & ORIGIN</div>
-                <div className="font-bold text-xs sm:text-sm text-white mt-1">~115 min · Kazakhstan</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">Big Movie Studio × JANA MEN</div>
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">RUNTIME & ORIGIN</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7] mt-1.5">~115 min · KZ</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">Big Movie Studio × JANA MEN</div>
               </div>
-              <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
-                <div className="text-[10px] font-mono uppercase text-slate-400">DELIVERY WINDOW</div>
-                <div className="font-bold text-xs sm:text-sm text-emerald-400 mt-1">Spring 2027</div>
-                <div className="text-[10px] text-slate-400 mt-0.5">March – May 2027 (EN/ZH Subs)</div>
+              <div className="p-5 bg-[#0F0C0A]">
+                <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">DELIVERY WINDOW</div>
+                <div className="font-semibold text-xs sm:text-sm text-[#D4A373] mt-1.5">Spring 2027</div>
+                <div className="text-[10px] text-[#9E948B] mt-1">March – May 2027 (EN/ZH)</div>
               </div>
             </div>
           </div>
 
-          {/* 2. Post-Production Roadmap (3 Phases) */}
+          {/* 2. Post-Production Roadmap (3 Precision Phases) */}
           <div>
-            <h3 className="font-unbounded font-bold text-sm sm:text-base uppercase tracking-wider text-[#F97316] mb-4">
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-4">
               {t.sales.roadmapTitle}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-emerald-500/40">
-                <div className="flex items-center justify-between text-xs font-mono mb-2">
-                  <span className="text-emerald-400 font-bold">PHASE 01 · AUG–OCT 2026</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
-                    <CheckCircle2 className="w-3 h-3" /> COMPLETED
+              <div className="p-6 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.14em] mb-3">
+                  <span className="text-[#9E948B]">PHASE 01 · AUG–OCT 2026</span>
+                  <span className="inline-flex items-center gap-1 text-[#D4A373]">
+                    <CheckCircle2 className="w-3 h-3" /> WRAPPED
                   </span>
                 </div>
-                <h4 className="font-unbounded font-bold text-base text-white mb-2">
+                <h4 className="font-unbounded font-bold text-sm sm:text-base text-[#FFEDD7] mb-2">
                   {lang === 'zh'
                     ? '实景拍摄与阿斯塔纳马拉松杀青'
                     : lang === 'ru'
                     ? 'Съёмки и живой марафон в Астане — ЗАВЕРШЕНО'
-                    : 'Principal Photography & Live Astana Marathon — WRAPPED'}
+                    : 'Principal Photography & Live Astana Marathon'}
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[#9E948B] leading-relaxed">
                   {lang === 'zh'
                     ? '完成全部体育场内景、JANA MEN 训练营真实减重拍摄及阿斯塔纳官方万人马拉松实景跟拍。'
                     : '100% principal photography wrapped in Astana, including real JANA MEN camp transformation and live marathon capture.'}
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-[#F97316]/15 to-slate-900 border-2 border-[#F97316] shadow-xl">
-                <div className="flex items-center justify-between text-xs font-mono mb-2">
-                  <span className="text-[#F97316] font-bold">PHASE 02 · NOV 2026 – WINTER 26/27</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#F97316] text-slate-950 text-[10px] font-bold">
-                    <Clock className="w-3 h-3" /> ACTIVE NOW
+              <div className="p-6 rounded-2xl bg-[#160E0A] border border-[#E85D04]/70 relative">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.14em] mb-3">
+                  <span className="text-[#E85D04] font-bold">PHASE 02 · NOV 2026 – WINTER</span>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E85D04] text-[#0B0807] text-[9px] font-bold">
+                    <Clock className="w-2.5 h-2.5" /> ACTIVE
                   </span>
                 </div>
-                <h4 className="font-unbounded font-bold text-base text-white mb-2">
+                <h4 className="font-unbounded font-bold text-sm sm:text-base text-[#FFEDD7] mb-2">
                   {lang === 'zh'
-                    ? '粗剪审片 (Nov 2026) → 视效、配乐与杜比混音 (Winter)'
+                    ? '粗剪进行中 (Rough Cut) → 视效、配乐与杜比混音'
                     : lang === 'ru'
-                    ? 'Черновой монтаж (Rough Cut) → VFX, музыка, звук 5.1 и DI'
-                    : 'Rough Cut Assembly (Now) → VFX, Score, 5.1 Mix & DI'}
+                    ? 'Черновой монтаж (Rough Cut) → VFX, звук 5.1 и DI'
+                    : 'Rough Cut in Progress → VFX, Score, 5.1 Mix & DI'}
                 </h4>
-                <p className="text-xs text-slate-200 leading-relaxed">
+                <p className="text-xs text-[#E9DEC9] leading-relaxed">
                   {lang === 'zh'
-                    ? '2026年11月：粗剪组装完成并开放内部审片；2026/27冬季：完成大桥幻境VFX、原创配乐、DI调色及5.1/Atmos混音。'
+                    ? '2026年11月：粗剪进行中并开放内部审片；2026/27冬季：完成大桥幻境VFX、原创配乐、DI调色及5.1/Atmos混音。'
                     : 'Nov 2026: Rough Cut assembly review open for buyers. Winter 2026/27: VFX bridge morphing, original score, 5.1/Atmos sound mix & DI color.'}
                 </p>
               </div>
 
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-[#0284C7]/60">
-                <div className="flex items-center justify-between text-xs font-mono mb-2">
-                  <span className="text-[#38BDF8] font-bold">PHASE 03 · MARCH – MAY 2027</span>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#0284C7]/30 text-[#38BDF8] text-[10px] font-bold">
-                    <Sparkles className="w-3 h-3" /> SPRING 2027
+              <div className="p-6 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.14em] mb-3">
+                  <span className="text-[#D4A373]">PHASE 03 · MAR–MAY 2027</span>
+                  <span className="inline-flex items-center gap-1 text-[#FFEDD7]">
+                    <Sparkles className="w-3 h-3 text-[#E85D04]" /> SPRING 2027
                   </span>
                 </div>
-                <h4 className="font-unbounded font-bold text-base text-white mb-2">
+                <h4 className="font-unbounded font-bold text-sm sm:text-base text-[#FFEDD7] mb-2">
                   {lang === 'zh'
-                    ? '2027年春季：4K DCP及中英字幕母带交付与全球公映'
+                    ? '2027年春季：4K DCP及中英字幕母带交付与公映'
                     : lang === 'ru'
-                    ? 'Март – Май 2027: Сдача 4K DCP (EN/ZH субтитры) и Мировой релиз'
-                    : 'March – May 2027: 4K DCP Delivery (EN/ZH Subs) & World Release'}
+                    ? 'Март – Май 2027: 4K DCP (EN/ZH) и Мировой релиз'
+                    : 'March – May 2027: 4K DCP Delivery & World Release'}
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[#9E948B] leading-relaxed">
                   {lang === 'zh'
                     ? '交付4K DCP数字拷贝、中英文字幕母带、完整国际分轨（M&E）及全套引进申报文件。'
                     : 'Delivery of 4K DCP, English & Chinese subtitled masters, full M&E stems, and theatrical release.'}
@@ -1266,59 +1270,58 @@ export default function App() {
 
           {/* 3. Deal Structure + Flagship Music Co-Marketing ("Ya Eto Ty" x Dimash) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-slate-900/85 border border-slate-800 flex flex-col justify-between">
+            <div className="lg:col-span-6 p-7 sm:p-8 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 flex flex-col justify-between">
               <div>
-                <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#38BDF8] mb-2">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-3">
                   GREATER CHINA & GLOBAL DISTRIBUTION RIGHTS
                 </div>
-                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-white mb-3">
+                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-[#FFEDD7] mb-3">
                   {t.sales.dealTitle}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed mb-5">
                   {t.sales.dealBody}
                 </p>
               </div>
-              <div className="pt-4 border-t border-slate-800 flex flex-wrap gap-2 text-[11px] font-mono text-slate-300">
-                <span className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800">MAINLAND CHINA</span>
-                <span className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800">HONG KONG & MACAU</span>
-                <span className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800">TAIWAN</span>
-                <span className="px-2.5 py-1 rounded bg-slate-950 border border-slate-800">PRE-BUY / MOU READY</span>
+              <div className="pt-4 hairline-dashed flex flex-wrap gap-2 font-mono text-[10px] tracking-[0.14em] text-[#E9DEC9]">
+                <span className="px-2.5 py-1 rounded-full bg-[#18120F] border border-[#FFEDD7]/10">MAINLAND CHINA</span>
+                <span className="px-2.5 py-1 rounded-full bg-[#18120F] border border-[#FFEDD7]/10">HONG KONG & MACAU</span>
+                <span className="px-2.5 py-1 rounded-full bg-[#18120F] border border-[#FFEDD7]/10">TAIWAN</span>
+                <span className="px-2.5 py-1 rounded-full bg-[#18120F] border border-[#E85D04]/35 text-[#E85D04]">PRE-BUY / MOU READY</span>
               </div>
             </div>
 
-            <div className="lg:col-span-6 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-slate-900 to-slate-950 border border-amber-500/40 flex flex-col justify-between">
+            <div className="lg:col-span-6 p-7 sm:p-8 rounded-2xl bg-[#140F0B] border border-[#D4A373]/30 flex flex-col justify-between">
               <div>
-                <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-amber-400 mb-2">
-                  <Disc className="w-4 h-4 animate-spin" style={{ animationDuration: '8s' }} />
+                <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-3">
+                  <Disc className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '10s' }} />
                   <span>OFFICIAL OST RIGHTS & CHINA STAR COLLABORATION</span>
                 </div>
-                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-white mb-3">
+                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-[#FFEDD7] mb-3">
                   {t.sales.musicTitle}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-200 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-[#B8AEA4] leading-relaxed mb-5">
                   {t.sales.musicBody}
                 </p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950/90 border border-amber-500/30 text-xs text-amber-200 font-medium">
+              <div className="p-4 rounded-xl bg-[#0B0807] border border-[#D4A373]/25 text-xs text-[#E9DEC9] leading-relaxed">
                 {lang === 'zh'
-                  ? '★ 穆拉特·纳西罗夫继承人官方授权改编《Я это ты》(I Am You) · 支持与迪玛希 (Dimash) 或中国一线歌手录制官方中文主题曲'
-                  : '★ Official rights cleared with Murat Nasyrov’s heirs for “Ya Eto Ty” (“I Am You”) · Exclusive Mandarin OST recording option with Dimash Qudaibergen'}
+                  ? '★ 穆拉特·纳西罗夫继承人官方授权改编 "Ya Eto Ty" ("I Am You" / 《我是你》) · 支持特邀迪玛希 (Dimash) 或中国一线歌手录制专属中文主题曲'
+                  : '★ Official rights cleared with Murat Nasyrov’s heirs for "Ya Eto Ty" ("I Am You" / 《我是你》) · Exclusive Mandarin OST recording option with Dimash Qudaibergen'}
               </div>
             </div>
           </div>
 
-          {/* 4. Reference Promo Reel Screening Room & Direct Producer Contact Desk */}
+          {/* 4. Screening Room & Direct Producer Contact Desk */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Screening Room Card */}
-            <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between">
+            <div className="lg:col-span-7 p-7 sm:p-8 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 flex flex-col justify-between">
               <div>
-                <div className="inline-block px-3 py-1 rounded-md bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-[10px] sm:text-xs font-bold mb-3">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E85D04] mb-3">
                   {t.sales.disclaimerBadge}
                 </div>
-                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-white mb-2">
+                <h3 className="font-unbounded font-bold text-lg sm:text-xl text-[#FFEDD7] mb-3">
                   {t.sales.screeningRoomTitle}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed mb-6">
                   {t.sales.disclaimerText}
                 </p>
               </div>
@@ -1328,52 +1331,52 @@ export default function App() {
                   type="button"
                   onClick={() => setIsScreeningModalOpen(true)}
                   data-testid="open-screening-room-btn"
-                  className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-slate-950 font-unbounded font-bold text-xs uppercase tracking-wider transition-all"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[11px] uppercase tracking-[0.14em] transition-all"
                 >
-                  <Play className="w-4 h-4 fill-current" />
+                  <Play className="w-3.5 h-3.5 fill-current" />
                   <span>{t.hero.ctaTeaser}</span>
                 </button>
                 <a
                   href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-xs font-mono font-bold uppercase tracking-wider text-[#38BDF8]"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-transparent hover:bg-[#171210] border border-[#FFEDD7]/20 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#D4A373] hover:text-[#FFEDD7] transition-all"
                 >
                   <span>NOT_EXTRA_CHINA_PITCH_DECK.pdf ↗</span>
                 </a>
               </div>
             </div>
 
-            {/* Direct Producer Contact Desk (Strictly hides Instagram in ZH / China mode) */}
-            <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-slate-950 border border-[#0284C7]/60 flex flex-col justify-between">
+            {/* Direct Producer Contact Desk (Hides Instagram strictly in ZH / ?market=cn) */}
+            <div className="lg:col-span-5 p-7 sm:p-8 rounded-2xl bg-[#120D0B] border border-[#FFEDD7]/16 flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#F97316]">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E85D04]">
                   BIG MOVIE STUDIO · ASTANA, KAZAKHSTAN
                 </div>
-                <h3 className="font-unbounded font-bold text-xl text-white">
+                <h3 className="font-unbounded font-bold text-xl text-[#FFEDD7]">
                   Sergey Bondarev {lang === 'zh' ? '· 谢尔盖·邦达列夫' : ''}
                 </h3>
-                <div className="text-xs text-slate-400">
+                <div className="text-xs text-[#9E948B]">
                   Showrunner & Lead Producer · Direct Acquisition & Co-Production Desk
                 </div>
 
-                {/* 1-Click Email Copy + Direct Mailto */}
-                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <Mail className="w-4 h-4 text-[#F97316] flex-shrink-0" />
+                {/* 1-Click Corporate Email Copy */}
+                <div className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <Mail className="w-4 h-4 text-[#E85D04] flex-shrink-0" />
                     <div className="truncate">
-                      <div className="font-mono font-bold text-xs sm:text-sm text-white truncate">
+                      <div className="font-mono font-semibold text-xs sm:text-sm text-[#FFEDD7] truncate">
                         sergey@sijicbond.site
                       </div>
-                      <div className="text-[10px] text-slate-400">sijicbond@gmail.com</div>
+                      <div className="text-[10px] text-[#7E746B]">sijicbond@gmail.com</div>
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-[#F97316] text-slate-200 hover:text-slate-950 text-[11px] font-mono font-bold transition-colors flex items-center gap-1 flex-shrink-0"
+                    className="px-3 py-1.5 rounded-full bg-[#1C1613] hover:bg-[#FFEDD7] text-[#FFEDD7] hover:text-[#0B0807] text-[10px] font-mono font-semibold transition-colors flex items-center gap-1 flex-shrink-0"
                   >
-                    {copiedEmail ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedEmail ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                     <span>{copiedEmail ? t.sales.copied : 'COPY'}</span>
                   </button>
                 </div>
@@ -1381,14 +1384,14 @@ export default function App() {
                 {/* Phone / WeChat */}
                 <a
                   href="tel:+77768006262"
-                  className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-[#38BDF8] flex items-center gap-3 transition-colors"
+                  className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 hover:border-[#D4A373]/60 flex items-center gap-3 transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-[#38BDF8] flex-shrink-0" />
+                  <Phone className="w-4 h-4 text-[#D4A373] flex-shrink-0" />
                   <div>
-                    <div className="font-mono font-bold text-xs sm:text-sm text-white">
+                    <div className="font-mono font-semibold text-xs sm:text-sm text-[#FFEDD7]">
                       +7 776 800 6262
                     </div>
-                    <div className="text-[10px] text-slate-400">
+                    <div className="text-[10px] text-[#7E746B]">
                       {lang === 'zh'
                         ? '微信 (WeChat ID) 及电话直联（欢迎邮件索取微信号）'
                         : 'Direct Line / WeChat ID Available upon Request'}
@@ -1403,34 +1406,35 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="instagram-link"
-                    className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-[#F97316] flex items-center gap-3 transition-colors"
+                    className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 hover:border-[#E85D04]/60 flex items-center gap-3 transition-colors"
                   >
-                    <Instagram className="w-4 h-4 text-[#F97316] flex-shrink-0" />
+                    <Instagram className="w-4 h-4 text-[#E85D04] flex-shrink-0" />
                     <div>
-                      <div className="font-bold text-xs sm:text-sm text-white">@ne_lishnie_film</div>
-                      <div className="text-[10px] text-slate-400">Official Film Instagram</div>
+                      <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7]">@ne_lishnie_film</div>
+                      <div className="text-[10px] text-[#7E746B]">Official Film Instagram</div>
                     </div>
                   </a>
                 )}
               </div>
 
-              <div className="mt-5 pt-4 border-t border-slate-800 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <div className="mt-5 pt-4 hairline-dashed flex items-center justify-between font-mono text-[10px] text-[#7E746B]">
                 <span>DOMAIN: SIJICBOND.SITE</span>
-                <span className="text-emerald-400">CHAIN OF TITLE: CLEAN</span>
+                <span className="text-[#D4A373]">CHAIN OF TITLE: CLEAN</span>
               </div>
             </div>
           </div>
-          {/* 5. Interactive Visual Presentation Viewer (NOT_EXTRA_CHINA_PITCH_DECK.pdf & «НЕ ЛИШНИЕ» Pitch Deck) */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-slate-800 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+          {/* 5. Official Visual Pitch Deck Gallery (Neutral Greater China Deck + RU Visual Deck) */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 hairline-dashed-b">
               <div>
-                <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#F97316]">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E85D04]">
                   OFFICIAL VISUAL PITCH DECK GALLERY · ОФИЦИАЛЬНЫЕ СЛАЙДЫ ПРЕЗЕНТАЦИЙ
                 </div>
-                <h3 className="font-unbounded font-bold text-lg sm:text-2xl text-white mt-1">
+                <h3 className="font-unbounded font-bold text-lg sm:text-2xl text-[#FFEDD7] mt-1">
                   {lang === 'zh'
-                    ? '《绝不多余》 / 《并非多余》中国区推介手册 (NOT_EXTRA_CHINA_PITCH_DECK.pdf) 预览'
-                    : 'Презентация для Китая (NOT_EXTRA_CHINA_PITCH_DECK.pdf) и Каст-презентация «НЕ ЛИШНИЕ»'}
+                    ? '《绝不多余》 / 《并非多余》大中华区推介手册 (NOT_EXTRA_CHINA_PITCH_DECK.pdf)'
+                    : 'Презентация для Большого Китая (NOT_EXTRA_CHINA_PITCH_DECK.pdf) и Каст-презентация «НЕ ЛИШНИЕ»'}
                 </h3>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -1438,39 +1442,39 @@ export default function App() {
                   href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-[#F97316] text-slate-950 font-unbounded font-bold text-xs uppercase"
+                  className="px-4 py-2 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[10px] uppercase tracking-[0.14em] transition-colors"
                 >
-                  NOT_EXTRA_CHINA_PITCH_DECK.pdf ↗
+                  GREATER CHINA DECK ↗
                 </a>
                 <a
                   href="./NE_LISHNIE_Film_Pitch_Deck_RU.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-white font-unbounded font-bold text-xs uppercase"
+                  className="px-4 py-2 rounded-full bg-[#191310] border border-[#FFEDD7]/15 text-[#FFEDD7] hover:border-[#FFEDD7]/40 font-mono font-semibold text-[10px] uppercase tracking-[0.14em] transition-colors"
                 >
-                  «НЕ ЛИШНИЕ» Pitch Deck (RU) ↗
+                  «НЕ ЛИШНИЕ» RU DECK ↗
                 </a>
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12].slice(0, 8).map((sNum) => (
+              {[1, 2, 3, 4, 5, 6, 9, 11].map((sNum) => (
                 <a
                   key={`cn-${sNum}`}
                   href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-2xl overflow-hidden border border-slate-800 hover:border-[#F97316] bg-slate-950 transition-all"
+                  className="group rounded-xl overflow-hidden border border-[#FFEDD7]/10 hover:border-[#E85D04]/70 bg-[#070606] transition-all"
                 >
                   <img
-                    src={`./slides/cn_slide_${String(sNum).padStart(2, '0')}.png?v=5`}
+                    src={`./slides/cn_slide_${String(sNum).padStart(2, '0')}.png?v=6`}
                     alt={`NOT_EXTRA_CHINA_PITCH_DECK Slide ${sNum}`}
-                    className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full aspect-video object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="px-3 py-2 text-[11px] font-mono text-slate-300 flex justify-between">
+                  <div className="px-3 py-2 font-mono text-[10px] text-[#A69B91] flex justify-between">
                     <span>CHINA DECK · SLIDE {String(sNum).padStart(2, '0')}</span>
-                    <span className="text-[#F97316]">PDF ↗</span>
+                    <span className="text-[#E85D04]">PDF ↗</span>
                   </div>
                 </a>
               ))}
@@ -1483,17 +1487,17 @@ export default function App() {
                   href="./NE_LISHNIE_Film_Pitch_Deck_RU.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-2xl overflow-hidden border border-slate-800 hover:border-[#38BDF8] bg-slate-950 transition-all"
+                  className="group rounded-xl overflow-hidden border border-[#FFEDD7]/10 hover:border-[#D4A373]/70 bg-[#070606] transition-all"
                 >
                   <img
                     src={`./slides/ru_slide_${String(rNum).padStart(2, '0')}.png`}
                     alt={`НЕ ЛИШНИЕ Pitch Deck Slide ${rNum}`}
-                    className="w-full aspect-video object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full aspect-video object-cover group-hover:scale-[1.03] transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="px-3 py-2 text-[11px] font-mono text-slate-300 flex justify-between">
+                  <div className="px-3 py-2 font-mono text-[10px] text-[#A69B91] flex justify-between">
                     <span>НЕ ЛИШНИЕ · СЛАЙД {String(rNum).padStart(2, '0')}</span>
-                    <span className="text-[#38BDF8]">PDF ↗</span>
+                    <span className="text-[#D4A373]">PDF ↗</span>
                   </div>
                 </a>
               ))}
@@ -1502,20 +1506,20 @@ export default function App() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-12 border-t border-slate-800/80 bg-[#05080F] text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
-          <div className="font-unbounded font-extrabold text-xs sm:text-sm tracking-widest uppercase text-white">
+      {/* MINIMALIST CINEMA FOOTER (Generous bottom clearance for centered SOS Telemetry Dock) */}
+      <footer className="pt-14 pb-28 hairline-dashed bg-[#070606] text-center">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-3">
+          <div className="font-unbounded font-bold text-xs sm:text-sm tracking-[0.22em] uppercase text-[#FFEDD7]">
             НЕ ЛИШНИЕ · NOT EXTRA · АРТЫҚ ЕМЕС · 《绝不多余》
           </div>
-          <p className="text-xs text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xs text-[#7E746B] max-w-2xl mx-auto">
             © 2026–2027 Big Movie Studio & IBA JANA MEN Movement (Astana, Kazakhstan). All Rights Reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-slate-400 pt-2">
-            <a href="mailto:sergey@sijicbond.site" className="hover:text-[#F97316]">
+          <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-[#A69B91] pt-2">
+            <a href="mailto:sergey@sijicbond.site" className="hover:text-[#E85D04] transition-colors">
               sergey@sijicbond.site
             </a>
-            <a href="tel:+77768006262" className="hover:text-[#38BDF8]">
+            <a href="tel:+77768006262" className="hover:text-[#FFEDD7] transition-colors">
               +7 776 800 6262
             </a>
             {!hideWesternSocials && (
@@ -1523,7 +1527,7 @@ export default function App() {
                 href="https://www.instagram.com/ne_lishnie_film"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#F97316]"
+                className="hover:text-[#E85D04] transition-colors"
               >
                 @ne_lishnie_film
               </a>
@@ -1532,47 +1536,47 @@ export default function App() {
         </div>
       </footer>
 
-      {/* MODAL SCREENING ROOM WITH EXPLICIT WORK-IN-PROGRESS DISCLAIMER */}
+      {/* MODAL SCREENING ROOM (Darkroom Plinth + Local 1080p Film Still) */}
       {isScreeningModalOpen && (
         <div
-          className="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-[#070504]/92 backdrop-blur-xl flex items-center justify-center p-4"
           onClick={() => setIsScreeningModalOpen(false)}
         >
           <div
-            className="max-w-3xl w-full bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl"
+            className="max-w-3xl w-full bg-[#120E0C] border border-[#FFEDD7]/16 rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-6 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="font-mono text-xs font-bold uppercase tracking-wider text-amber-300">
+            <div className="px-6 py-4 bg-[#0B0807] border-b border-[#FFEDD7]/10 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2 h-2 rounded-full bg-[#E85D04] animate-pulse" />
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#D4A373]">
                   {t.sales.disclaimerBadge}
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setIsScreeningModalOpen(false)}
-                className="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"
+                className="p-1.5 rounded-full bg-[#1A1411] text-[#A69B91] hover:text-[#FFEDD7] transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             <div className="p-6 sm:p-8 space-y-6">
-              <div className="aspect-video rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 relative flex items-center justify-center">
+              <div className="aspect-video rounded-xl overflow-hidden bg-[#060505] border border-[#FFEDD7]/10 relative flex items-center justify-center">
                 <img
-                  src="https://i.postimg.cc/fL7x7bLr/peremeny.png"
+                  src="./stills/still_aitym_mentor.jpg"
                   alt="Rough Cut Reference Preview"
                   className="w-full h-full object-cover opacity-45"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent flex flex-col items-center justify-center p-6 text-center">
-                  <span className="px-3.5 py-1 rounded-full bg-[#F97316] text-slate-950 font-unbounded font-bold text-xs uppercase mb-3">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0807] via-[#0B0807]/55 to-transparent flex flex-col items-center justify-center p-6 text-center">
+                  <span className="px-3.5 py-1 rounded-full bg-[#E85D04] text-[#0B0807] font-mono font-bold text-[10px] uppercase tracking-[0.16em] mb-3">
                     3-MIN SUBTITLED ROUGH-CUT ASSEMBLY
                   </span>
-                  <h4 className="font-unbounded font-bold text-lg sm:text-2xl text-white mb-2">
+                  <h4 className="font-unbounded font-bold text-lg sm:text-2xl text-[#FFEDD7] mb-2">
                     {t.sales.screeningRoomTitle}
                   </h4>
-                  <p className="text-xs sm:text-sm text-slate-200 max-w-xl leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#E9DEC9] max-w-xl leading-relaxed">
                     {t.sales.disclaimerText}
                   </p>
                 </div>
@@ -1581,9 +1585,9 @@ export default function App() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href="mailto:sergey@sijicbond.site?subject=NOT%20EXTRA%20(%E3%80%8A%E7%BB%9D%E4%B8%8D%E5%A4%9A%E4%BD%99%E3%80%8B)%20-%20Request%20Private%20Rough%20Cut%20Screener"
-                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#F97316] text-slate-950 font-unbounded font-bold text-xs uppercase tracking-wider"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[11px] uppercase tracking-[0.14em] transition-colors"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-3.5 h-3.5" />
                   <span>
                     {lang === 'zh'
                       ? '发送邮件申请加密审片链接 (sergey@sijicbond.site)'
@@ -1594,10 +1598,10 @@ export default function App() {
                   href="./NOT_EXTRA_CHINA_PITCH_DECK.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0284C7] text-white font-unbounded font-bold text-xs uppercase tracking-wider"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-transparent border border-[#FFEDD7]/20 hover:border-[#E85D04] text-[#FFEDD7] font-mono font-semibold text-[11px] uppercase tracking-[0.14em] transition-colors"
                 >
-                  <FileDown className="w-4 h-4" />
-                  <span>{t.sales.downloadChinaDeck} (NOT_EXTRA_CHINA_PITCH_DECK.pdf)</span>
+                  <FileDown className="w-3.5 h-3.5 text-[#E85D04]" />
+                  <span>{t.sales.downloadChinaDeck}</span>
                 </a>
               </div>
             </div>
