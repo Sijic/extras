@@ -728,7 +728,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-hidden relative selection:bg-[#E61E2A] selection:text-white">
+    <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-clip relative selection:bg-[#E61E2A] selection:text-white">
 
       {/* ==================== CLEAN EDITORIAL TOP BAR (ROYAL SKY NAVY — MATCHES BLUE SKY HERO) ==================== */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#07336B]/95 backdrop-blur-md border-b border-white/15">
@@ -839,31 +839,49 @@ export default function App() {
         </div>
       </header>
 
-      {/* ==================== SCENE 1 (HERO): OFFICIAL BLUE SKY OF ASTANA (@ne_lishnie_film) ==================== */}
+      {/* ==================== SCENE 1 (HERO): PURE VIBRANT BLUE SKY (@ne_lishnie_film) ==================== */}
       <section
         id="hero"
         className="relative min-h-[90vh] flex flex-col justify-between pt-20 pb-14 sm:pb-20 overflow-hidden"
         style={{
           background:
-            'linear-gradient(180deg, #0753A8 0%, #157AD8 44%, #3DA4EE 82%, #7CC8F8 100%)',
+            'linear-gradient(180deg, #005AC8 0%, #0E7BE0 38%, #2E9FF4 74%, #76CCF9 94%, #F5F7FB 100%)',
         }}
       >
-        {/* Subtle Soft Daylight Clouds & Astana Bridge Atmospheric Texture */}
-        <img
-          src="./stills/hero_bridge_web.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none opacity-22 mix-blend-luminosity"
-        />
-
-        {/* Soft Airy Sunlight Glow + Gentle Bottom Blend into Marathon Blueprint */}
+        {/* Soft Natural Daylight Clouds & Sunlit Sky Glow (Pure Clean Blue Sky — Zero Muddy Dark Overlay!) */}
         <div
-          className="absolute inset-0 pointer-events-none z-[5]"
+          className="absolute inset-0 pointer-events-none z-[2]"
           style={{
             background:
-              'radial-gradient(ellipse 68% 48% at 78% 18%, rgba(255,255,255,0.28) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 20% 72%, rgba(255,255,255,0.18) 0%, transparent 70%), linear-gradient(180deg, rgba(6,62,130,0.34) 0%, rgba(16,108,200,0.12) 55%, rgba(245,247,251,0.18) 92%, #F5F7FB 100%)',
+              'radial-gradient(ellipse 52% 28% at 18% 24%, rgba(255,255,255,0.24) 0%, transparent 72%), radial-gradient(ellipse 62% 30% at 82% 20%, rgba(255,255,255,0.34) 0%, transparent 70%), radial-gradient(ellipse 46% 24% at 54% 66%, rgba(255,255,255,0.28) 0%, transparent 72%)',
           }}
         />
+
+        {/* Delicate White Astana Skyline Silhouette Sitting on the Horizon */}
+        <svg
+          viewBox="0 0 1440 160"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 left-0 right-0 w-full h-24 sm:h-36 z-[4] opacity-40"
+          fill="none"
+        >
+          {/* Khan Shatyr */}
+          <path d="M90 160 L165 62 L248 160" stroke="#FFFFFF" strokeWidth="2" />
+          <path d="M165 62 L182 36" stroke="#FFFFFF" strokeWidth="2" />
+          {/* Astana Arena dome */}
+          <path d="M320 160 C350 96, 490 96, 520 160" stroke="#FFFFFF" strokeWidth="2" />
+          {/* Baiterek Tower */}
+          <path d="M695 160 L706 72 M725 160 L714 72 M710 160 L710 74" stroke="#FFFFFF" strokeWidth="2.2" />
+          <path d="M688 64 C696 76, 724 76, 732 64" stroke="#FFFFFF" strokeWidth="2" />
+          <circle cx="710" cy="52" r="14" stroke="#FFFFFF" strokeWidth="2.2" fill="rgba(255,255,255,0.2)" />
+          {/* Pyramid */}
+          <path d="M880 160 L950 76 L1020 160" stroke="#FFFFFF" strokeWidth="2" />
+          {/* EXPO Sphere */}
+          <circle cx="1220" cy="112" r="44" stroke="#FFFFFF" strokeWidth="2" />
+          <ellipse cx="1220" cy="112" rx="18" ry="44" stroke="#FFFFFF" strokeWidth="1.2" />
+          {/* Arch Bridge */}
+          <path d="M1310 160 Q1380 88 1440 155" stroke="#FFFFFF" strokeWidth="2" />
+        </svg>
 
         <div className="relative z-20 max-w-[1340px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
           {/* Minimal Top Metadata Strip */}

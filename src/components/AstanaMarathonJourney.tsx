@@ -359,58 +359,57 @@ const SlimmingRunnerFigure: React.FC<{ progress: number }> = ({ progress }) => {
   const arm2Angle = isFinished ? -135 : stride * 36;
 
   return (
-    <svg viewBox="0 0 80 88" className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_8px_18px_rgba(15,35,66,0.24)]" fill="none">
+    <svg viewBox="0 0 96 104" className="w-24 h-24 sm:w-28 sm:h-28 drop-shadow-[0_10px_22px_rgba(15,35,66,0.28)]" fill="none">
       {/* Ground shadow gets tighter & lighter as Rasul slims down */}
-      <ellipse cx="40" cy="80" rx={22 - p * 8} ry="4" fill="rgba(15, 35, 66, 0.16)" />
+      <ellipse cx="48" cy="94" rx={28 - p * 11} ry="4.5" fill="rgba(15, 35, 66, 0.18)" />
 
-      <g transform={`translate(40, 44) rotate(${isFinished ? 0 : postureLean})`}>
+      <g transform={`translate(48, 52) rotate(${isFinished ? 0 : postureLean})`}>
         {/* Back Leg */}
-        <g transform={`translate(-2, 10) rotate(${leg2Angle})`}>
-          <path d="M0 0 L-3 13 L-9 23" stroke="#0F2342" strokeWidth={5.2 - p * 1.4} strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M-9 23 L-2 25" stroke="#E61E2A" strokeWidth="3.2" strokeLinecap="round" />
+        <g transform={`translate(-2, 12) rotate(${leg2Angle})`}>
+          <path d="M0 0 L-4 15 L-11 27" stroke="#0F2342" strokeWidth={6.4 - p * 1.8} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M-11 27 L-3 29" stroke="#E61E2A" strokeWidth="3.8" strokeLinecap="round" />
         </g>
 
         {/* Front Leg */}
-        <g transform={`translate(3, 10) rotate(${leg1Angle})`}>
-          <path d="M0 0 L5 13 L1 24" stroke="#0F2342" strokeWidth={5.4 - p * 1.4} strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M1 24 L9 25" stroke="#E61E2A" strokeWidth="3.2" strokeLinecap="round" />
+        <g transform={`translate(4, 12) rotate(${leg1Angle})`}>
+          <path d="M0 0 L6 15 L1 28" stroke="#0F2342" strokeWidth={6.6 - p * 1.8} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M1 28 L11 29" stroke="#E61E2A" strokeWidth="3.8" strokeLinecap="round" />
         </g>
 
         {/* Back Arm */}
-        <g transform={`translate(-4, -10) rotate(${arm2Angle})`}>
-          <path d="M0 0 L-7 11 L-1 17" stroke="#1E3A5F" strokeWidth={4.4 - p * 1.1} strokeLinecap="round" strokeLinejoin="round" />
+        <g transform={`translate(-5, -12) rotate(${arm2Angle})`}>
+          <path d="M0 0 L-9 13 L-2 20" stroke="#1E3A5F" strokeWidth={5.2 - p * 1.3} strokeLinecap="round" strokeLinejoin="round" />
         </g>
 
-        {/* Torso / Belly that visibly slims down from 207 kg to 135 kg */}
+        {/* Torso / Belly that visibly slims down from 207 kg (huge!) to 135 kg (athletic!) */}
         <ellipse
-          cx={2 - p * 1.5}
+          cx={3 - p * 2}
           cy={-1}
-          rx={bellyRx}
-          ry={15.5 - p * 1.2}
+          rx={bellyRx * 1.32}
+          ry={18.5 - p * 1.5}
           fill={jerseyColor}
           stroke="#0F2342"
-          strokeWidth="2.2"
+          strokeWidth="2.5"
         />
         {/* Reflective vest stripe (Act 1) or Marathon Bib #261 (Act 3) */}
         {p < 0.34 ? (
           <path
-            d={`M${-torsoWidth * 0.42} 2 L${torsoWidth * 0.48} 2`}
+            d={`M${-torsoWidth * 0.56} 3 L${torsoWidth * 0.62} 3`}
             stroke={stripeColor}
-            strokeWidth="2.4"
+            strokeWidth="3"
             strokeLinecap="round"
           />
         ) : p >= 0.66 ? (
-          <rect x="-3.5" y="-5" width="9" height="8" rx="1.5" fill="#FFFFFF" stroke="#0F2342" strokeWidth="1" />
+          <rect x="-4.5" y="-6" width="11" height="9.5" rx="1.8" fill="#FFFFFF" stroke="#0F2342" strokeWidth="1.2" />
         ) : null}
 
         {/* Head */}
-        <circle cx="3" cy="-22" r={8.2 - p * 1.1} fill="#F8FAFC" stroke="#0F2342" strokeWidth="2.2" />
-        {/* Hair cap */}
-        <path d="M-4 -25 Q3 -32 10 -24" stroke="#0F2342" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="4" cy="-26" r={9.6 - p * 1.2} fill="#F8FAFC" stroke="#0F2342" strokeWidth="2.4" />
+        <path d="M-4 -30 Q4 -37 12 -29" stroke="#0F2342" strokeWidth="3.4" strokeLinecap="round" />
 
         {/* Front Arm */}
-        <g transform={`translate(4, -9) rotate(${arm1Angle})`}>
-          <path d="M0 0 L8 10 L13 5" stroke="#0F2342" strokeWidth={4.6 - p * 1.1} strokeLinecap="round" strokeLinejoin="round" />
+        <g transform={`translate(5, -11) rotate(${arm1Angle})`}>
+          <path d="M0 0 L10 12 L15 6" stroke="#0F2342" strokeWidth={5.4 - p * 1.3} strokeLinecap="round" strokeLinejoin="round" />
         </g>
       </g>
     </svg>
@@ -480,7 +479,7 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
       id="journey"
       ref={sectionRef}
       data-testid="astana-marathon-journey"
-      className="relative bg-[#F5F7FB] text-[#0B172A] py-20 sm:py-28 overflow-hidden"
+      className="relative bg-[#F5F7FB] text-[#0B172A] py-20 sm:py-28 overflow-x-clip"
     >
       {/* Subtle Architectural Blueprint Grid Texture */}
       <div
@@ -534,9 +533,9 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
 
         {/* ==================== VERTICAL ILLUSTRATED ASTANA MARATHON ROUTE ==================== */}
         <div className="relative">
-          {/* Desktop Center Winding Marathon Route SVG + Slimming Animated Runner */}
+          {/* Desktop Center Winding Marathon Route SVG + ALWAYS-VISIBLE Sticky Slimming Runner */}
           <div
-            className="hidden lg:block pointer-events-none absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[200px] z-10"
+            className="hidden lg:block pointer-events-none absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[200px] z-20"
             aria-hidden="true"
           >
             <svg
@@ -549,7 +548,7 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
                 d="M 100 16 C 175 150, 25 320, 100 490 C 175 660, 25 830, 100 984"
                 fill="none"
                 stroke="#CBD5E1"
-                strokeWidth="4"
+                strokeWidth="4.5"
                 strokeDasharray="8 8"
                 strokeLinecap="round"
               />
@@ -559,44 +558,47 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
                 d="M 100 16 C 175 150, 25 320, 100 490 C 175 660, 25 830, 100 984"
                 fill="none"
                 stroke="#E61E2A"
-                strokeWidth="4.5"
+                strokeWidth="5"
                 strokeLinecap="round"
                 strokeDasharray={pathLen}
                 strokeDashoffset={Math.max(0, pathLen * (1 - progress))}
               />
-              {/* Start & Finish Route Pins */}
               <circle cx="100" cy="16" r="7" fill="#0F2342" stroke="#FFFFFF" strokeWidth="2.5" />
               <circle cx="100" cy="984" r="8" fill="#E61E2A" stroke="#FFFFFF" strokeWidth="2.5" />
             </svg>
 
-            {/* Moving Slimming Runner Locked to Exact Point Along the Winding Route! */}
-            <div
-              data-testid="marathon-slimming-runner"
-              className="absolute -ml-10 -mt-12 will-change-transform"
-              style={{
-                left: `${(runnerPt.x / 200) * 100}%`,
-                top: `${(runnerPt.y / 1000) * 100}%`,
-              }}
-            >
-              <SlimmingRunnerFigure progress={progress} />
+            {/* ALWAYS-VISIBLE Sticky Large Slimming Runner Locked to Center Eye-Level! */}
+            <div className="absolute inset-0 flex justify-center">
+              <div
+                data-testid="marathon-slimming-runner"
+                className="sticky top-[38vh] h-fit flex flex-col items-center will-change-transform"
+                style={{
+                  transform: `translateX(${((runnerPt.x - 100) / 200) * 140}px)`,
+                }}
+              >
+                <div className="px-2.5 py-0.5 mb-1 rounded-full bg-[#060B14] text-white font-mono text-[10px] font-bold shadow-md whitespace-nowrap">
+                  <span className="text-[#E61E2A]">{currentKm}</span> · <span className="text-sky-300">{currentKg} {copy.kgUnit}</span>
+                </div>
+                <SlimmingRunnerFigure progress={progress} />
+              </div>
             </div>
           </div>
 
-          {/* Mobile Left-Rail Marathon Track + Slimming Runner */}
+          {/* Mobile Left-Rail Marathon Track + ALWAYS-VISIBLE Sticky Slimming Runner */}
           <div
-            className="lg:hidden pointer-events-none absolute top-2 bottom-2 left-4 w-12 z-10"
+            className="lg:hidden pointer-events-none absolute top-2 bottom-2 left-2 w-14 z-20"
             aria-hidden="true"
           >
-            <div className="absolute left-5 top-0 bottom-0 w-0.5 bg-slate-300" />
+            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-300" />
             <div
-              className="absolute left-5 top-0 w-0.5 bg-[#E61E2A]"
+              className="absolute left-6 top-0 w-1 bg-[#E61E2A] rounded-full"
               style={{ height: `${Math.round(progress * 100)}%` }}
             />
-            <div
-              className="absolute -left-2.5 -mt-8 will-change-transform"
-              style={{ top: `${Math.max(2, Math.min(95, progress * 100))}%` }}
-            >
+            <div className="sticky top-[42vh] -ml-3 flex flex-col items-center">
               <SlimmingRunnerFigure progress={progress} />
+              <span className="mt-0.5 px-1.5 py-0.5 rounded bg-[#060B14] text-white font-mono text-[9px] font-bold">
+                {currentKg}{copy.kgUnit}
+              </span>
             </div>
           </div>
 
