@@ -69,3 +69,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #E61E2A;
 }
+
+/* Lightweight GPU-only drifting sky clouds for Stadium Hero */
+@keyframes cloudDriftSlow {
+  0% {
+    transform: translate3d(-4%, 0, 0);
+  }
+  50% {
+    transform: translate3d(4%, -1.5%, 0);
+  }
+  100% {
+    transform: translate3d(-4%, 0, 0);
+  }
+}
+
+.animate-cloud-drift {
+  animation: cloudDriftSlow 28s ease-in-out infinite;
+  will-change: transform;
+}

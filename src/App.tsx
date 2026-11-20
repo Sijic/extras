@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Volume2,
   VolumeX,
@@ -671,9 +671,38 @@ export default function App() {
   const [isPromoModalOpen, setIsPromoModalOpen] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
 
+  const heroBgRef = useRef<HTMLImageElement | null>(null);
+  const previewVideoRef = useRef<HTMLVideoElement | null>(null);
+
   const hideWesternSocials = lang === 'zh' || isChinaMarketUrl;
   const showRussianDeck = lang === 'ru' || lang === 'kk';
   const c = COPY[lang];
+
+  // Pause the tiny Hero preview loop while the full 3-min Promo Modal is open (zero decoder contention)
+  useEffect(() => {
+    const pv = previewVideoRef.current;
+    if (!pv) return;
+    if (isPromoModalOpen) {
+      pv.pause();
+    } else {
+      pv.play().catch(() => {});
+    }
+  }, [isPromoModalOpen]);
+
+  const handleHeroParallax = (e: React.MouseEvent<HTMLElement>) => {
+    const img = heroBgRef.current;
+    if (!img) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = (e.clientX - rect.left) / rect.width - 0.5;
+    const ny = (e.clientY - rect.top) / rect.height - 0.5;
+    img.style.transform = `scale(1.05) translate3d(${(-nx * 18).toFixed(1)}px, ${(-ny * 12).toFixed(1)}px, 0)`;
+  };
+
+  const resetHeroParallax = () => {
+    if (heroBgRef.current) {
+      heroBgRef.current.style.transform = 'scale(1.03) translate3d(0px, 0px, 0)';
+    }
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -839,49 +868,41 @@ export default function App() {
         </div>
       </header>
 
-      {/* ==================== SCENE 1 (HERO): PURE VIBRANT BLUE SKY (@ne_lishnie_film) ==================== */}
+      {/* ==================== SCENE 1 (HERO): LIVE ASTANA STADIUM UNDER BLUE SKY + PARALLAX + VIDEO LOOP ==================== */}
       <section
         id="hero"
-        className="relative min-h-[90vh] flex flex-col justify-between pt-20 pb-14 sm:pb-20 overflow-hidden"
-        style={{
-          background:
-            'linear-gradient(180deg, #005AC8 0%, #0E7BE0 38%, #2E9FF4 74%, #76CCF9 94%, #F5F7FB 100%)',
-        }}
+        onMouseMove={handleHeroParallax}
+        onMouseLeave={resetHeroParallax}
+        className="relative min-h-[92vh] flex flex-col justify-between pt-20 pb-16 sm:pb-24 overflow-hidden bg-[#0E7AE0]"
       >
-        {/* Soft Natural Daylight Clouds & Sunlit Sky Glow (Pure Clean Blue Sky — Zero Muddy Dark Overlay!) */}
+        {/* Authentic 35mm Astana Stadium + Baiterek Skyline + Clear Blue Sky (94KB WebP) with Mouse 3D Parallax */}
+        <img
+          ref={heroBgRef}
+          src="./stills/hero_stadium_sky.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none select-none transition-transform duration-300 ease-out will-change-transform"
+          style={{ transform: 'scale(1.03) translate3d(0px, 0px, 0)' }}
+        />
+
+        {/* Subtle Moving Daylight Clouds Veil Across Upper Sky (Zero JS CPU) */}
         <div
-          className="absolute inset-0 pointer-events-none z-[2]"
+          aria-hidden="true"
+          className="pointer-events-none absolute -inset-x-16 top-0 h-[55%] z-[3] animate-cloud-drift opacity-45"
           style={{
             background:
-              'radial-gradient(ellipse 52% 28% at 18% 24%, rgba(255,255,255,0.24) 0%, transparent 72%), radial-gradient(ellipse 62% 30% at 82% 20%, rgba(255,255,255,0.34) 0%, transparent 70%), radial-gradient(ellipse 46% 24% at 54% 66%, rgba(255,255,255,0.28) 0%, transparent 72%)',
+              'radial-gradient(ellipse 36% 24% at 24% 34%, rgba(255,255,255,0.42) 0%, transparent 72%), radial-gradient(ellipse 42% 28% at 72% 26%, rgba(255,255,255,0.38) 0%, transparent 72%)',
           }}
         />
 
-        {/* Delicate White Astana Skyline Silhouette Sitting on the Horizon */}
-        <svg
-          viewBox="0 0 1440 160"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-0 right-0 w-full h-24 sm:h-36 z-[4] opacity-40"
-          fill="none"
-        >
-          {/* Khan Shatyr */}
-          <path d="M90 160 L165 62 L248 160" stroke="#FFFFFF" strokeWidth="2" />
-          <path d="M165 62 L182 36" stroke="#FFFFFF" strokeWidth="2" />
-          {/* Astana Arena dome */}
-          <path d="M320 160 C350 96, 490 96, 520 160" stroke="#FFFFFF" strokeWidth="2" />
-          {/* Baiterek Tower */}
-          <path d="M695 160 L706 72 M725 160 L714 72 M710 160 L710 74" stroke="#FFFFFF" strokeWidth="2.2" />
-          <path d="M688 64 C696 76, 724 76, 732 64" stroke="#FFFFFF" strokeWidth="2" />
-          <circle cx="710" cy="52" r="14" stroke="#FFFFFF" strokeWidth="2.2" fill="rgba(255,255,255,0.2)" />
-          {/* Pyramid */}
-          <path d="M880 160 L950 76 L1020 160" stroke="#FFFFFF" strokeWidth="2" />
-          {/* EXPO Sphere */}
-          <circle cx="1220" cy="112" r="44" stroke="#FFFFFF" strokeWidth="2" />
-          <ellipse cx="1220" cy="112" rx="18" ry="44" stroke="#FFFFFF" strokeWidth="1.2" />
-          {/* Arch Bridge */}
-          <path d="M1310 160 Q1380 88 1440 155" stroke="#FFFFFF" strokeWidth="2" />
-        </svg>
+        {/* Delicate Editorial Contrast Scrim ONLY Behind Left Text (Leaves Blue Sky, Stadium Pitch, Track & Baiterek Vivid!) */}
+        <div
+          className="absolute inset-0 pointer-events-none z-[5]"
+          style={{
+            background:
+              'linear-gradient(100deg, rgba(4,44,98,0.68) 0%, rgba(7,64,136,0.38) 46%, rgba(7,64,136,0.06) 76%, transparent 100%), linear-gradient(180deg, rgba(4,40,88,0.42) 0%, transparent 24%, transparent 86%, rgba(245,247,251,0.92) 100%)',
+          }}
+        />
 
         <div className="relative z-20 max-w-[1340px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
           {/* Minimal Top Metadata Strip */}
@@ -996,22 +1017,28 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right 5 Cols: THE Single Primary Promo Video Entry Card */}
+            {/* Right 5 Cols: THE Single Live Silent Cinema Teaser Card (151KB Loop -> Click for Full 3-Min Audio Promo) */}
             <div className="lg:col-span-5">
               <button
                 type="button"
                 onClick={handleOpenPromo}
                 data-testid="hero-video-poster-card"
                 aria-label={c.heroPromoBtn}
-                className="group relative block w-full rounded-2xl overflow-hidden border border-white/25 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_28px_70px_rgba(2,6,18,0.65)] transition-all"
+                className="group relative block w-full rounded-2xl overflow-hidden border-2 border-white/60 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_28px_70px_rgba(4,24,58,0.48)] transition-all"
               >
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
-                  <img
-                    src="./stills/hero_vest_web.webp"
-                    alt={c.filmTitle}
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
+                  <video
+                    ref={previewVideoRef}
+                    src="./hero_preview_loop.mp4"
+                    poster="./stills/hero_vest_web.webp"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
                     className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/90 via-transparent to-[#060B14]/30" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/85 via-transparent to-[#060B14]/25" />
 
                   <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/80 text-white">
