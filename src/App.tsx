@@ -31,6 +31,7 @@ import { soundEngine } from './utils/soundEngine';
 import { AstanaMarathonJourney } from './components/AstanaMarathonJourney';
 import { CinemaLookbookSection } from './components/CinemaLookbookSection';
 import { PromoPlayerModal, UILang } from './components/PromoPlayerModal';
+import { JanaMenLogo } from './components/JanaMenLogo';
 
 const LANG_OPTIONS: Array<{ code: UILang; label: string }> = [
   { code: 'en', label: 'EN' },
@@ -811,6 +812,9 @@ export default function App() {
                 {c.studioLine}
               </div>
             </div>
+            <div className="hidden md:flex items-center pl-2.5 ml-1 border-l border-white/20">
+              <JanaMenLogo size="sm" />
+            </div>
           </a>
 
           {/* Quiet Editorial Section Navigation (Desktop) */}
@@ -890,21 +894,11 @@ export default function App() {
           src="./stills/hero_stadium_sky.webp"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none select-none transition-transform duration-300 ease-out will-change-transform"
+          className="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none select-none transition-transform duration-300 ease-out"
           style={{ transform: 'scale(1.03) translate3d(0px, 0px, 0)' }}
         />
 
-        {/* Subtle Moving Daylight Clouds Veil Across Upper Sky (Zero JS CPU) */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -inset-x-16 top-0 h-[55%] z-[3] animate-cloud-drift opacity-45"
-          style={{
-            background:
-              'radial-gradient(ellipse 36% 24% at 24% 34%, rgba(255,255,255,0.42) 0%, transparent 72%), radial-gradient(ellipse 42% 28% at 72% 26%, rgba(255,255,255,0.38) 0%, transparent 72%)',
-          }}
-        />
-
-        {/* Delicate Editorial Contrast Scrim ONLY Behind Left Text (Leaves Blue Sky, Stadium Pitch, Track & Baiterek Vivid!) */}
+        {/* Delicate Editorial Contrast Scrim ONLY Behind Left Text (Zero heavy continuous animations!) */}
         <div
           className="absolute inset-0 pointer-events-none z-[5]"
           style={{
@@ -965,14 +959,17 @@ export default function App() {
                     </>
                   )}
                 </h1>
-                <div className="mt-2.5 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-[0.28em] text-white drop-shadow-[0_1px_10px_rgba(7,51,107,0.4)]">
-                  {lang === 'ru'
-                    ? 'ФИЛЬМ АЙТЫМА ЖАКУПОВА'
-                    : lang === 'kk'
-                    ? 'АЙТЫМ ЖАҚЫПОВТЫҢ ФИЛЬМІ'
-                    : lang === 'zh'
-                    ? '艾特姆·扎库波夫作品 · BIG MOVIE STUDIO × IBA JANA MEN'
-                    : 'A FILM BY AITYM ZHAKUPOV'}
+                <div className="mt-3 flex flex-wrap items-center gap-3.5">
+                  <JanaMenLogo size="md" data-testid="hero-janamen-logo" />
+                  <div className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-white drop-shadow-[0_1px_10px_rgba(7,51,107,0.4)]">
+                    {lang === 'ru'
+                      ? 'ФИЛЬМ АЙТЫМА ЖАКУПОВА'
+                      : lang === 'kk'
+                      ? 'АЙТЫМ ЖАҚЫПОВТЫҢ ФИЛЬМІ'
+                      : lang === 'zh'
+                      ? '艾特姆·扎库波夫作品 · BIG MOVIE STUDIO'
+                      : 'A FILM BY AITYM ZHAKUPOV'}
+                  </div>
                 </div>
               </div>
 
@@ -1051,17 +1048,25 @@ export default function App() {
                 className="group relative block w-full rounded-2xl overflow-hidden border-2 border-white/60 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_28px_70px_rgba(4,24,58,0.48)] transition-all"
               >
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-black">
-                  <video
-                    ref={previewVideoRef}
-                    src="./hero_preview_loop.mp4"
-                    poster="./stills/hero_vest_web.webp"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
-                  />
+                  {!isPromoModalOpen ? (
+                    <video
+                      ref={previewVideoRef}
+                      src="./hero_preview_loop.mp4?v=smooth3"
+                      poster="./stills/hero_vest_web.webp"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
+                    />
+                  ) : (
+                    <img
+                      src="./stills/hero_vest_web.webp"
+                      alt={c.filmTitle}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/85 via-transparent to-[#060B14]/25" />
 
                   <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
@@ -1438,7 +1443,7 @@ export default function App() {
               <div className="p-6 sm:p-7 rounded-2xl bg-[#0B1424] border border-[#38BDF8]/30 flex flex-col justify-between">
                 <div>
                   <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-2">
-                    <Disc className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '10s' }} />
+                    <Disc className="w-3.5 h-3.5" />
                     <span>{c.musicTag}</span>
                   </div>
                   <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC] mb-2">
@@ -1618,10 +1623,14 @@ export default function App() {
       </section>
 
       {/* CLEAN FOOTER */}
-      <footer className="pt-12 pb-28 hairline-dashed bg-[#040810] text-center">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-3">
-          <div className="font-unbounded font-bold text-xs sm:text-sm tracking-[0.2em] uppercase text-[#F8FAFC]">
-            {c.filmTitle}
+      <footer className="pt-12 pb-20 hairline-dashed bg-[#040810] text-center">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-4">
+          <div className="flex items-center justify-center gap-4">
+            <span className="font-unbounded font-black text-sm tracking-[0.14em] uppercase text-[#F8FAFC]">
+              {c.filmTitle}
+            </span>
+            <span className="text-white/25">×</span>
+            <JanaMenLogo size="sm" />
           </div>
           <p className="text-xs text-[#64748B] max-w-2xl mx-auto">{c.footerRights}</p>
           <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-[#94A3B8] pt-2">
