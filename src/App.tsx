@@ -42,6 +42,7 @@ const LANG_OPTIONS: Array<{ code: UILang; label: string }> = [
   { code: 'en', label: 'EN' },
   { code: 'zh', label: '中文' },
   { code: 'ru', label: 'RU' },
+  { code: 'kk', label: 'ҚАЗ' },
 ];
 
 interface PageCopy {
@@ -514,20 +515,154 @@ const COPY: Record<UILang, PageCopy> = {
       { id: 'sales', num: '05', label: 'ПРАВА' },
     ],
   },
+
+  kk: {
+    docTitle: 'АРТЫҚ ЕМЕС — Халықаралық дистрибуция және ресми сайты (2027 көктем)',
+    filmTitle: 'АРТЫҚ ЕМЕС',
+    studioLine: 'АЙТЫМ ЖАҚЫПОВТЫҢ ФИЛЬМІ · BIG MOVIE STUDIO',
+    genre: 'ПСИХОЛОГИЯЛЫҚ СПОРТТЫҚ ДРАМЕДИ · ТОЛЫҚ МЕТР',
+    slateMeta: '2.39:1 КЕҢ ЭКРАН · 24 КАДР/С · 4K DCP',
+    statusText: 'ПОСТПРОДАКШН (АЛДЫН АЛА МОНТАЖ)',
+    releaseText: 'КИНОПРОКАТ: 2027 КӨКТЕМ',
+    headerPromoBtn: 'Промо 3 мин',
+    headerDeckBtn: 'Питч-дек PDF',
+    headerTicketsBtn: 'Билет алу',
+    heroPitch: 'Ең ауыр қашықтыққа қарсы шыққан ең күтпеген кейіпкер.',
+    heroHook:
+      '207 келі стадион тазалаушысы қаза тапқан марафоншының есімін иемденіп, қатал салмақ тастау лагеріне түседі және 42.2 шақырымдық Астана марафонына шығады — мәреге 10 метр қалғанда өзге адамның өмірін құтқару үшін кері бұрылу үшін.',
+    heroPromoBtn: '3 минуттық промо-роликті көру',
+    heroDeckBtn: 'Презентацияны жүктеу (PDF)',
+    heroTicketsBtn: 'Премьераға билет алу (2027 көктем)',
+    heroBridgeTag: 'ҚЫТАЙ ЖӘНЕ ХАЛЫҚАРАЛЫҚ НАРЫҚ ӘЛЕУЕТІ',
+    heroBridgeBody:
+      '«YOLO» феномені рухындағы шынайы физикалық өзгеріс, «Кит» фильмінің терең психологиясы және 80-жылдардағы Джеки Чан киносының жанды драйвы бір экранда тоғысады.',
+    laceTag: '',
+    laceTitle: '',
+    laceDesc: '',
+    scalesTag: '',
+    scalesTitle: '',
+    scalesDesc: '',
+    panLeftWeight: '',
+    panLeftSub: '',
+    panLeftTitle: '',
+    panLeftBody: '',
+    panRightWeight: '',
+    panRightSub: '',
+    panRightTitle: '',
+    panRightBody: '',
+    castTag: 'БАСТЫ РӨЛДЕР ЖӘНЕ ШЫНАЙЫ ӨЗГЕРІС',
+    castTitle: 'Актёрлік құрам мен шығармашылық топ',
+    castSub:
+      'Ешқандай силикон мен жасанды грим жоқ — басты рөлдегі Ерсұлтан Уаис пен IBA JANA MEN қозғалысының нақты қатысушылары.',
+    ensembleTag: 'ФИЛЬМНІҢ ТОЛЫҚ АКТЁРЛІК АНСАМБЛІ',
+    ensembleTitle: 'Екінші пландағы актёрлер, чемпиондар және JANA MEN',
+    expandCredits: 'Барлық 150+ шығармашылық топ титрін ашу',
+    collapseCredits: 'Толық титрлерді жасыру',
+    salesTag: 'ХАЛЫҚАРАЛЫҚ ДИСТРИБУЦИЯ ЖӘНЕ ҚҰҚЫҚТАР',
+    salesTitle: 'Дистрибьюторлар мен фестивальдарға арналған материалдар',
+    salesSub:
+      'Фильмнің техникалық паспорты, кассалық референстері, 4K DCP кестесі және продюсермен тікелей байланыс.',
+    specsHeading: 'ТЕХНИКАЛЫҚ ПАСПОРТ ЖӘНЕ СТАТУС',
+    specs: [
+      { k: 'ҰЗАҚТЫҒЫ', v: '110 мин', sub: 'Толық метражды фильм' },
+      { k: 'ФОРМАТ', v: '4K DCP · 2.39:1', sub: '24 кадр/с · 5.1 / Atmos' },
+      { k: 'СТАТУСЫ', v: 'Постпродакшн', sub: 'Алдын ала монтаж дайын', accent: true },
+      { k: 'ТІЛДЕРІ', v: 'RU / KK', sub: 'EN және ZH субтитрлері' },
+      { k: 'ӨНДІРІС', v: 'Қазақстан', sub: 'Big Movie Studio · Астана' },
+      { k: 'РЕЛИЗ', v: '2027 көктем', sub: 'Наурыз – Мамыр 2027', accent: true },
+    ],
+    compsHeading: 'НАРЫҚТЫҚ РЕФЕРЕНСТЕР ЖӘНЕ КАССАЛЫҚ ДӘЛЕЛ',
+    comps: [
+      {
+        tag: 'АНАЛОГ 01 · АЗИЯ ХИТІ',
+        metric: '$480M+ ҚЫТАЙ КАССАСЫ',
+        title: 'YOLO (2024)',
+        body: 'Актёрдің шынайы салмақ тастауы мен «өзің үшін бір рет жеңу» тақырыбы Азияда орасан зор аудитория жинайтынын дәлелдеді.',
+      },
+      {
+        tag: 'АНАЛОГ 02 · ФЕСТИВАЛЬДІК ДЕҢГЕЙ',
+        metric: '2× ОСКАР · $55M+',
+        title: 'КИТ (THE WHALE)',
+        body: '200 келі кейіпкердің терең драмасы — бірақ біздің фильмде ол жарық әрі шабыттандыратын марафон финалымен ұштасады.',
+      },
+      {
+        tag: 'АНАЛОГ 03 · БІР СЦЕНАРИСТ',
+        metric: '№1 ТМД ПРОКАТЫНДА',
+        title: '«Я ХУДЕЮ»',
+        body: 'Сценарий авторы Константин Майер көрерменді баурайтын шынайы юмор мен коммерциялық ырғақты қалыптастырды.',
+      },
+    ],
+    roadmapHeading: 'ПОСТПРОДАКШН ЖӘНЕ 4K DCP ДАЙЫНДАУ КЕСТЕСІ',
+    roadmap: [
+      {
+        phase: '1-КЕЗЕҢ · ТАМ–ҚАЗ 2026',
+        badge: 'ТҮСІРІЛДІ',
+        title: 'Негізгі түсірілім және Астана марафоны',
+        body: 'Астанадағы барлық сахналар, JANA MEN лагері және мыңдаған адам қатысқан марафон 100% нақты локацияларда түсірілді.',
+      },
+      {
+        phase: '2-КЕЗЕҢ · ҚАР 2026 – ҚЫС',
+        badge: 'ДӘЛ ҚАЗІР',
+        active: true,
+        title: 'Алдын ала монтаж → VFX, музыка, 5.1 және DI',
+        body: 'Дистрибьюторлар үшін 3 минуттық промо және толық скринер ашық. Қыста — VFX, оркестрлік музыка және түс коррекциясы.',
+      },
+      {
+        phase: '3-КЕЗЕҢ · НАУ–МАМ 2027',
+        badge: '2027 КӨКТЕМ',
+        title: '4K DCP (EN/ZH/KK/RU) және әлемдік премьера',
+        body: 'Кинотеатрлық 4K DCP, субтитрлер мен халықаралық M&E жолақтарын тапсыру және прокатқа шығу.',
+      },
+    ],
+    dealTag: 'ҚҰҚЫҚТАР ЖӘНЕ СЕРІКТЕСТІК ФОРМАТТАРЫ',
+    dealTitle: 'Үлкен Қытай және әлемдік прокат құқықтары ашық',
+    dealBody:
+      'Құрлықтық Қытай, Гонконг, Макао, Тайвань және әлемдік аумақтар бойынша барлық құқықтар ашық (Кинотеатр, SVOD/VOD, ТВ, Әуе). Pre-Buy, бірлескен дистрибуция және MOU мүмкіндігі бар.',
+    dealPills: ['ҚҰРЛЫҚТЫҚ ҚЫТАЙ', 'ГОНКОНГ ЖӘНЕ МАКАО', 'ТАЙВАНЬ', 'PRE-BUY / MOU ДАЙЫН'],
+    musicTag: 'БАСТЫ САУНДТРЕК ЖӘНЕ КО-МАРКЕТИНГ',
+    musicTitle: '«Я — это ты» × Димаш Құдайберген',
+    musicBody:
+      'Мұрат Насыровтың мұрагерлерінен әнді бейімдеуге ресми құқық алынды. Қытайлық серіктестер үшін Димаш Құдайбергенмен немесе қытай жұлдызымен бірлескен нұсқа жазу мүмкіндігі ашық.',
+    musicHighlight:
+      'Музыкалық құқықтар толық тазартылған — Douyin / Weibo кампанияларына дайын.',
+    contactRole: 'Шоураннер және продюсер · Дистрибуция бойынша тікелей байланыс',
+    contactLocation: 'BIG MOVIE STUDIO · АСТАНА, ҚАЗАҚСТАН',
+    contactWechatNote: 'Тікелей телефон және WeChat ID сұраныс бойынша беріледі',
+    contactInstaNote: 'Фильмнің ресми Instagram парақшасы',
+    contactCopy: 'КӨШІРУ',
+    contactCopied: 'КӨШІРІЛДІ',
+    contactDomainLabel: 'ДОМЕН: EXTRAS.SIJICBOND.SITE',
+    contactChainLabel: 'ҚҰҚЫҚТАР ТІЗБЕГІ: ТАЗА',
+    deckGalleryTag: 'РЕСМИ ПРЕЗЕНТАЦИЯ СЛАЙДТАРЫ',
+    deckGalleryTitle: 'Үлкен Қытайға арналған питч-дек (12 слайд)',
+    deckPrimaryBtn: 'Презентацияны жүктеу (PDF)',
+    deckSecondaryBtn: 'Актёрлік питч-дек (RU PDF)',
+    deckSlideLabel: 'СЛАЙД',
+    footerRights: '© 2026–2027 Big Movie Studio және IBA JANA MEN қозғалысы (Астана, Қазақстан). Барлық құқықтар қорғалған.',
+    chapters: [
+      { id: 'hero', num: '01', label: 'ПРОЛОГ' },
+      { id: 'diary', num: '02', label: 'ОҚИҒА' },
+      { id: 'lookbook', num: '03', label: 'КАДРЛАР' },
+      { id: 'cast', num: '04', label: 'АКТЁРЛЕР' },
+      { id: 'sales', num: '05', label: 'ҚҰҚЫҚТАР' },
+    ],
+  },
 };
 
 function detectInitialLang(): UILang {
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get('market') === 'cn' || params.get('lang') === 'zh') return 'zh';
+    if (params.get('lang') === 'kk' || params.get('lang') === 'kz') return 'kk';
     if (params.get('lang') === 'ru') return 'ru';
     if (params.get('lang') === 'en') return 'en';
 
     const saved = localStorage.getItem('not_extra_v3_lang');
-    if (saved === 'en' || saved === 'zh' || saved === 'ru') return saved;
+    if (saved === 'en' || saved === 'zh' || saved === 'ru' || saved === 'kk') return saved;
 
     const navLang = (navigator.language || '').toLowerCase();
     if (navLang.startsWith('zh')) return 'zh';
+    if (navLang.startsWith('kk') || navLang.startsWith('kz')) return 'kk';
     if (navLang.startsWith('ru')) return 'ru';
   } catch {
     // fallback
@@ -686,14 +821,14 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0807] text-[#FBF3E8] overflow-x-hidden relative selection:bg-[#E85D04] selection:text-[#0B0807]">
+    <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-hidden relative selection:bg-[#E61E2A] selection:text-[#060B14]">
       {/* Zero-FPS 35mm Cinema Grain Veil */}
       <div className="fixed inset-0 cinema-grain pointer-events-none z-30 opacity-55" aria-hidden="true" />
 
-      {/* ==================== CLEAN EDITORIAL TOP BAR (NO DUPLICATE CTA CLUTTER) ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0B0807]/85 backdrop-blur-xl border-b border-[#FFEDD7]/10">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
-          {/* Film Title Monogram */}
+      {/* ==================== CLEAN EDITORIAL TOP BAR (ZERO DUPLICATE BUTTONS) ==================== */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#060B14]/88 backdrop-blur-xl border-b border-[#38BDF8]/14">
+        <div className="max-w-[1380px] mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Brand Logo Title in Official @ne_lishnie_film Red + White Palette */}
           <a
             href="#hero"
             onClick={(e) => {
@@ -702,14 +837,34 @@ export default function App() {
             }}
             className="flex items-center gap-2.5 group min-w-0"
           >
-            <div className="hidden sm:flex w-8 h-8 rounded-full border border-[#FFEDD7]/25 group-hover:border-[#E85D04] items-center justify-center font-mono font-bold text-[10px] text-[#FFEDD7] group-hover:text-[#E85D04] transition-colors flex-shrink-0">
+            <div className="hidden sm:flex w-8 h-8 rounded-full border border-[#38BDF8]/30 group-hover:border-[#E61E2A] items-center justify-center font-mono font-bold text-[10px] text-[#F8FAFC] group-hover:text-[#E61E2A] transition-colors flex-shrink-0">
               42.2
             </div>
             <div className="min-w-0">
-              <div className="font-unbounded font-bold text-xs sm:text-sm text-[#FBF3E8] tracking-[0.08em] uppercase whitespace-nowrap">
-                {c.filmTitle}
+              <div className="font-unbounded font-black text-xs sm:text-sm tracking-[0.06em] uppercase whitespace-nowrap">
+                {lang === 'ru' ? (
+                  <>
+                    <span className="text-[#E61E2A] inline-block -skew-x-6 mr-1">НЕ</span>
+                    <span className="text-[#F8FAFC]">ЛИШНИЕ</span>
+                  </>
+                ) : lang === 'kk' ? (
+                  <>
+                    <span className="text-[#F8FAFC]">АРТЫҚ</span>
+                    <span className="text-[#E61E2A] inline-block -skew-x-6 ml-1">ЕМЕС</span>
+                  </>
+                ) : lang === 'zh' ? (
+                  <>
+                    <span className="text-[#E61E2A]">《绝不</span>
+                    <span className="text-[#F8FAFC]">多余》</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-[#E61E2A] inline-block -skew-x-6 mr-1">NOT</span>
+                    <span className="text-[#F8FAFC]">EXTRA</span>
+                  </>
+                )}
               </div>
-              <div className="font-mono text-[9px] text-[#8E847C] tracking-[0.18em] uppercase hidden xl:block truncate">
+              <div className="font-mono text-[9px] text-[#94A3B8] tracking-[0.16em] uppercase hidden xl:block truncate">
                 {c.studioLine}
               </div>
             </div>
@@ -725,31 +880,17 @@ export default function App() {
                   e.preventDefault();
                   handleJumpToSection(ch.id);
                 }}
-                className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#9E948B] hover:text-[#FFEDD7] transition-colors"
+                className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
               >
                 {ch.label}
               </a>
             ))}
           </nav>
 
-          {/* Right Controls: Sticky Promo button ONLY after scrolling past Hero + EN|中文|RU + Mute */}
-          <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
-            {scrollProgress > 0.08 && (
-              <button
-                type="button"
-                onClick={handleOpenPromo}
-                data-testid="header-play-promo-btn"
-                className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#E85D04] hover:bg-[#FFEDD7] text-[#FBF3E8] hover:text-[#0B0807] font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] transition-all"
-              >
-                <Play className="w-3 h-3 fill-current flex-shrink-0" />
-                <span className="hidden sm:inline">{c.headerPromoBtn}</span>
-                <span className="sm:hidden">{lang === 'zh' ? '推介片' : lang === 'ru' ? 'Промо' : 'Play'}</span>
-              </button>
-            )}
-
-            {/* Pure 3-Language Switcher: EN | 中文 | RU */}
+          {/* Right Controls: Pure 4-Language Switcher (EN | 中文 | RU | ҚАЗ) + Mute */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
             <div
-              className="flex items-center rounded-full border border-[#FFEDD7]/16 bg-[#130F0D] p-0.5"
+              className="flex items-center rounded-full border border-[#38BDF8]/20 bg-[#0B1424] p-0.5"
               role="group"
               aria-label="Language Switcher"
             >
@@ -766,8 +907,8 @@ export default function App() {
                     data-testid={`lang-btn-${opt.code}`}
                     className={`px-2 sm:px-2.5 py-1 rounded-full font-mono text-[10px] sm:text-[11px] font-bold tracking-wider transition-all ${
                       active
-                        ? 'bg-[#FFEDD7] text-[#0B0807]'
-                        : 'text-[#9E948B] hover:text-[#FBF3E8]'
+                        ? 'bg-[#E61E2A] text-white'
+                        : 'text-[#94A3B8] hover:text-white'
                     }`}
                   >
                     {opt.label}
@@ -776,7 +917,6 @@ export default function App() {
               })}
             </div>
 
-            {/* Mute / Unmute Icon */}
             <button
               type="button"
               onClick={handleToggleSound}
@@ -784,8 +924,8 @@ export default function App() {
               aria-label={soundEnabled ? 'Mute' : 'Unmute'}
               className={`p-2 rounded-full border transition-all ${
                 soundEnabled
-                  ? 'bg-[#E85D04]/15 border-[#E85D04] text-[#E85D04]'
-                  : 'bg-transparent border-[#FFEDD7]/16 text-[#9E948B] hover:text-[#FFEDD7]'
+                  ? 'bg-[#E61E2A]/15 border-[#E61E2A] text-[#E61E2A]'
+                  : 'bg-transparent border-[#38BDF8]/20 text-[#94A3B8] hover:text-white'
               }`}
             >
               {soundEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
@@ -822,8 +962,8 @@ export default function App() {
               <span
                 className={`transition-all ${
                   isActive
-                    ? 'text-[#FFEDD7] opacity-100'
-                    : 'text-[#7E746B] opacity-0 group-hover:opacity-100'
+                    ? 'text-[#F8FAFC] opacity-100'
+                    : 'text-[#64748B] opacity-0 group-hover:opacity-100'
                 }`}
               >
                 {ch.num} · {ch.label}
@@ -831,8 +971,8 @@ export default function App() {
               <span
                 className={`block h-[2px] transition-all ${
                   isActive
-                    ? 'w-6 bg-[#E85D04]'
-                    : 'w-2.5 bg-[#FFEDD7]/25 group-hover:w-4 group-hover:bg-[#FFEDD7]/70'
+                    ? 'w-6 bg-[#E61E2A]'
+                    : 'w-2.5 bg-[#F8FAFC]/25 group-hover:w-4 group-hover:bg-[#F8FAFC]/70'
                 }`}
               />
             </button>
@@ -870,101 +1010,145 @@ export default function App() {
           className="absolute inset-0 pointer-events-none z-[5]"
           style={{
             background:
-              'linear-gradient(180deg, rgba(11,8,7,0.82) 0%, rgba(11,8,7,0.5) 38%, rgba(11,8,7,0.86) 78%, #0B0807 100%)',
+              'linear-gradient(180deg, rgba(6,11,20,0.84) 0%, rgba(10,20,38,0.52) 38%, rgba(6,11,20,0.88) 78%, #060B14 100%)',
           }}
         />
 
         <div className="relative z-20 max-w-[1380px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
           {/* Top Cinema Slate Strip */}
           <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3.5 hairline-dashed-b font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
-            <div className="flex items-center gap-2.5 text-[#D4A373]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04]" />
+            <div className="flex items-center gap-2.5 text-[#38BDF8]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
               <span>{c.slateMeta}</span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-[#9E948B]">
-              <span className="text-[#E85D04]">{c.statusText}</span>
-              <span className="text-[#FFEDD7]/20">·</span>
-              <span className="text-[#FBF3E8]">{c.releaseText}</span>
+            <div className="flex flex-wrap items-center gap-3 text-[#94A3B8]">
+              <span className="text-[#F59E0B]">{c.statusText}</span>
+              <span className="text-white/20">·</span>
+              <span className="text-[#F8FAFC]">{c.releaseText}</span>
             </div>
           </div>
 
-          {/* Main 12-Col Hero Grid: Immediate B2B Pitch + Play/PDF Left | Interactive Samsa Scales Right */}
+          {/* Main 12-Col Hero Grid: Brand Title + 1 PDF Action Left | 1 Cinema Promo Card Right (Zero Duplicates!) */}
           <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center py-2 sm:py-6">
             {/* Left 7 Cols */}
             <div className="lg:col-span-7 space-y-5">
-              <div className="font-mono text-[10px] sm:text-xs font-medium uppercase tracking-[0.24em] text-[#D4A373]">
+              <div className="font-mono text-[10px] sm:text-xs font-medium uppercase tracking-[0.24em] text-[#38BDF8]">
                 {c.genre}
               </div>
 
-              <h1
-                className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.2rem] uppercase text-[#FFEDD7] leading-[0.98] tracking-[-0.025em] transition-transform duration-150"
-                style={{
-                  letterSpacing: `${-0.02 + titleWeightVar.tracking * 0.008}em`,
-                  transform: `skewX(${titleWeightVar.skew}deg)`,
-                }}
-              >
-                {c.filmTitle}
-              </h1>
+              <div>
+                <h1
+                  className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.2rem] uppercase leading-[0.98] tracking-[-0.025em] transition-transform duration-150"
+                  style={{
+                    letterSpacing: `${-0.02 + titleWeightVar.tracking * 0.008}em`,
+                    transform: `skewX(${titleWeightVar.skew}deg)`,
+                  }}
+                >
+                  {lang === 'ru' ? (
+                    <>
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                        НЕ
+                      </span>
+                      <span className="text-[#F8FAFC]">ЛИШНИЕ</span>
+                    </>
+                  ) : lang === 'kk' ? (
+                    <>
+                      <span className="text-[#F8FAFC]">АРТЫҚ</span>
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                        ЕМЕС
+                      </span>
+                    </>
+                  ) : lang === 'zh' ? (
+                    <>
+                      <span className="text-[#E61E2A] drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">《绝不</span>
+                      <span className="text-[#F8FAFC]">多余》</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                        NOT
+                      </span>
+                      <span className="text-[#F8FAFC]">EXTRA</span>
+                    </>
+                  )}
+                </h1>
+                <div className="mt-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.26em] text-[#CBD5E1]">
+                  {lang === 'ru'
+                    ? 'ФИЛЬМ АЙТЫМА ЖАКУПОВА'
+                    : lang === 'kk'
+                    ? 'АЙТЫМ ЖАҚЫПОВТЫҢ ФИЛЬМІ'
+                    : lang === 'zh'
+                    ? '艾特姆·扎库波夫作品 · BIG MOVIE STUDIO × IBA JANA MEN'
+                    : 'A FILM BY AITYM ZHAKUPOV'}
+                </div>
+              </div>
 
-              <p className="text-lg sm:text-2xl font-semibold text-[#FBF3E8] leading-snug max-w-2xl">
+              <p className="text-lg sm:text-2xl font-semibold text-[#F8FAFC] leading-snug max-w-2xl">
                 {c.heroPitch}
               </p>
 
-              <p className="text-sm sm:text-[15px] text-[#B8AEA4] leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-[15px] text-[#CBD5E1] leading-relaxed max-w-2xl">
                 {c.heroHook}
               </p>
 
-              {/* Immediate 1-Click B2B Primary Actions */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={handleOpenPromo}
-                  data-testid="hero-play-promo-btn"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-xs uppercase tracking-[0.14em] transition-all"
-                >
-                  <Play className="w-4 h-4 fill-current" />
-                  <span>{c.heroPromoBtn}</span>
-                </button>
-
+              {/* Single Clean Document Action (Video Play lives directly on the Cinema Frame Card!) */}
+              <div className="pt-2 flex flex-wrap items-center gap-4">
                 {SITE_MODE === 'DISTRIBUTOR' ? (
                   <a
                     href={CONTACT_CONFIG.pitchDeckUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="hero-download-deck-btn"
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#140F0D]/90 hover:bg-[#1E1714] border border-[#FFEDD7]/22 hover:border-[#FFEDD7]/60 text-[#FBF3E8] font-mono font-semibold text-xs uppercase tracking-[0.14em] transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#F8FAFC] hover:bg-[#E61E2A] text-[#060B14] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] transition-all"
                   >
-                    <FileDown className="w-4 h-4 text-[#E85D04]" />
+                    <FileDown className="w-4 h-4" />
                     <span>{c.heroDeckBtn}</span>
                   </a>
                 ) : (
                   <a
                     href={CONTACT_CONFIG.ticketsUrl}
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#140F0D]/90 border border-[#D4A373]/50 text-[#FBF3E8] font-mono font-semibold text-xs uppercase tracking-[0.14em]"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#060B14] font-mono font-bold text-xs uppercase tracking-[0.14em] transition-all"
                   >
-                    <Ticket className="w-4 h-4 text-[#E85D04]" />
+                    <Ticket className="w-4 h-4" />
                     <span>{c.heroTicketsBtn}</span>
                   </a>
                 )}
+
+                <a
+                  href="#sales"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleJumpToSection('sales');
+                  }}
+                  className="font-mono text-xs uppercase tracking-[0.14em] text-[#38BDF8] hover:text-white transition-colors"
+                >
+                  {lang === 'zh'
+                    ? '版权合作与联系 ↓'
+                    : lang === 'kk'
+                    ? 'Продюсермен байланыс ↓'
+                    : lang === 'ru'
+                    ? 'Контакты для дистрибьюторов ↓'
+                    : 'Acquisition Desk ↓'}
+                </a>
               </div>
 
               {/* Clean Cultural Bridge Footnote */}
               <div className="pt-4 mt-2 hairline-dashed max-w-2xl">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E85D04] mb-1">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#38BDF8] mb-1">
                   {c.heroBridgeTag}
                 </div>
-                <p className="text-xs text-[#9E948B] leading-relaxed">{c.heroBridgeBody}</p>
+                <p className="text-xs text-[#94A3B8] leading-relaxed">{c.heroBridgeBody}</p>
               </div>
             </div>
 
-            {/* Right 5 Cols: Authentic 2.39:1 Cinema Promo Still Preview (1-Click Play, zero cartoon gimmicks) */}
+            {/* Right 5 Cols: THE Single Primary Promo Video Entry Card */}
             <div className="lg:col-span-5">
               <button
                 type="button"
                 onClick={handleOpenPromo}
                 data-testid="hero-video-poster-card"
                 aria-label={c.heroPromoBtn}
-                className="group relative block w-full rounded-2xl overflow-hidden border border-[#FFEDD7]/18 hover:border-[#E85D04]/70 bg-[#0B0807] text-left shadow-[0_24px_70px_rgba(0,0,0,0.72)] transition-all"
+                className="group relative block w-full rounded-2xl overflow-hidden border border-[#38BDF8]/25 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_24px_70px_rgba(2,6,18,0.85)] transition-all"
               >
                 <div className="relative aspect-[16/10] w-full overflow-hidden">
                   <img
@@ -972,36 +1156,34 @@ export default function App() {
                     alt={c.filmTitle}
                     className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0807] via-[#0B0807]/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/25 to-transparent" />
 
-                  {/* Top Cinema Frame Metadata */}
                   <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0807]/75 backdrop-blur-md border border-[#FFEDD7]/15 text-[#FFEDD7]">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04]" />
-                      {lang === 'zh' ? '中文字幕 · 03:00' : lang === 'ru' ? 'ПРОМО · 03:00' : 'CHN SUBS · 03:00'}
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/80 backdrop-blur-md border border-white/15 text-[#F8FAFC]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
+                      {lang === 'zh'
+                        ? '中文字幕 · 03:00'
+                        : lang === 'kk'
+                        ? 'ПРОМО · 03:00'
+                        : lang === 'ru'
+                        ? 'ПРОМО · 03:00'
+                        : 'CHN SUBS · 03:00'}
                     </span>
-                    <span className="px-2 py-1 rounded-full bg-[#0B0807]/65 backdrop-blur-md text-[#D4A373]">
+                    <span className="px-2 py-1 rounded-full bg-[#060B14]/70 backdrop-blur-md text-[#38BDF8]">
                       2.39:1
                     </span>
                   </div>
 
-                  {/* Minimal Center Cinema Play Emblem */}
+                  {/* Single Signature Red Play Button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B0807]/65 group-hover:bg-[#E85D04] border border-[#FFEDD7]/35 group-hover:border-[#E85D04] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-                      <Play className="w-6 h-6 sm:w-7 sm:h-7 text-[#FFEDD7] fill-current ml-1" />
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A]/90 group-hover:bg-[#E61E2A] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-[0_0_40px_rgba(230,30,42,0.5)] transition-all duration-300 group-hover:scale-110">
+                      <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current ml-1" />
                     </div>
                   </div>
 
-                  {/* Bottom Subtle Reel Tag */}
-                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-[#B8AEA4] tracking-[0.14em] uppercase">
-                    <span>
-                      {lang === 'zh'
-                        ? '官方3分钟粗剪推介片'
-                        : lang === 'ru'
-                        ? 'Официальный черновой промо-ролик'
-                        : 'Official 3-Min Rough Cut Promo'}
-                    </span>
-                    <span className="text-[#FFEDD7]/75">HD 720p</span>
+                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-[#CBD5E1] tracking-[0.14em] uppercase">
+                    <span>{c.heroPromoBtn}</span>
+                    <span className="text-[#38BDF8]">HD 720p</span>
                   </div>
                 </div>
               </button>
@@ -1011,7 +1193,7 @@ export default function App() {
       </section>
 
       {/* ==================== SCENE 2: DIARY X-RAY SCANNER (ADULT EDITORIAL INTERACTIVE) ==================== */}
-      <section id="diary" className="py-16 sm:py-24 hairline-dashed bg-[#0B0807]">
+      <section id="diary" className="py-16 sm:py-24 hairline-dashed bg-[#060B14]">
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
           <DiaryXrayScanner lang={lang} />
         </div>
@@ -1021,17 +1203,17 @@ export default function App() {
       <CinemaLookbookSection lang={lang} />
 
       {/* ==================== SCENE 5: CAST & CREW EXHIBITION (23 VERIFIED FACES) ==================== */}
-      <section id="cast" className="py-20 sm:py-28 hairline-dashed bg-[#070606]">
+      <section id="cast" className="py-20 sm:py-28 hairline-dashed bg-[#040810]">
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#E85D04] mb-3">
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#E61E2A] mb-3">
               <Award className="w-3.5 h-3.5" />
               <span>{c.castTag}</span>
             </div>
-            <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] mb-3">
+            <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#F8FAFC] mb-3">
               {c.castTitle}
             </h2>
-            <p className="text-sm text-[#9E948B]">{c.castSub}</p>
+            <p className="text-sm text-[#94A3B8]">{c.castSub}</p>
           </div>
 
           {/* 3x2 Lead Cast Cards */}
@@ -1039,10 +1221,10 @@ export default function App() {
             {CAST_DATA.map((actor) => (
               <div
                 key={actor.id}
-                className="group rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 hover:border-[#FFEDD7]/30 overflow-hidden flex flex-col justify-between transition-all duration-300"
+                className="group rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 hover:border-[#F8FAFC]/30 overflow-hidden flex flex-col justify-between transition-all duration-300"
               >
                 <div>
-                  <div className="aspect-[4/5] bg-[#060505] relative overflow-hidden border-b border-[#FFEDD7]/10 flex items-center justify-center">
+                  <div className="aspect-[4/5] bg-[#040810] relative overflow-hidden border-b border-[#F8FAFC]/10 flex items-center justify-center">
                     <img
                       src={`${actor.image}?v=6`}
                       alt={actor.actor[lang]}
@@ -1050,28 +1232,28 @@ export default function App() {
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D0A09] via-[#0D0A09]/15 to-transparent" />
-                    <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#0B0807]/85 backdrop-blur-md border border-[#FFEDD7]/15 text-[#FFEDD7] font-mono text-[9px] font-medium uppercase tracking-[0.14em]">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1322] via-[#0A1322]/15 to-transparent" />
+                    <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060B14]/85 backdrop-blur-md border border-[#F8FAFC]/15 text-[#F8FAFC] font-mono text-[9px] font-medium uppercase tracking-[0.14em]">
                       {actor.badge[lang]}
                     </span>
                     <div className="absolute bottom-4 left-5 right-5">
-                      <h3 className="font-unbounded font-bold text-lg text-[#FFEDD7]">
+                      <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC]">
                         {actor.actor[lang]}
                       </h3>
-                      <div className="font-mono text-[10px] text-[#D4A373] mt-1">
+                      <div className="font-mono text-[10px] text-[#38BDF8] mt-1">
                         {actor.characterName[lang]} · {actor.role[lang]}
                       </div>
                     </div>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <p className="text-xs sm:text-[13.5px] text-[#B8AEA4] leading-relaxed">
+                    <p className="text-xs sm:text-[13.5px] text-[#CBD5E1] leading-relaxed">
                       {actor.desc[lang]}
                     </p>
                   </div>
                 </div>
-                <div className="px-5 py-3.5 bg-[#0B0807]/80 border-t border-[#FFEDD7]/10 flex items-center justify-between gap-2 text-xs">
-                  <span className="font-mono font-bold text-[11px] text-[#E85D04]">{actor.metric}</span>
-                  <span className="font-mono text-[10px] text-[#7E746B] text-right">
+                <div className="px-5 py-3.5 bg-[#060B14]/80 border-t border-[#F8FAFC]/10 flex items-center justify-between gap-2 text-xs">
+                  <span className="font-mono font-bold text-[11px] text-[#E61E2A]">{actor.metric}</span>
+                  <span className="font-mono text-[10px] text-[#64748B] text-right">
                     {actor.metricLabel[lang]}
                   </span>
                 </div>
@@ -1082,10 +1264,10 @@ export default function App() {
           {/* Supporting Cast & Real JANA MEN Alumni */}
           <div className="mb-16">
             <div className="mb-7 pb-4 hairline-dashed-b">
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#D4A373] mb-1">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#38BDF8] mb-1">
                 {c.ensembleTag}
               </div>
-              <h3 className="font-unbounded font-bold text-xl sm:text-2xl text-[#FFEDD7]">
+              <h3 className="font-unbounded font-bold text-xl sm:text-2xl text-[#F8FAFC]">
                 {c.ensembleTitle}
               </h3>
             </div>
@@ -1096,14 +1278,14 @@ export default function App() {
                 return (
                   <div
                     key={idx}
-                    className={`group rounded-2xl bg-[#0E0B0A] border border-[#FFEDD7]/10 hover:border-[#FFEDD7]/30 overflow-hidden flex flex-col justify-between transition-all ${
+                    className={`group rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 hover:border-[#F8FAFC]/30 overflow-hidden flex flex-col justify-between transition-all ${
                       isWideGroup ? 'col-span-2 sm:col-span-2 md:col-span-3' : ''
                     }`}
                   >
                     <div
                       className={`${
                         isWideGroup ? 'h-full min-h-[240px]' : 'aspect-[4/5]'
-                      } w-full bg-[#060505] relative overflow-hidden flex items-center justify-center`}
+                      } w-full bg-[#040810] relative overflow-hidden flex items-center justify-center`}
                     >
                       <img
                         src={`${item.image}?v=6`}
@@ -1114,12 +1296,12 @@ export default function App() {
                         loading="lazy"
                         decoding="async"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0B0807] via-[#0B0807]/15 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/15 to-transparent" />
                       <div className="absolute bottom-3 left-3.5 right-3.5">
-                        <div className="font-unbounded font-bold text-xs sm:text-sm text-[#FFEDD7] leading-snug">
+                        <div className="font-unbounded font-bold text-xs sm:text-sm text-[#F8FAFC] leading-snug">
                           {item.name[lang]}
                         </div>
-                        <div className="font-mono text-[10px] text-[#D4A373] mt-0.5 leading-tight">
+                        <div className="font-mono text-[10px] text-[#38BDF8] mt-0.5 leading-tight">
                           {item.role[lang]}
                         </div>
                       </div>
@@ -1131,38 +1313,38 @@ export default function App() {
           </div>
 
           {/* Key Creative Team */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#F8FAFC]/10 border border-[#F8FAFC]/10 rounded-2xl overflow-hidden mb-8">
             {KEY_CREW_DATA.map((crew, idx) => (
-              <div key={idx} className="bg-[#0D0A09] hover:bg-[#140F0D] p-6 flex flex-col justify-between transition-colors">
+              <div key={idx} className="bg-[#0A1322] hover:bg-[#0B1424] p-6 flex flex-col justify-between transition-colors">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
                     <img
                       src={crew.photo}
                       alt={crew.name[lang]}
-                      className="w-14 h-14 rounded-xl object-cover object-top border border-[#FFEDD7]/15 flex-shrink-0 bg-[#060505]"
+                      className="w-14 h-14 rounded-xl object-cover object-top border border-[#F8FAFC]/15 flex-shrink-0 bg-[#040810]"
                       loading="lazy"
                       decoding="async"
                     />
                     <div>
-                      <h4 className="font-unbounded font-bold text-sm text-[#FFEDD7]">
+                      <h4 className="font-unbounded font-bold text-sm text-[#F8FAFC]">
                         {crew.name[lang]}
                       </h4>
-                      <div className="font-mono text-[10px] text-[#E85D04] mt-1 leading-snug">
+                      <div className="font-mono text-[10px] text-[#E61E2A] mt-1 leading-snug">
                         {crew.role[lang]}
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-[13px] text-[#A69B91] leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-[#94A3B8] leading-relaxed">
                     {crew.bio[lang]}
                   </p>
                 </div>
                 {crew.link && !hideWesternSocials && (
-                  <div className="mt-4 pt-3 border-t border-[#FFEDD7]/10">
+                  <div className="mt-4 pt-3 border-t border-[#F8FAFC]/10">
                     <a
                       href={crew.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#D4A373] hover:text-[#FFEDD7]"
+                      className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#38BDF8] hover:text-[#F8FAFC]"
                     >
                       {crew.linkLabel}
                     </a>
@@ -1173,36 +1355,36 @@ export default function App() {
           </div>
 
           {/* Expandable Full Official Crew Roll */}
-          <div className="rounded-2xl bg-[#0F0B0A] border border-[#FFEDD7]/12 overflow-hidden">
+          <div className="rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/12 overflow-hidden">
             <button
               type="button"
               onClick={() => {
                 soundEngine.playUiTick();
                 setShowFullCredits((v) => !v);
               }}
-              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#171210] transition-colors"
+              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#111F36] transition-colors"
             >
-              <span className="font-mono font-semibold text-xs uppercase tracking-[0.14em] text-[#FFEDD7]">
+              <span className="font-mono font-semibold text-xs uppercase tracking-[0.14em] text-[#F8FAFC]">
                 {showFullCredits ? c.collapseCredits : c.expandCredits}
               </span>
               {showFullCredits ? (
-                <ChevronUp className="w-4 h-4 text-[#E85D04]" />
+                <ChevronUp className="w-4 h-4 text-[#E61E2A]" />
               ) : (
-                <ChevronDown className="w-4 h-4 text-[#E85D04]" />
+                <ChevronDown className="w-4 h-4 text-[#E61E2A]" />
               )}
             </button>
 
-            <div className={`p-6 border-t border-[#FFEDD7]/10 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
+            <div className={`p-6 border-t border-[#F8FAFC]/10 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {FULL_CREDITS_DATA.map((dept, dIdx) => (
-                  <div key={dIdx} className="rounded-xl bg-[#0A0807] border border-[#FFEDD7]/10 p-5 space-y-2.5">
-                    <h5 className="font-mono font-bold text-[10px] uppercase tracking-[0.18em] text-[#D4A373] border-b border-[#FFEDD7]/10 pb-2">
+                  <div key={dIdx} className="rounded-xl bg-[#060B14] border border-[#F8FAFC]/10 p-5 space-y-2.5">
+                    <h5 className="font-mono font-bold text-[10px] uppercase tracking-[0.18em] text-[#38BDF8] border-b border-[#F8FAFC]/10 pb-2">
                       {dept.department[lang]}
                     </h5>
                     {dept.members.map((m, mIdx) => (
-                      <div key={mIdx} className="text-xs border-b border-[#FFEDD7]/6 pb-2 last:border-none">
-                        <div className="text-[#7E746B]">{m.role[lang]}</div>
-                        <div className="font-medium text-[#E9DEC9] mt-0.5">{m.name[lang]}</div>
+                      <div key={mIdx} className="text-xs border-b border-[#F8FAFC]/6 pb-2 last:border-none">
+                        <div className="text-[#64748B]">{m.role[lang]}</div>
+                        <div className="font-medium text-[#E2E8F0] mt-0.5">{m.name[lang]}</div>
                       </div>
                     ))}
                   </div>
@@ -1217,40 +1399,40 @@ export default function App() {
       <section
         id="sales"
         data-testid="sales-section"
-        className="py-20 sm:py-28 border-t-2 border-[#E85D04]/70 bg-[#0B0807] relative"
+        className="py-20 sm:py-28 border-t-2 border-[#E61E2A]/70 bg-[#060B14] relative"
       >
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-14">
           {/* Header */}
           <div className="pb-8 hairline-dashed-b">
             <div className="max-w-3xl">
-              <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E85D04] mb-3">
+              <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E61E2A] mb-3">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>{c.salesTag}</span>
               </div>
-              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] mb-2">
+              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#F8FAFC] mb-2">
                 {c.salesTitle}
               </h2>
-              <p className="text-sm text-[#A69B91]">{c.salesSub}</p>
+              <p className="text-sm text-[#94A3B8]">{c.salesSub}</p>
             </div>
           </div>
 
           {/* 1. Technical Passport */}
           <div>
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-4">
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-4">
               {c.specsHeading}
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[#F8FAFC]/10 border border-[#F8FAFC]/10 rounded-2xl overflow-hidden">
               {c.specs.map((sp, i) => (
-                <div key={i} className="p-5 bg-[#0F0C0A]">
-                  <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#7E746B]">{sp.k}</div>
+                <div key={i} className="p-5 bg-[#0A1322]">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-[#64748B]">{sp.k}</div>
                   <div
                     className={`font-semibold text-xs sm:text-sm mt-1.5 ${
-                      sp.accent ? 'text-[#E85D04]' : 'text-[#FFEDD7]'
+                      sp.accent ? 'text-[#E61E2A]' : 'text-[#F8FAFC]'
                     }`}
                   >
                     {sp.v}
                   </div>
-                  <div className="text-[10px] text-[#9E948B] mt-1">{sp.sub}</div>
+                  <div className="text-[10px] text-[#94A3B8] mt-1">{sp.sub}</div>
                 </div>
               ))}
             </div>
@@ -1258,18 +1440,18 @@ export default function App() {
 
           {/* 2. Market Comparables (COMPS) */}
           <div>
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-4">
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-4">
               {c.compsHeading}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#F8FAFC]/10 border border-[#F8FAFC]/10 rounded-2xl overflow-hidden">
               {c.comps.map((cp, idx) => (
-                <div key={idx} className="p-6 bg-[#0F0C0A] space-y-2">
+                <div key={idx} className="p-6 bg-[#0A1322] space-y-2">
                   <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.14em]">
-                    <span className="text-[#E85D04] font-bold">{cp.tag}</span>
-                    <span className="text-[#FFEDD7]">{cp.metric}</span>
+                    <span className="text-[#E61E2A] font-bold">{cp.tag}</span>
+                    <span className="text-[#F8FAFC]">{cp.metric}</span>
                   </div>
-                  <div className="font-unbounded font-bold text-base text-[#FFEDD7]">{cp.title}</div>
-                  <p className="text-xs text-[#A69B91] leading-relaxed">{cp.body}</p>
+                  <div className="font-unbounded font-bold text-base text-[#F8FAFC]">{cp.title}</div>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{cp.body}</p>
                 </div>
               ))}
             </div>
@@ -1277,7 +1459,7 @@ export default function App() {
 
           {/* 3. Post-Production Roadmap */}
           <div>
-            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-4">
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-4">
               {c.roadmapHeading}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -1286,19 +1468,19 @@ export default function App() {
                   key={idx}
                   className={`p-6 rounded-2xl border ${
                     rm.active
-                      ? 'bg-[#160E0A] border-[#E85D04]/70'
-                      : 'bg-[#100C0B] border-[#FFEDD7]/10'
+                      ? 'bg-[#0B1424] border-[#E61E2A]/70'
+                      : 'bg-[#0A1322] border-[#F8FAFC]/10'
                   }`}
                 >
                   <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.12em] mb-3">
-                    <span className={rm.active ? 'text-[#E85D04] font-bold' : 'text-[#9E948B]'}>
+                    <span className={rm.active ? 'text-[#E61E2A] font-bold' : 'text-[#94A3B8]'}>
                       {rm.phase}
                     </span>
                     <span
                       className={`inline-flex items-center gap-1 ${
                         rm.active
-                          ? 'px-2 py-0.5 rounded-full bg-[#E85D04] text-[#0B0807] text-[9px] font-bold'
-                          : 'text-[#D4A373]'
+                          ? 'px-2 py-0.5 rounded-full bg-[#E61E2A] text-[#060B14] text-[9px] font-bold'
+                          : 'text-[#38BDF8]'
                       }`}
                     >
                       {rm.active ? (
@@ -1311,10 +1493,10 @@ export default function App() {
                       {rm.badge}
                     </span>
                   </div>
-                  <h4 className="font-unbounded font-bold text-sm sm:text-base text-[#FFEDD7] mb-2">
+                  <h4 className="font-unbounded font-bold text-sm sm:text-base text-[#F8FAFC] mb-2">
                     {rm.title}
                   </h4>
-                  <p className="text-xs text-[#A69B91] leading-relaxed">{rm.body}</p>
+                  <p className="text-xs text-[#94A3B8] leading-relaxed">{rm.body}</p>
                 </div>
               ))}
             </div>
@@ -1323,26 +1505,26 @@ export default function App() {
           {/* 4. Deal Structure + Flagship Music + Direct Producer Contact Desk */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
             <div className="lg:col-span-7 grid grid-cols-1 gap-6">
-              <div className="p-6 sm:p-7 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 flex flex-col justify-between">
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 flex flex-col justify-between">
                 <div>
-                  <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-2">
+                  <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-2">
                     {c.dealTag}
                   </div>
-                  <h3 className="font-unbounded font-bold text-lg text-[#FFEDD7] mb-2.5">
+                  <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC] mb-2.5">
                     {c.dealTitle}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-[#94A3B8] leading-relaxed mb-4">
                     {c.dealBody}
                   </p>
                 </div>
-                <div className="pt-3.5 hairline-dashed flex flex-wrap gap-2 font-mono text-[10px] text-[#E9DEC9]">
+                <div className="pt-3.5 hairline-dashed flex flex-wrap gap-2 font-mono text-[10px] text-[#E2E8F0]">
                   {c.dealPills.map((pill, idx) => (
                     <span
                       key={idx}
-                      className={`px-2.5 py-1 rounded-full bg-[#18120F] border ${
+                      className={`px-2.5 py-1 rounded-full bg-[#111F36] border ${
                         idx === c.dealPills.length - 1
-                          ? 'border-[#E85D04]/45 text-[#E85D04]'
-                          : 'border-[#FFEDD7]/10'
+                          ? 'border-[#E61E2A]/45 text-[#E61E2A]'
+                          : 'border-[#F8FAFC]/10'
                       }`}
                     >
                       {pill}
@@ -1351,54 +1533,58 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="p-6 sm:p-7 rounded-2xl bg-[#140F0B] border border-[#D4A373]/30 flex flex-col justify-between">
+              <div className="p-6 sm:p-7 rounded-2xl bg-[#0B1424] border border-[#38BDF8]/30 flex flex-col justify-between">
                 <div>
-                  <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-2">
+                  <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-2">
                     <Disc className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '10s' }} />
                     <span>{c.musicTag}</span>
                   </div>
-                  <h3 className="font-unbounded font-bold text-lg text-[#FFEDD7] mb-2">
+                  <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC] mb-2">
                     {c.musicTitle}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#B8AEA4] leading-relaxed mb-4">
+                  <p className="text-xs sm:text-sm text-[#CBD5E1] leading-relaxed mb-4">
                     {c.musicBody}
                   </p>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#0B0807] border border-[#D4A373]/25 text-xs text-[#E9DEC9]">
+                <div className="p-3.5 rounded-xl bg-[#060B14] border border-[#38BDF8]/25 text-xs text-[#E2E8F0]">
                   ★ {c.musicHighlight}
                 </div>
               </div>
             </div>
 
             {/* Direct Executive Contact Desk (Strictly hides Instagram in ZH / ?market=cn) */}
-            <div className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-[#120D0B] border border-[#FFEDD7]/16 flex flex-col justify-between">
+            <div className="lg:col-span-5 p-6 sm:p-8 rounded-2xl bg-[#0B1424] border border-[#F8FAFC]/16 flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E85D04]">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E61E2A]">
                   {c.contactLocation}
                 </div>
-                <h3 className="font-unbounded font-bold text-xl text-[#FFEDD7]">
-                  {lang === 'zh' ? '谢尔盖·邦达列夫 (Sergey Bondarev)' : lang === 'ru' ? 'Сергей Бондарев' : 'Sergey Bondarev'}
+                <h3 className="font-unbounded font-bold text-xl text-[#F8FAFC]">
+                  {lang === 'zh'
+                    ? '谢尔盖·邦达列夫 (Sergey Bondarev)'
+                    : lang === 'ru' || lang === 'kk'
+                    ? 'Сергей Бондарев'
+                    : 'Sergey Bondarev'}
                 </h3>
-                <div className="text-xs text-[#9E948B]">{c.contactRole}</div>
+                <div className="text-xs text-[#94A3B8]">{c.contactRole}</div>
 
                 {/* Corporate Email + 1-Click Copy */}
-                <div className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 flex items-center justify-between gap-2">
+                <div className="p-3.5 rounded-xl bg-[#060B14] border border-[#F8FAFC]/12 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-3 min-w-0">
-                    <Mail className="w-4 h-4 text-[#E85D04] flex-shrink-0" />
+                    <Mail className="w-4 h-4 text-[#E61E2A] flex-shrink-0" />
                     <div className="truncate">
                       <a
                         href={`mailto:${CONTACT_CONFIG.email}`}
-                        className="font-mono font-semibold text-xs sm:text-sm text-[#FFEDD7] hover:text-[#E85D04] truncate block"
+                        className="font-mono font-semibold text-xs sm:text-sm text-[#F8FAFC] hover:text-[#E61E2A] truncate block"
                       >
                         {CONTACT_CONFIG.email}
                       </a>
-                      <div className="text-[10px] text-[#7E746B]">{CONTACT_CONFIG.altEmail}</div>
+                      <div className="text-[10px] text-[#64748B]">{CONTACT_CONFIG.altEmail}</div>
                     </div>
                   </div>
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="px-3 py-1.5 rounded-full bg-[#1C1613] hover:bg-[#FFEDD7] text-[#FFEDD7] hover:text-[#0B0807] text-[10px] font-mono font-semibold transition-colors flex items-center gap-1 flex-shrink-0"
+                    className="px-3 py-1.5 rounded-full bg-[#111F36] hover:bg-[#F8FAFC] text-[#F8FAFC] hover:text-[#060B14] text-[10px] font-mono font-semibold transition-colors flex items-center gap-1 flex-shrink-0"
                   >
                     {copiedEmail ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                     <span>{copiedEmail ? c.contactCopied : c.contactCopy}</span>
@@ -1408,14 +1594,14 @@ export default function App() {
                 {/* Phone / WeChat */}
                 <a
                   href={CONTACT_CONFIG.phoneHref}
-                  className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 hover:border-[#D4A373]/60 flex items-center gap-3 transition-colors"
+                  className="p-3.5 rounded-xl bg-[#060B14] border border-[#F8FAFC]/12 hover:border-[#38BDF8]/60 flex items-center gap-3 transition-colors"
                 >
-                  <Phone className="w-4 h-4 text-[#D4A373] flex-shrink-0" />
+                  <Phone className="w-4 h-4 text-[#38BDF8] flex-shrink-0" />
                   <div>
-                    <div className="font-mono font-semibold text-xs sm:text-sm text-[#FFEDD7]">
+                    <div className="font-mono font-semibold text-xs sm:text-sm text-[#F8FAFC]">
                       {CONTACT_CONFIG.phone}
                     </div>
-                    <div className="text-[10px] text-[#7E746B]">{c.contactWechatNote}</div>
+                    <div className="text-[10px] text-[#64748B]">{c.contactWechatNote}</div>
                   </div>
                 </a>
 
@@ -1426,50 +1612,41 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="instagram-link"
-                    className="p-3.5 rounded-xl bg-[#0A0807] border border-[#FFEDD7]/12 hover:border-[#E85D04]/60 flex items-center gap-3 transition-colors"
+                    className="p-3.5 rounded-xl bg-[#060B14] border border-[#F8FAFC]/12 hover:border-[#E61E2A]/60 flex items-center gap-3 transition-colors"
                   >
-                    <Instagram className="w-4 h-4 text-[#E85D04] flex-shrink-0" />
+                    <Instagram className="w-4 h-4 text-[#E61E2A] flex-shrink-0" />
                     <div>
-                      <div className="font-semibold text-xs sm:text-sm text-[#FFEDD7]">@ne_lishnie_film</div>
-                      <div className="text-[10px] text-[#7E746B]">{c.contactInstaNote}</div>
+                      <div className="font-semibold text-xs sm:text-sm text-[#F8FAFC]">@ne_lishnie_film</div>
+                      <div className="text-[10px] text-[#64748B]">{c.contactInstaNote}</div>
                     </div>
                   </a>
                 )}
               </div>
 
-              <div className="mt-6 pt-4 hairline-dashed flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-[#7E746B]">
+              <div className="mt-6 pt-4 hairline-dashed flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] text-[#64748B]">
                 <span>{c.contactDomainLabel}</span>
-                <span className="text-[#D4A373]">{c.contactChainLabel}</span>
+                <span className="text-[#38BDF8]">{c.contactChainLabel}</span>
               </div>
             </div>
           </div>
 
           {/* 5. Official Pitch Deck Slide Preview Gallery */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#100C0B] border border-[#FFEDD7]/10 space-y-6">
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 hairline-dashed-b">
               <div>
-                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E85D04]">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#E61E2A]">
                   {c.deckGalleryTag}
                 </div>
-                <h3 className="font-unbounded font-bold text-lg sm:text-2xl text-[#FFEDD7] mt-1">
+                <h3 className="font-unbounded font-bold text-lg sm:text-2xl text-[#F8FAFC] mt-1">
                   {c.deckGalleryTitle}
                 </h3>
               </div>
-              <div className="flex flex-wrap gap-2">
-                <a
-                  href={CONTACT_CONFIG.pitchDeckUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid="download-china-pdf-btn"
-                  className="px-4 py-2 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[10px] uppercase tracking-[0.12em] transition-colors"
-                >
-                  {c.deckPrimaryBtn} ↗
-                </a>
+              <div className="flex flex-wrap items-center gap-4">
                 <a
                   href={CONTACT_CONFIG.ruDeckUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-[#191310] border border-[#FFEDD7]/15 text-[#FFEDD7] hover:border-[#FFEDD7]/40 font-mono font-semibold text-[10px] uppercase tracking-[0.12em] transition-colors"
+                  className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#38BDF8] hover:text-white transition-colors"
                 >
                   {c.deckSecondaryBtn} ↗
                 </a>
@@ -1483,7 +1660,7 @@ export default function App() {
                   href={CONTACT_CONFIG.pitchDeckUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group rounded-xl overflow-hidden border border-[#FFEDD7]/10 hover:border-[#E85D04]/70 bg-[#070606] transition-all"
+                  className="group rounded-xl overflow-hidden border border-[#F8FAFC]/10 hover:border-[#E61E2A]/70 bg-[#040810] transition-all"
                 >
                   <img
                     src={`./slides/cn_slide_${String(sNum).padStart(2, '0')}.png?v=6`}
@@ -1492,13 +1669,13 @@ export default function App() {
                     loading="lazy"
                     decoding="async"
                   />
-                  <div className="px-3 py-2 font-mono text-[10px] text-[#A69B91] flex justify-between">
+                  <div className="px-3 py-2 font-mono text-[10px] text-[#94A3B8] flex justify-between">
                     <span>
                       {lang === 'zh'
                         ? `第 ${String(sNum).padStart(2, '0')} 页`
                         : `${c.deckSlideLabel} ${String(sNum).padStart(2, '0')}`}
                     </span>
-                    <span className="text-[#E85D04]">PDF ↗</span>
+                    <span className="text-[#E61E2A]">PDF ↗</span>
                   </div>
                 </a>
               ))}
@@ -1508,17 +1685,17 @@ export default function App() {
       </section>
 
       {/* CLEAN FOOTER */}
-      <footer className="pt-12 pb-28 hairline-dashed bg-[#070606] text-center">
+      <footer className="pt-12 pb-28 hairline-dashed bg-[#040810] text-center">
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-3">
-          <div className="font-unbounded font-bold text-xs sm:text-sm tracking-[0.2em] uppercase text-[#FFEDD7]">
+          <div className="font-unbounded font-bold text-xs sm:text-sm tracking-[0.2em] uppercase text-[#F8FAFC]">
             {c.filmTitle}
           </div>
-          <p className="text-xs text-[#7E746B] max-w-2xl mx-auto">{c.footerRights}</p>
-          <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-[#A69B91] pt-2">
-            <a href={`mailto:${CONTACT_CONFIG.email}`} className="hover:text-[#E85D04] transition-colors">
+          <p className="text-xs text-[#64748B] max-w-2xl mx-auto">{c.footerRights}</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 font-mono text-[11px] text-[#94A3B8] pt-2">
+            <a href={`mailto:${CONTACT_CONFIG.email}`} className="hover:text-[#E61E2A] transition-colors">
               {CONTACT_CONFIG.email}
             </a>
-            <a href={CONTACT_CONFIG.phoneHref} className="hover:text-[#FFEDD7] transition-colors">
+            <a href={CONTACT_CONFIG.phoneHref} className="hover:text-[#F8FAFC] transition-colors">
               {CONTACT_CONFIG.phone}
             </a>
             {!hideWesternSocials && (
@@ -1526,7 +1703,7 @@ export default function App() {
                 href={CONTACT_CONFIG.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#E85D04] transition-colors"
+                className="hover:text-[#E61E2A] transition-colors"
               >
                 @ne_lishnie_film
               </a>

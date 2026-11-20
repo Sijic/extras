@@ -48,7 +48,7 @@ const XRAY_COPY: Record<
     xrayFoot: 'X光透视层 · 被掩盖的真实过去',
   },
   ru: {
-    header: 'ДНЕВНИК АРТЁМА · РЕНТГЕН-СКАНЕР (МЫШЬ И ПАЛЕЦ)',
+    header: 'ДНЕВНИК АРТЁМА · РЕНТГЕН-СКАНЕР',
     hintDesktop: 'Водите курсором по странице дневника, чтобы просветить скрытую правду',
     hintMobile: 'Коснитесь и водите пальцем по дневнику как рентген-сканером',
     surfaceTag: 'СТРАНИЦА 14 · ФИЛОСОФИЯ БРЮСА ЛИ И ДЖЕКИ ЧАНА',
@@ -60,6 +60,19 @@ const XRAY_COPY: Record<
       'ДОСЬЕ: Артём Гележинис никогда не был праведным героем. После срока за аферы он сочинил эту красивую легенду о марафонце, чтобы вымолить прощение у дочери Юли.',
     xrayFoot: 'РЕНТГЕН-СЛОЙ · ЖЁСТКАЯ ПРАВДА ДНЕВНИКА',
   },
+  kk: {
+    header: 'АРТЁМНЫҢ КҮНДЕЛІГІ · РЕНТГЕН-СКАНЕР',
+    hintDesktop: 'Аңыздың артындағы шындықты көру үшін курсорды күнделік бетімен жүргізіңіз',
+    hintMobile: 'Жасырын шындықты көру үшін саусағыңызды күнделік бетімен сырғытыңыз',
+    surfaceTag: '14-БЕТ · БРЮС ЛИ МЕН ДЖЕКИ ЧАН ПӘЛСАПАСЫ',
+    surfaceQuote:
+      '«Су сияқты бол, досым. 30-шақырымда тынысың тарылғанда есіңде сақта: нағыз чемпион — құлағанынан бір рет артық тұра алатын адам. Қызым Юля әкесінің адал атымен мақтансын деп осы марафонды жүгіріп өтемін».',
+    surfaceFoot: 'БЕТКІ ҚАБАТ · МОТИВАЦИЯЛЫҚ АҢЫЗ',
+    xrayTag: 'ТҮРМЕ МӨРІ «ТЕКСЕРІЛДІ» · АЩЫ ШЫНДЫҚ',
+    xrayTruth:
+      'ІС ҚАҒАЗЫ: Артём Гележинис ешқашан мінсіз спорт қаһарманы болмаған. Алаяқтық үшін жазасын өтеген ол қызы Юлядан кешірім сұрау үшін осы әдемі марафоншы аңызын түрмеде ойдан құрастырған.',
+    xrayFoot: 'РЕНТГЕН ҚАБАТЫ · КҮНДЕЛІКТІҢ ШЫНДЫҒЫ',
+  },
 };
 
 export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
@@ -69,7 +82,6 @@ export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
 
   const copy = XRAY_COPY[lang];
 
-  // Native non-passive touch listeners so finger dragging scans smoothly without scrolling the mobile viewport!
   useEffect(() => {
     const el = boxRef.current;
     if (!el) return;
@@ -120,12 +132,12 @@ export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
   return (
     <div>
       <div className="mb-5">
-        <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-1.5">
-          <Eye className="w-3.5 h-3.5 text-[#E85D04]" />
+        <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#38BDF8] mb-1.5">
+          <Eye className="w-3.5 h-3.5 text-[#E61E2A]" />
           <span>{copy.header}</span>
         </div>
-        <p className="text-xs sm:text-sm text-[#9E948B] hidden md:block">{copy.hintDesktop}</p>
-        <p className="text-xs text-[#9E948B] md:hidden">{copy.hintMobile}</p>
+        <p className="text-xs sm:text-sm text-[#94A3B8] hidden md:block">{copy.hintDesktop}</p>
+        <p className="text-xs text-[#94A3B8] md:hidden">{copy.hintMobile}</p>
       </div>
 
       {/* Unified Desktop + Touch X-Ray Scanner Zone */}
@@ -135,22 +147,22 @@ export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
         onMouseMove={handleMouseMove}
         onMouseLeave={() => setIsScanning(false)}
         style={{ touchAction: 'none' }}
-        className="relative rounded-2xl overflow-hidden border border-[#FFEDD7]/14 bg-[#120E0C] select-none min-h-[290px] sm:min-h-[310px] cursor-crosshair"
+        className="relative rounded-2xl overflow-hidden border border-[#38BDF8]/18 bg-[#0A1322] select-none min-h-[290px] sm:min-h-[310px] cursor-crosshair"
       >
         {/* Base Surface Layer */}
         <div className="p-6 sm:p-11 h-full flex flex-col justify-between">
-          <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#D4A373] mb-4">
+          <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#38BDF8] mb-4">
             {copy.surfaceTag}
           </div>
-          <blockquote className="font-unbounded font-semibold text-base sm:text-2xl text-[#FFEDD7] leading-relaxed mb-6">
+          <blockquote className="font-unbounded font-semibold text-base sm:text-2xl text-[#F8FAFC] leading-relaxed mb-6">
             {copy.surfaceQuote}
           </blockquote>
-          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6C635C]">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#64748B]">
             {copy.surfaceFoot}
           </div>
         </div>
 
-        {/* Unified Hard-Edge Optical X-Ray Lens Layer (Opaque dark interior — zero text collision!) */}
+        {/* Hard-Edge Brand Red X-Ray Lens Layer (Opaque dark crimson interior — zero text collision) */}
         {(() => {
           const boxWidth = boxRef.current?.clientWidth || 720;
           const activeRadius = boxWidth < 500 ? 112 : 168;
@@ -160,27 +172,26 @@ export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
             <>
               <div
                 data-testid="diary-xray-layer"
-                className="absolute inset-0 p-6 sm:p-11 bg-[#1D0804] flex flex-col justify-between pointer-events-none"
+                className="absolute inset-0 p-6 sm:p-11 bg-[#1D080D] flex flex-col justify-between pointer-events-none"
                 style={{
                   clipPath: `circle(${radius}px at ${coords.x}px ${coords.y}px)`,
                   WebkitClipPath: `circle(${radius}px at ${coords.x}px ${coords.y}px)`,
                   transition: isScanning ? 'none' : 'clip-path 240ms ease-out',
                 }}
               >
-                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E85D04] mb-4">
+                <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E61E2A] mb-4">
                   {copy.xrayTag}
                 </div>
-                <p className="font-unbounded font-semibold text-base sm:text-2xl text-[#FFEDD7] leading-relaxed mb-6">
+                <p className="font-unbounded font-semibold text-base sm:text-2xl text-[#F8FAFC] leading-relaxed mb-6">
                   {copy.xrayTruth}
                 </p>
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E85D04]">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E61E2A]">
                   {copy.xrayFoot}
                 </div>
               </div>
 
-              {/* Crisp Optical X-Ray Reticle Ring Aligned to Lens Edge */}
               <div
-                className="pointer-events-none absolute rounded-full border border-[#E85D04]/75"
+                className="pointer-events-none absolute rounded-full border border-[#E61E2A]/85"
                 style={{
                   width: `${radius * 2}px`,
                   height: `${radius * 2}px`,
@@ -188,9 +199,11 @@ export const DiaryXrayScanner: React.FC<DiaryXrayScannerProps> = ({ lang }) => {
                   marginTop: `-${radius}px`,
                   left: `${coords.x}px`,
                   top: `${coords.y}px`,
-                  opacity: isScanning ? 0.95 : 0.5,
-                  boxShadow: '0 0 28px rgba(232, 93, 4, 0.28), inset 0 0 22px rgba(232, 93, 4, 0.14)',
-                  transition: isScanning ? 'none' : 'width 240ms ease-out, height 240ms ease-out, margin 240ms ease-out, opacity 240ms ease-out',
+                  opacity: isScanning ? 0.95 : 0.55,
+                  boxShadow: '0 0 28px rgba(230, 30, 42, 0.32), inset 0 0 20px rgba(230, 30, 42, 0.16)',
+                  transition: isScanning
+                    ? 'none'
+                    : 'width 240ms ease-out, height 240ms ease-out, margin 240ms ease-out, opacity 240ms ease-out',
                 }}
               />
             </>

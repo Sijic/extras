@@ -38,16 +38,16 @@ export const IshimWaterCanvas: React.FC<IshimWaterCanvasProps> = ({ shatterProgr
       const h = window.innerHeight;
       const s = Math.max(0, Math.min(1, progressRef.current));
 
-      // Interpolate darkroom canvas from warm twilight walnut (#1A120D) to deep obsidian (#0B0807)
-      const rBg = Math.round(26 - s * 15);
-      const gBg = Math.round(18 - s * 10);
-      const bBg = Math.round(13 - s * 6);
+      // Interpolate cinema sky/water from Astana deep twilight navy (#0C1E3A) to midnight (#060B14)
+      const rBg = Math.round(12 - s * 6);
+      const gBg = Math.round(30 - s * 19);
+      const bBg = Math.round(58 - s * 38);
       ctx.fillStyle = `rgb(${rBg}, ${gBg}, ${bBg})`;
       ctx.fillRect(0, 0, w, h);
 
-      // Subtle warm sunlight Ishim caustics (warm cream & ember gold, zero cheap neon cyan)
+      // Subtle Astana river & sky blue caustics matching @ne_lishnie_film poster palette
       if (s < 0.92) {
-        const waveAlpha = (1 - s) * 0.14;
+        const waveAlpha = (1 - s) * 0.16;
         for (let i = 0; i < 12; i++) {
           const yBase = (h / 12) * i;
           ctx.beginPath();
@@ -59,18 +59,18 @@ export const IshimWaterCanvas: React.FC<IshimWaterCanvasProps> = ({ shatterProgr
             else ctx.lineTo(x, yBase + yOffset);
           }
           ctx.strokeStyle =
-            i % 3 === 0
-              ? `rgba(232, 93, 4, ${waveAlpha})`
-              : `rgba(255, 237, 215, ${waveAlpha * 0.55})`;
+            i % 4 === 0
+              ? `rgba(230, 30, 42, ${waveAlpha * 0.75})`
+              : `rgba(56, 189, 248, ${waveAlpha * 0.65})`;
           ctx.lineWidth = 1;
           ctx.stroke();
         }
       }
 
-      // Precision darkroom concrete hairlines when shattered
+      // Precision concrete hairlines when shattered
       if (s > 0.12) {
-        const concreteAlpha = Math.min(1, (s - 0.12) / 0.88) * 0.09;
-        ctx.strokeStyle = `rgba(255, 237, 215, ${concreteAlpha})`;
+        const concreteAlpha = Math.min(1, (s - 0.12) / 0.88) * 0.08;
+        ctx.strokeStyle = `rgba(148, 163, 184, ${concreteAlpha})`;
         ctx.lineWidth = 1;
         const step = 96;
         for (let x = 0; x < w; x += step) {

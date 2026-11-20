@@ -3,24 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --bg-void: #0B0807;
-  --bg-plinth: #130F0D;
-  --bg-elevated: #1A1411;
-  --ink-cream: #FBF3E8;
-  --ink-warm: #E9DEC9;
-  --ink-muted: #9E948B;
-  --ink-dim: #6C635C;
-  --accent-ember: #E85D04;
-  --accent-brass: #D4A373;
-  --hairline: rgba(255, 237, 215, 0.10);
-  --hairline-strong: rgba(255, 237, 215, 0.18);
-  --hairline-dashed: rgba(255, 237, 215, 0.16);
+  --bg-void: #060B14;
+  --bg-plinth: #0B1424;
+  --bg-elevated: #111F36;
+  --ink-white: #F8FAFC;
+  --ink-ice: #CBD5E1;
+  --ink-muted: #94A3B8;
+  --ink-dim: #64748B;
+  --accent-red: #E61E2A;
+  --accent-sky: #38BDF8;
+  --accent-amber: #F59E0B;
+  --hairline: rgba(148, 163, 184, 0.14);
+  --hairline-strong: rgba(248, 250, 252, 0.22);
+  --hairline-dashed: rgba(148, 163, 184, 0.20);
 }
 
 @layer base {
   body {
     background-color: var(--bg-void);
-    color: var(--ink-cream);
+    color: var(--ink-white);
     font-family: 'Inter', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
     letter-spacing: -0.01em;
   }
@@ -38,7 +39,7 @@
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-/* ORYZO / Lusion darkroom dashed architectural dividers */
+/* Precision cinema dashed architectural dividers */
 .hairline-dashed {
   border-top: 1px dashed var(--hairline-dashed);
 }
@@ -49,22 +50,22 @@
 
 /* Zero-FPS-cost 35mm cinema film grain veil */
 .cinema-grain {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
 }
 
-/* Custom precision darkroom scrollbar */
+/* Custom midnight navy scrollbar with brand red hover */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0807;
+  background: #060B14;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2B231E;
+  background: #1E2E4A;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #E85D04;
+  background: #E61E2A;
 }
