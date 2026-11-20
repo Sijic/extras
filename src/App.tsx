@@ -10,6 +10,7 @@ import {
   Mail,
   Phone,
   Instagram,
+  MessageCircle,
   ChevronDown,
   ChevronUp,
   ShieldCheck,
@@ -670,6 +671,7 @@ export default function App() {
   const [showFullCredits, setShowFullCredits] = useState<boolean>(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
+  const [copiedWechat, setCopiedWechat] = useState<boolean>(false);
 
   const heroBgRef = useRef<HTMLImageElement | null>(null);
   const previewVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -754,6 +756,13 @@ export default function App() {
     navigator.clipboard?.writeText(CONTACT_CONFIG.email).catch(() => {});
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
+  const handleCopyWechat = () => {
+    soundEngine.playUiTick();
+    navigator.clipboard?.writeText(CONTACT_CONFIG.phone).catch(() => {});
+    setCopiedWechat(true);
+    setTimeout(() => setCopiedWechat(false), 2200);
   };
 
   return (
@@ -975,19 +984,34 @@ export default function App() {
                 {c.heroHook}
               </p>
 
-              {/* Single Clean Document Action (Video Play lives directly on the Cinema Frame Card!) */}
-              <div className="pt-2 flex flex-wrap items-center gap-4">
+              {/* Clean Document Actions (RU & KK also include original Russian Deck; EN & ZH show ONLY International/China Deck) */}
+              <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
                 {SITE_MODE === 'DISTRIBUTOR' ? (
-                  <a
-                    href={CONTACT_CONFIG.pitchDeckUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-testid="hero-download-deck-btn"
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-[#E61E2A] text-[#07336B] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-[0_12px_28px_rgba(7,51,107,0.28)] transition-all"
-                  >
-                    <FileDown className="w-4 h-4" />
-                    <span>{c.heroDeckBtn}</span>
-                  </a>
+                  <>
+                    <a
+                      href={CONTACT_CONFIG.pitchDeckUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-testid="hero-download-deck-btn"
+                      className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-[#E61E2A] text-[#07336B] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-[0_12px_28px_rgba(7,51,107,0.28)] transition-all"
+                    >
+                      <FileDown className="w-4 h-4" />
+                      <span>{c.heroDeckBtn}</span>
+                    </a>
+
+                    {showRussianDeck && (
+                      <a
+                        href={CONTACT_CONFIG.ruDeckUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-testid="hero-ru-deck-btn"
+                        className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#07336B]/75 hover:bg-[#07336B] border border-white/45 text-white font-mono font-semibold text-xs uppercase tracking-[0.12em] backdrop-blur-sm transition-all"
+                      >
+                        <FileDown className="w-4 h-4 text-sky-300" />
+                        <span>{lang === 'kk' ? 'Орысша презентация (PDF)' : 'Презентация RU (PDF)'}</span>
+                      </a>
+                    )}
+                  </>
                 ) : (
                   <a
                     href={CONTACT_CONFIG.ticketsUrl}
@@ -1469,7 +1493,7 @@ export default function App() {
                   </button>
                 </div>
 
-                {/* Phone / WeChat */}
+                {/* Phone */}
                 <a
                   href={CONTACT_CONFIG.phoneHref}
                   className="p-3.5 rounded-xl bg-[#060B14] border border-[#F8FAFC]/12 hover:border-[#38BDF8]/60 flex items-center gap-3 transition-colors"
@@ -1479,12 +1503,40 @@ export default function App() {
                     <div className="font-mono font-semibold text-xs sm:text-sm text-[#F8FAFC]">
                       {CONTACT_CONFIG.phone}
                     </div>
-                    <div className="text-[10px] text-[#64748B]">{c.contactWechatNote}</div>
+                    <div className="text-[10px] text-[#64748B]">
+                      {lang === 'zh' ? '直联手机 / 微信同号 (WeChat)' : c.contactWechatNote}
+                    </div>
                   </div>
                 </a>
 
-                {/* Conditional Instagram: strictly hidden in ZH / ?market=cn */}
-                {!hideWesternSocials && (
+                {/* Social Channel: WeChat (+7 776 800 6262) for Chinese | Instagram (@ne_lishnie_film) for RU / KK / EN */}
+                {hideWesternSocials ? (
+                  <div
+                    data-testid="wechat-contact-card"
+                    className="p-3.5 rounded-xl bg-[#071F14] border border-[#07C160]/45 flex items-center justify-between gap-2"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <MessageCircle className="w-4 h-4 text-[#07C160] flex-shrink-0" />
+                      <div className="truncate">
+                        <div className="font-mono font-bold text-xs sm:text-sm text-[#F8FAFC]">
+                          WeChat / 微信: {CONTACT_CONFIG.phone}
+                        </div>
+                        <div className="text-[10px] text-[#86EFAC]">
+                          复制微信号直接联系制片人 (谢尔盖)
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleCopyWechat}
+                      data-testid="copy-wechat-btn"
+                      className="px-3 py-1.5 rounded-full bg-[#07C160] hover:bg-white text-[#060B14] text-[10px] font-mono font-bold transition-colors flex items-center gap-1 flex-shrink-0"
+                    >
+                      {copiedWechat ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedWechat ? c.contactCopied : '复制微信'}</span>
+                    </button>
+                  </div>
+                ) : (
                   <a
                     href={CONTACT_CONFIG.instagramUrl}
                     target="_blank"
