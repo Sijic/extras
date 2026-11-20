@@ -1,7 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from '@studio-freight/lenis';
+import React, { useState, useEffect } from 'react';
 import {
   Volume2,
   VolumeX,
@@ -30,13 +27,9 @@ import {
 } from './data/filmData';
 import { SITE_MODE, CONTACT_CONFIG } from './config/siteConfig';
 import { soundEngine } from './utils/soundEngine';
-import { IshimWaterCanvas } from './components/IshimWaterCanvas';
-import { SosHudWidget } from './components/SosHudWidget';
-import { DiaryXrayScanner } from './components/DiaryXrayScanner';
+import { AstanaMarathonJourney } from './components/AstanaMarathonJourney';
 import { CinemaLookbookSection } from './components/CinemaLookbookSection';
 import { PromoPlayerModal, UILang } from './components/PromoPlayerModal';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const LANG_OPTIONS: Array<{ code: UILang; label: string }> = [
   { code: 'en', label: 'EN' },
@@ -245,8 +238,8 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio & IBA JANA MEN Movement (Astana, Kazakhstan). All Rights Reserved.',
     chapters: [
       { id: 'hero', num: '01', label: 'PROLOGUE' },
-      { id: 'diary', num: '02', label: 'STORY' },
-      { id: 'lookbook', num: '03', label: 'LOOKBOOK' },
+      { id: 'journey', num: '02', label: '42.2 KM' },
+      { id: 'lookbook', num: '03', label: 'STILLS' },
       { id: 'cast', num: '04', label: 'CAST' },
       { id: 'sales', num: '05', label: 'BUYERS' },
     ],
@@ -377,7 +370,7 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio & IBA JANA MEN Movement（哈萨克斯坦阿斯塔纳）保留所有权利。',
     chapters: [
       { id: 'hero', num: '01', label: '序幕' },
-      { id: 'diary', num: '02', label: '故事' },
+      { id: 'journey', num: '02', label: '42.2公里' },
       { id: 'lookbook', num: '03', label: '剧照' },
       { id: 'cast', num: '04', label: '阵容' },
       { id: 'sales', num: '05', label: '发行合作' },
@@ -509,9 +502,9 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio и движение IBA JANA MEN (Астана, Казахстан). Все права защищены.',
     chapters: [
       { id: 'hero', num: '01', label: 'ПРОЛОГ' },
-      { id: 'diary', num: '02', label: 'ИСТОРИЯ' },
+      { id: 'journey', num: '02', label: '42.2 КМ' },
       { id: 'lookbook', num: '03', label: 'КАДРЫ' },
-      { id: 'cast', num: '04', label: 'КАСТ' },
+      { id: 'cast', num: '04', label: 'АКТЁРЫ' },
       { id: 'sales', num: '05', label: 'ПРАВА' },
     ],
   },
@@ -641,7 +634,7 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio және IBA JANA MEN қозғалысы (Астана, Қазақстан). Барлық құқықтар қорғалған.',
     chapters: [
       { id: 'hero', num: '01', label: 'ПРОЛОГ' },
-      { id: 'diary', num: '02', label: 'ОҚИҒА' },
+      { id: 'journey', num: '02', label: '42.2 КМ' },
       { id: 'lookbook', num: '03', label: 'КАДРЛАР' },
       { id: 'cast', num: '04', label: 'АКТЁРЛЕР' },
       { id: 'sales', num: '05', label: 'ҚҰҚЫҚТАР' },
@@ -674,20 +667,12 @@ export default function App() {
   const [isChinaMarketUrl, setIsChinaMarketUrl] = useState<boolean>(false);
   const [lang, setLang] = useState<UILang>(() => detectInitialLang());
   const [soundEnabled, setSoundEnabled] = useState<boolean>(false);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
-  const [heroShatter, setHeroShatter] = useState<number>(0);
   const [showFullCredits, setShowFullCredits] = useState<boolean>(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
-  const [titleWeightVar, setTitleWeightVar] = useState<{ tracking: number; skew: number }>({
-    tracking: 0,
-    skew: 0,
-  });
-
-  const lenisRef = useRef<Lenis | null>(null);
-  const heroSectionRef = useRef<HTMLElement | null>(null);
 
   const hideWesternSocials = lang === 'zh' || isChinaMarketUrl;
+  const showRussianDeck = lang === 'ru' || lang === 'kk';
   const c = COPY[lang];
 
   useEffect(() => {
@@ -708,7 +693,6 @@ export default function App() {
     document.title = c.docTitle;
   }, [lang, c.docTitle]);
 
-  // Sync audio state & gently arm cinema Foley on first user interaction (always mutable)
   useEffect(() => {
     const unsub = soundEngine.subscribe(setSoundEnabled);
     const onFirstGesture = () => {
@@ -721,78 +705,6 @@ export default function App() {
     };
   }, []);
 
-  // Smooth physical scroll via Lenis + GSAP ScrollTrigger
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.35,
-      smoothWheel: true,
-      wheelMultiplier: 0.9,
-    });
-    lenisRef.current = lenis;
-
-    lenis.on('scroll', (e: { progress: number; velocity: number }) => {
-      ScrollTrigger.update();
-      const prog = typeof e.progress === 'number' ? e.progress : 0;
-      const vel = typeof e.velocity === 'number' ? e.velocity : 0;
-      setScrollProgress(prog);
-      soundEngine.setScrollProgress(prog);
-
-      setTitleWeightVar({
-        tracking: Math.max(-2, Math.min(6, Math.abs(vel) * 0.35)),
-        skew: Math.max(-2.5, Math.min(2.5, vel * 0.08)),
-      });
-
-      const lenisInternal = lenis as unknown as { options?: { wheelMultiplier?: number; duration?: number } };
-      if (lenisInternal.options) {
-        if (prog < 0.25) {
-          lenisInternal.options.wheelMultiplier = 0.72;
-          lenisInternal.options.duration = 1.55;
-        } else if (prog < 0.65) {
-          lenisInternal.options.wheelMultiplier = 0.95;
-          lenisInternal.options.duration = 1.2;
-        } else {
-          lenisInternal.options.wheelMultiplier = 1.15;
-          lenisInternal.options.duration = 0.95;
-        }
-      }
-    });
-
-    let rafId = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
-    if (window.location.hash) {
-      const targetId = window.location.hash.replace('#', '');
-      setTimeout(() => {
-        const el = document.getElementById(targetId);
-        if (el) el.scrollIntoView({ behavior: 'auto' });
-      }, 140);
-    }
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (heroSectionRef.current) {
-        ScrollTrigger.create({
-          trigger: heroSectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.5,
-          onUpdate: (self) => setHeroShatter(self.progress),
-        });
-      }
-    });
-    return () => ctx.revert();
-  }, []);
-
   const handleToggleSound = () => {
     soundEngine.toggle(!soundEnabled);
   };
@@ -800,12 +712,7 @@ export default function App() {
   const handleJumpToSection = (sectionId: string) => {
     soundEngine.playUiTick();
     const el = document.getElementById(sectionId);
-    if (!el) return;
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(el, { offset: -64 });
-    } else {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleOpenPromo = () => {
@@ -821,12 +728,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-hidden relative selection:bg-[#E61E2A] selection:text-[#060B14]">
-      {/* Zero-FPS 35mm Cinema Grain Veil */}
-      <div className="fixed inset-0 cinema-grain pointer-events-none z-30 opacity-55" aria-hidden="true" />
+    <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-hidden relative selection:bg-[#E61E2A] selection:text-white">
 
-      {/* ==================== CLEAN EDITORIAL TOP BAR (ZERO DUPLICATE BUTTONS) ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#060B14]/88 backdrop-blur-xl border-b border-[#38BDF8]/14">
+      {/* ==================== CLEAN EDITORIAL TOP BAR (SOLID MIDNIGHT NAVY — ALWAYS READABLE) ==================== */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#060B14]/95 backdrop-blur-md border-b border-white/10">
         <div className="max-w-[1380px] mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo Title in Official @ne_lishnie_film Red + White Palette */}
           <a
@@ -934,145 +839,81 @@ export default function App() {
         </div>
       </header>
 
-      {/* Bottom-Centered Compact SOS Telemetry Bar (Desktop Only — clean mobile viewport!) */}
-      <SosHudWidget
-        scrollProgress={scrollProgress}
-        lang={lang}
-        onJumpToSection={handleJumpToSection}
-      />
-
-      {/* Right-Edge Vertical Cinema Chapter Scrubber (Desktop 2XL) */}
-      <aside
-        aria-label="Chapters"
-        className="hidden 2xl:flex fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3"
-      >
-        {c.chapters.map((ch, idx) => {
-          const activeIdx = Math.min(
-            c.chapters.length - 1,
-            Math.floor(scrollProgress * c.chapters.length)
-          );
-          const isActive = idx === activeIdx;
-          return (
-            <button
-              key={ch.id}
-              type="button"
-              onClick={() => handleJumpToSection(ch.id)}
-              className="group flex items-center gap-2.5 font-mono text-[9px] tracking-[0.18em] uppercase transition-all"
-            >
-              <span
-                className={`transition-all ${
-                  isActive
-                    ? 'text-[#F8FAFC] opacity-100'
-                    : 'text-[#64748B] opacity-0 group-hover:opacity-100'
-                }`}
-              >
-                {ch.num} · {ch.label}
-              </span>
-              <span
-                className={`block h-[2px] transition-all ${
-                  isActive
-                    ? 'w-6 bg-[#E61E2A]'
-                    : 'w-2.5 bg-[#F8FAFC]/25 group-hover:w-4 group-hover:bg-[#F8FAFC]/70'
-                }`}
-              />
-            </button>
-          );
-        })}
-      </aside>
-
-      {/* ==================== SCENE 1 (HERO): B2B CINEMA HOOK + STEAMING SAMSA SCALES ==================== */}
+      {/* ==================== SCENE 1 (HERO): BRIGHT CINEMATIC IMAX POSTER ==================== */}
       <section
         id="hero"
-        ref={heroSectionRef}
-        className="relative min-h-screen flex flex-col justify-between pt-20 pb-20 sm:pb-24 overflow-hidden"
+        className="relative min-h-[92vh] flex flex-col justify-between pt-20 pb-14 sm:pb-20 overflow-hidden bg-[#081529]"
       >
-        <IshimWaterCanvas shatterProgress={heroShatter} />
-
-        {/* Ultra-Light WebP Film Stills (80KB + 23KB) — Instant Load in Mainland China */}
-        <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none transition-opacity duration-300"
-          style={{
-            backgroundImage: `url('./stills/hero_bridge_web.webp')`,
-            opacity: Math.max(0, 0.4 * (1 - heroShatter * 2.2)),
-            filter: 'contrast(1.06) saturate(0.86)',
-          }}
-        />
-        <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none transition-opacity duration-300"
-          style={{
-            backgroundImage: `url('./stills/hero_vest_web.webp')`,
-            opacity: Math.max(0, Math.min(0.54, (heroShatter - 0.25) * 1.15)),
-            filter: 'contrast(1.12) saturate(1.04)',
-          }}
+        {/* Crisp Full-Bleed Astana Bridge Cinema Backdrop (Vibrant & Clear — NO Muddy Dark Fog!) */}
+        <img
+          src="./stills/hero_bridge_web.webp"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none opacity-85"
         />
 
+        {/* Directional Cinema Poster Scrim: Deep Navy Left for Text Clarity, Open Daylight Sky Right */}
         <div
           className="absolute inset-0 pointer-events-none z-[5]"
           style={{
             background:
-              'linear-gradient(180deg, rgba(6,11,20,0.84) 0%, rgba(10,20,38,0.52) 38%, rgba(6,11,20,0.88) 78%, #060B14 100%)',
+              'linear-gradient(105deg, rgba(6,14,28,0.92) 0%, rgba(8,20,40,0.72) 48%, rgba(8,20,40,0.34) 100%), linear-gradient(180deg, rgba(6,14,28,0.68) 0%, transparent 25%, rgba(6,14,28,0.78) 100%)',
           }}
         />
 
-        <div className="relative z-20 max-w-[1380px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
-          {/* Top Cinema Slate Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3.5 hairline-dashed-b font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
-            <div className="flex items-center gap-2.5 text-[#38BDF8]">
+        <div className="relative z-20 max-w-[1340px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
+          {/* Minimal Top Metadata Strip */}
+          <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3 border-b border-white/15 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
+            <div className="flex items-center gap-2 text-sky-300">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
               <span>{c.slateMeta}</span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-[#94A3B8]">
-              <span className="text-[#F59E0B]">{c.statusText}</span>
-              <span className="text-white/20">·</span>
-              <span className="text-[#F8FAFC]">{c.releaseText}</span>
+            <div className="flex flex-wrap items-center gap-3 text-slate-200">
+              <span className="text-amber-300">{c.statusText}</span>
+              <span className="text-white/30">·</span>
+              <span className="text-white font-semibold">{c.releaseText}</span>
             </div>
           </div>
 
-          {/* Main 12-Col Hero Grid: Brand Title + 1 PDF Action Left | 1 Cinema Promo Card Right (Zero Duplicates!) */}
-          <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center py-2 sm:py-6">
+          {/* Main 12-Col Hero Grid */}
+          <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-4 sm:py-8">
             {/* Left 7 Cols */}
             <div className="lg:col-span-7 space-y-5">
-              <div className="font-mono text-[10px] sm:text-xs font-medium uppercase tracking-[0.24em] text-[#38BDF8]">
+              <div className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-sky-300">
                 {c.genre}
               </div>
 
               <div>
-                <h1
-                  className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.2rem] uppercase leading-[0.98] tracking-[-0.025em] transition-transform duration-150"
-                  style={{
-                    letterSpacing: `${-0.02 + titleWeightVar.tracking * 0.008}em`,
-                    transform: `skewX(${titleWeightVar.skew}deg)`,
-                  }}
-                >
+                <h1 className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.4rem] uppercase leading-[0.96] tracking-[-0.025em]">
                   {lang === 'ru' ? (
                     <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
                         НЕ
                       </span>
-                      <span className="text-[#F8FAFC]">ЛИШНИЕ</span>
+                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">ЛИШНИЕ</span>
                     </>
                   ) : lang === 'kk' ? (
                     <>
-                      <span className="text-[#F8FAFC]">АРТЫҚ</span>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">АРТЫҚ</span>
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
                         ЕМЕС
                       </span>
                     </>
                   ) : lang === 'zh' ? (
                     <>
-                      <span className="text-[#E61E2A] drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">《绝不</span>
-                      <span className="text-[#F8FAFC]">多余》</span>
+                      <span className="text-[#E61E2A] drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">《绝不</span>
+                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">多余》</span>
                     </>
                   ) : (
                     <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.35)]">
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
                         NOT
                       </span>
-                      <span className="text-[#F8FAFC]">EXTRA</span>
+                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">EXTRA</span>
                     </>
                   )}
                 </h1>
-                <div className="mt-2 font-mono text-[11px] sm:text-xs uppercase tracking-[0.26em] text-[#CBD5E1]">
+                <div className="mt-2.5 font-mono text-[11px] sm:text-xs uppercase tracking-[0.28em] text-white/90">
                   {lang === 'ru'
                     ? 'ФИЛЬМ АЙТЫМА ЖАКУПОВА'
                     : lang === 'kk'
@@ -1083,11 +924,11 @@ export default function App() {
                 </div>
               </div>
 
-              <p className="text-lg sm:text-2xl font-semibold text-[#F8FAFC] leading-snug max-w-2xl">
+              <p className="text-lg sm:text-2xl font-semibold text-white leading-snug max-w-2xl drop-shadow-sm">
                 {c.heroPitch}
               </p>
 
-              <p className="text-sm sm:text-[15px] text-[#CBD5E1] leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-[15px] text-slate-200 leading-relaxed max-w-2xl">
                 {c.heroHook}
               </p>
 
@@ -1099,7 +940,7 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="hero-download-deck-btn"
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#F8FAFC] hover:bg-[#E61E2A] text-[#060B14] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-[#E61E2A] text-[#060B14] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-lg transition-all"
                   >
                     <FileDown className="w-4 h-4" />
                     <span>{c.heroDeckBtn}</span>
@@ -1107,7 +948,7 @@ export default function App() {
                 ) : (
                   <a
                     href={CONTACT_CONFIG.ticketsUrl}
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#060B14] font-mono font-bold text-xs uppercase tracking-[0.14em] transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#060B14] font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-lg transition-all"
                   >
                     <Ticket className="w-4 h-4" />
                     <span>{c.heroTicketsBtn}</span>
@@ -1115,29 +956,21 @@ export default function App() {
                 )}
 
                 <a
-                  href="#sales"
+                  href="#journey"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleJumpToSection('sales');
+                    handleJumpToSection('journey');
                   }}
-                  className="font-mono text-xs uppercase tracking-[0.14em] text-[#38BDF8] hover:text-white transition-colors"
+                  className="font-mono text-xs uppercase tracking-[0.14em] text-sky-300 hover:text-white transition-colors"
                 >
                   {lang === 'zh'
-                    ? '版权合作与联系 ↓'
+                    ? '跟随 42.2 公里蜕变路线 ↓'
                     : lang === 'kk'
-                    ? 'Продюсермен байланыс ↓'
+                    ? '42.2 км марафон жолы ↓'
                     : lang === 'ru'
-                    ? 'Контакты для дистрибьюторов ↓'
-                    : 'Acquisition Desk ↓'}
+                    ? 'Пройти марафон 42.2 км ↓'
+                    : 'Run the 42.2 km Journey ↓'}
                 </a>
-              </div>
-
-              {/* Clean Cultural Bridge Footnote */}
-              <div className="pt-4 mt-2 hairline-dashed max-w-2xl">
-                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#38BDF8] mb-1">
-                  {c.heroBridgeTag}
-                </div>
-                <p className="text-xs text-[#94A3B8] leading-relaxed">{c.heroBridgeBody}</p>
               </div>
             </div>
 
@@ -1148,7 +981,7 @@ export default function App() {
                 onClick={handleOpenPromo}
                 data-testid="hero-video-poster-card"
                 aria-label={c.heroPromoBtn}
-                className="group relative block w-full rounded-2xl overflow-hidden border border-[#38BDF8]/25 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_24px_70px_rgba(2,6,18,0.85)] transition-all"
+                className="group relative block w-full rounded-2xl overflow-hidden border border-white/25 hover:border-[#E61E2A] bg-[#060B14] text-left shadow-[0_28px_70px_rgba(2,6,18,0.65)] transition-all"
               >
                 <div className="relative aspect-[16/10] w-full overflow-hidden">
                   <img
@@ -1156,10 +989,10 @@ export default function App() {
                     alt={c.filmTitle}
                     className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/25 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/90 via-transparent to-[#060B14]/30" />
 
                   <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/80 backdrop-blur-md border border-white/15 text-[#F8FAFC]">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/80 text-white">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
                       {lang === 'zh'
                         ? '中文字幕 · 03:00'
@@ -1169,21 +1002,21 @@ export default function App() {
                         ? 'ПРОМО · 03:00'
                         : 'CHN SUBS · 03:00'}
                     </span>
-                    <span className="px-2 py-1 rounded-full bg-[#060B14]/70 backdrop-blur-md text-[#38BDF8]">
+                    <span className="px-2 py-1 rounded-full bg-[#060B14]/70 text-sky-300">
                       2.39:1
                     </span>
                   </div>
 
                   {/* Single Signature Red Play Button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A]/90 group-hover:bg-[#E61E2A] border border-white/30 backdrop-blur-md flex items-center justify-center shadow-[0_0_40px_rgba(230,30,42,0.5)] transition-all duration-300 group-hover:scale-110">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A] group-hover:scale-110 border-2 border-white/40 flex items-center justify-center shadow-[0_0_40px_rgba(230,30,42,0.55)] transition-transform duration-300">
                       <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current ml-1" />
                     </div>
                   </div>
 
-                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-[#CBD5E1] tracking-[0.14em] uppercase">
+                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-white/95 tracking-[0.14em] uppercase">
                     <span>{c.heroPromoBtn}</span>
-                    <span className="text-[#38BDF8]">HD 720p</span>
+                    <span className="text-sky-300">FAST STREAM</span>
                   </div>
                 </div>
               </button>
@@ -1192,39 +1025,35 @@ export default function App() {
         </div>
       </section>
 
-      {/* ==================== SCENE 2: DIARY X-RAY SCANNER (ADULT EDITORIAL INTERACTIVE) ==================== */}
-      <section id="diary" className="py-16 sm:py-24 hairline-dashed bg-[#060B14]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
-          <DiaryXrayScanner lang={lang} />
-        </div>
-      </section>
+      {/* ==================== SCENE 2: ILLUSTRATED ASTANA 42.2 KM MARATHON JOURNEY (SLIMMING RUNNER!) ==================== */}
+      <AstanaMarathonJourney lang={lang} />
 
       {/* ==================== SCENE 4: DIRECTOR'S STATEMENT & 35MM LOOKBOOK ==================== */}
       <CinemaLookbookSection lang={lang} />
 
-      {/* ==================== SCENE 5: CAST & CREW EXHIBITION (23 VERIFIED FACES) ==================== */}
-      <section id="cast" className="py-20 sm:py-28 hairline-dashed bg-[#040810]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
+      {/* ==================== SCENE 4: EDITORIAL LIGHT CAST & CREW EXHIBITION (23 VERIFIED FACES) ==================== */}
+      <section id="cast" className="py-20 sm:py-28 bg-white text-[#0B172A]">
+        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
           <div className="max-w-3xl mb-12">
-            <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#E61E2A] mb-3">
+            <div className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#E61E2A] mb-3">
               <Award className="w-3.5 h-3.5" />
               <span>{c.castTag}</span>
             </div>
-            <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#F8FAFC] mb-3">
+            <h2 className="font-unbounded font-black text-2xl sm:text-4xl text-[#0B172A] mb-3">
               {c.castTitle}
             </h2>
-            <p className="text-sm text-[#94A3B8]">{c.castSub}</p>
+            <p className="text-sm sm:text-base text-slate-600">{c.castSub}</p>
           </div>
 
-          {/* 3x2 Lead Cast Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {/* 3x2 Lead Cast Cards (Magazine Portrait Style) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-16">
             {CAST_DATA.map((actor) => (
               <div
                 key={actor.id}
-                className="group rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 hover:border-[#F8FAFC]/30 overflow-hidden flex flex-col justify-between transition-all duration-300"
+                className="group rounded-2xl bg-[#F8FAFC] border border-slate-200/80 shadow-[0_12px_36px_rgba(11,23,42,0.06)] hover:shadow-[0_18px_48px_rgba(11,23,42,0.12)] overflow-hidden flex flex-col justify-between transition-all duration-300"
               >
                 <div>
-                  <div className="aspect-[4/5] bg-[#040810] relative overflow-hidden border-b border-[#F8FAFC]/10 flex items-center justify-center">
+                  <div className="aspect-[4/5] bg-slate-900 relative overflow-hidden flex items-center justify-center">
                     <img
                       src={`${actor.image}?v=6`}
                       alt={actor.actor[lang]}
@@ -1232,28 +1061,28 @@ export default function App() {
                       loading="lazy"
                       decoding="async"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1322] via-[#0A1322]/15 to-transparent" />
-                    <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060B14]/85 backdrop-blur-md border border-[#F8FAFC]/15 text-[#F8FAFC] font-mono text-[9px] font-medium uppercase tracking-[0.14em]">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/90 via-transparent to-transparent" />
+                    <span className="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-[#060B14]/80 text-white font-mono text-[9px] font-semibold uppercase tracking-[0.14em]">
                       {actor.badge[lang]}
                     </span>
                     <div className="absolute bottom-4 left-5 right-5">
-                      <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC]">
+                      <h3 className="font-unbounded font-bold text-lg text-white">
                         {actor.actor[lang]}
                       </h3>
-                      <div className="font-mono text-[10px] text-[#38BDF8] mt-1">
+                      <div className="font-mono text-[10px] text-sky-300 mt-1">
                         {actor.characterName[lang]} · {actor.role[lang]}
                       </div>
                     </div>
                   </div>
                   <div className="p-5 sm:p-6">
-                    <p className="text-xs sm:text-[13.5px] text-[#CBD5E1] leading-relaxed">
+                    <p className="text-xs sm:text-[13.5px] text-slate-600 leading-relaxed">
                       {actor.desc[lang]}
                     </p>
                   </div>
                 </div>
-                <div className="px-5 py-3.5 bg-[#060B14]/80 border-t border-[#F8FAFC]/10 flex items-center justify-between gap-2 text-xs">
+                <div className="px-5 py-3.5 bg-white border-t border-slate-200/70 flex items-center justify-between gap-2 text-xs">
                   <span className="font-mono font-bold text-[11px] text-[#E61E2A]">{actor.metric}</span>
-                  <span className="font-mono text-[10px] text-[#64748B] text-right">
+                  <span className="font-mono text-[10px] text-slate-500 text-right">
                     {actor.metricLabel[lang]}
                   </span>
                 </div>
@@ -1263,11 +1092,11 @@ export default function App() {
 
           {/* Supporting Cast & Real JANA MEN Alumni */}
           <div className="mb-16">
-            <div className="mb-7 pb-4 hairline-dashed-b">
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-[#38BDF8] mb-1">
+            <div className="mb-7 pb-4 border-b border-slate-200">
+              <div className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#2563EB] mb-1">
                 {c.ensembleTag}
               </div>
-              <h3 className="font-unbounded font-bold text-xl sm:text-2xl text-[#F8FAFC]">
+              <h3 className="font-unbounded font-bold text-xl sm:text-2xl text-[#0B172A]">
                 {c.ensembleTitle}
               </h3>
             </div>
@@ -1278,14 +1107,14 @@ export default function App() {
                 return (
                   <div
                     key={idx}
-                    className={`group rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/10 hover:border-[#F8FAFC]/30 overflow-hidden flex flex-col justify-between transition-all ${
+                    className={`group rounded-2xl bg-slate-900 shadow-md overflow-hidden flex flex-col justify-between transition-all ${
                       isWideGroup ? 'col-span-2 sm:col-span-2 md:col-span-3' : ''
                     }`}
                   >
                     <div
                       className={`${
                         isWideGroup ? 'h-full min-h-[240px]' : 'aspect-[4/5]'
-                      } w-full bg-[#040810] relative overflow-hidden flex items-center justify-center`}
+                      } w-full relative overflow-hidden flex items-center justify-center`}
                     >
                       <img
                         src={`${item.image}?v=6`}
@@ -1296,12 +1125,12 @@ export default function App() {
                         loading="lazy"
                         decoding="async"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#060B14] via-[#060B14]/15 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/90 via-transparent to-transparent" />
                       <div className="absolute bottom-3 left-3.5 right-3.5">
-                        <div className="font-unbounded font-bold text-xs sm:text-sm text-[#F8FAFC] leading-snug">
+                        <div className="font-unbounded font-bold text-xs sm:text-sm text-white leading-snug">
                           {item.name[lang]}
                         </div>
-                        <div className="font-mono text-[10px] text-[#38BDF8] mt-0.5 leading-tight">
+                        <div className="font-mono text-[10px] text-sky-300 mt-0.5 leading-tight">
                           {item.role[lang]}
                         </div>
                       </div>
@@ -1313,38 +1142,38 @@ export default function App() {
           </div>
 
           {/* Key Creative Team */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#F8FAFC]/10 border border-[#F8FAFC]/10 rounded-2xl overflow-hidden mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
             {KEY_CREW_DATA.map((crew, idx) => (
-              <div key={idx} className="bg-[#0A1322] hover:bg-[#0B1424] p-6 flex flex-col justify-between transition-colors">
+              <div key={idx} className="rounded-2xl bg-[#F8FAFC] border border-slate-200 p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-4 mb-4">
                     <img
                       src={crew.photo}
                       alt={crew.name[lang]}
-                      className="w-14 h-14 rounded-xl object-cover object-top border border-[#F8FAFC]/15 flex-shrink-0 bg-[#040810]"
+                      className="w-14 h-14 rounded-xl object-cover object-top border border-slate-200 flex-shrink-0 bg-slate-100"
                       loading="lazy"
                       decoding="async"
                     />
                     <div>
-                      <h4 className="font-unbounded font-bold text-sm text-[#F8FAFC]">
+                      <h4 className="font-unbounded font-bold text-sm text-[#0B172A]">
                         {crew.name[lang]}
                       </h4>
-                      <div className="font-mono text-[10px] text-[#E61E2A] mt-1 leading-snug">
+                      <div className="font-mono text-[10px] font-semibold text-[#E61E2A] mt-1 leading-snug">
                         {crew.role[lang]}
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs sm:text-[13px] text-[#94A3B8] leading-relaxed">
+                  <p className="text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                     {crew.bio[lang]}
                   </p>
                 </div>
                 {crew.link && !hideWesternSocials && (
-                  <div className="mt-4 pt-3 border-t border-[#F8FAFC]/10">
+                  <div className="mt-4 pt-3 border-t border-slate-200">
                     <a
                       href={crew.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#38BDF8] hover:text-[#F8FAFC]"
+                      className="font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-[#2563EB] hover:text-[#E61E2A]"
                     >
                       {crew.linkLabel}
                     </a>
@@ -1355,16 +1184,16 @@ export default function App() {
           </div>
 
           {/* Expandable Full Official Crew Roll */}
-          <div className="rounded-2xl bg-[#0A1322] border border-[#F8FAFC]/12 overflow-hidden">
+          <div className="rounded-2xl bg-[#F8FAFC] border border-slate-200 overflow-hidden">
             <button
               type="button"
               onClick={() => {
                 soundEngine.playUiTick();
                 setShowFullCredits((v) => !v);
               }}
-              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-[#111F36] transition-colors"
+              className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-100 transition-colors"
             >
-              <span className="font-mono font-semibold text-xs uppercase tracking-[0.14em] text-[#F8FAFC]">
+              <span className="font-mono font-bold text-xs uppercase tracking-[0.14em] text-[#0B172A]">
                 {showFullCredits ? c.collapseCredits : c.expandCredits}
               </span>
               {showFullCredits ? (
@@ -1374,17 +1203,17 @@ export default function App() {
               )}
             </button>
 
-            <div className={`p-6 border-t border-[#F8FAFC]/10 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
+            <div className={`p-6 border-t border-slate-200 ${showFullCredits ? 'block' : 'hidden md:block'}`}>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {FULL_CREDITS_DATA.map((dept, dIdx) => (
-                  <div key={dIdx} className="rounded-xl bg-[#060B14] border border-[#F8FAFC]/10 p-5 space-y-2.5">
-                    <h5 className="font-mono font-bold text-[10px] uppercase tracking-[0.18em] text-[#38BDF8] border-b border-[#F8FAFC]/10 pb-2">
+                  <div key={dIdx} className="rounded-xl bg-white border border-slate-200 p-5 space-y-2.5">
+                    <h5 className="font-mono font-bold text-[10px] uppercase tracking-[0.18em] text-[#2563EB] border-b border-slate-200 pb-2">
                       {dept.department[lang]}
                     </h5>
                     {dept.members.map((m, mIdx) => (
-                      <div key={mIdx} className="text-xs border-b border-[#F8FAFC]/6 pb-2 last:border-none">
-                        <div className="text-[#64748B]">{m.role[lang]}</div>
-                        <div className="font-medium text-[#E2E8F0] mt-0.5">{m.name[lang]}</div>
+                      <div key={mIdx} className="text-xs border-b border-slate-100 pb-2 last:border-none">
+                        <div className="text-slate-500">{m.role[lang]}</div>
+                        <div className="font-semibold text-[#0B172A] mt-0.5">{m.name[lang]}</div>
                       </div>
                     ))}
                   </div>
@@ -1641,16 +1470,19 @@ export default function App() {
                   {c.deckGalleryTitle}
                 </h3>
               </div>
-              <div className="flex flex-wrap items-center gap-4">
-                <a
-                  href={CONTACT_CONFIG.ruDeckUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#38BDF8] hover:text-white transition-colors"
-                >
-                  {c.deckSecondaryBtn} ↗
-                </a>
-              </div>
+              {showRussianDeck && (
+                <div className="flex flex-wrap items-center gap-4">
+                  <a
+                    href={CONTACT_CONFIG.ruDeckUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid="ru-deck-link"
+                    className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#38BDF8] hover:text-white transition-colors"
+                  >
+                    {c.deckSecondaryBtn} ↗
+                  </a>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

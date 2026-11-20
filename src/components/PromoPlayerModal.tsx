@@ -8,6 +8,7 @@ import {
   Maximize,
   Mail,
   Lock,
+  Loader2,
 } from 'lucide-react';
 import { PROMO_VIDEO_CONFIG, CONTACT_CONFIG } from '../config/siteConfig';
 import { soundEngine } from '../utils/soundEngine';
@@ -26,6 +27,7 @@ const MODAL_TEXT: Record<
     headerTitle: string;
     disclaimerLine: string;
     contactDesk: string;
+    buffering: string;
     pinTitle: string;
     pinSub: string;
     pinError: string;
@@ -37,8 +39,9 @@ const MODAL_TEXT: Record<
   en: {
     headerTitle: '3-MINUTE OFFICIAL PROMO REEL · SUBTITLED',
     disclaimerLine:
-      'Rough Cut assembly with temporary reference music & pre-DI color. Final 4K DCP & Dolby Atmos delivery: Spring 2027.',
+      'Rough Cut assembly with temporary reference music & pre-DI color. Final 4K DCP delivery: Spring 2027.',
     contactDesk: 'Producer Desk',
+    buffering: 'Loading video stream…',
     pinTitle: 'Screener Access PIN',
     pinSub: 'Enter the 4-digit buyer PIN code to unlock playback.',
     pinError: 'Incorrect PIN code. Please try again.',
@@ -49,8 +52,9 @@ const MODAL_TEXT: Record<
   zh: {
     headerTitle: '3分钟官方中文字幕推介片 · 直连播放',
     disclaimerLine:
-      '当前为早期粗剪样片（含临时参考配乐与预调色）。最终4K DCP母带与杜比全景声将于2027年春季交付。',
+      '当前为早期粗剪样片（含临时参考配乐与预调色）。最终4K DCP母带将于2027年春季交付。',
     contactDesk: '制片人直联邮箱',
+    buffering: '正在缓冲视频…',
     pinTitle: '内部审片访问密码',
     pinSub: '请输入4位买方授权密码以解锁播放。',
     pinError: '密码错误，请重新输入。',
@@ -63,6 +67,7 @@ const MODAL_TEXT: Record<
     disclaimerLine:
       'Черновой монтаж (Rough Cut) с референс-музыкой до финальной цветокоррекции DI. Финальный 4K DCP — весна 2027.',
     contactDesk: 'Почта продюсера',
+    buffering: 'Буферизация видео…',
     pinTitle: 'Доступ по ПИН-коду',
     pinSub: 'Введите 4-значный код для просмотра закрытого скринера.',
     pinError: 'Неверный ПИН-код. Попробуйте снова.',
@@ -73,8 +78,9 @@ const MODAL_TEXT: Record<
   kk: {
     headerTitle: '3 МИНУТТЫҚ РЕСМИ ПРОМО-РОЛИК · ТІКЕЛЕЙ АҒЫН',
     disclaimerLine:
-      'Алдын ала монтаждалған нұсқа (Rough Cut, референс-музыка және DI түс коррекциясына дейін). Финалдық 4K DCP — 2027 жылдың көктемі.',
+      'Алдын ала монтаждалған нұсқа (Rough Cut, референс-музыка және DI түс коррекциясына дейін). Финалдық 4K DCP — 2027 көктем.',
     contactDesk: 'Продюсер поштасы',
+    buffering: 'Бейне жүктелуде…',
     pinTitle: 'ПИН-код арқылы кіру',
     pinSub: 'Жабық көрсетілімді ашу үшін 4 таңбалы кодты енгізіңіз.',
     pinError: 'ПИН-код қате. Қайта енгізіңіз.',
@@ -100,6 +106,7 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
   const [pinError, setPinError] = useState<boolean>(false);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(179.6);
@@ -111,6 +118,7 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
     if (!isOpen) {
       soundEngine.setVideoPlaying(false);
       setIsPlaying(false);
+      setIsBuffering(false);
       return;
     }
 
@@ -128,10 +136,17 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
     if (pinUnlocked && videoRef.current) {
       const vid = videoRef.current;
       vid.currentTime = 0;
+      setIsBuffering(true);
       vid
         .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false));
+        .then(() => {
+          setIsPlaying(true);
+          setIsBuffering(false);
+        })
+        .catch(() => {
+          setIsPlaying(false);
+          setIsBuffering(false);
+        });
     }
 
     return () => {
@@ -196,18 +211,17 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
   return (
     <div
       data-testid="promo-player-modal"
-      className="fixed inset-0 z-50 bg-[#03060C]/95 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6"
+      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-3 sm:p-6"
       onClick={onClose}
     >
       <div
-        className="max-w-5xl w-full bg-[#0A1322] border border-[#38BDF8]/20 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+        className="max-w-5xl w-full bg-[#0A1322] border border-white/15 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Cinema Modal Header */}
         <div className="px-4 sm:px-6 py-3.5 bg-[#060B14] border-b border-white/10 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <span className="w-2 h-2 rounded-full bg-[#E61E2A] animate-pulse flex-shrink-0" />
-            <span className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-[#F8FAFC] truncate">
+            <span className="w-2 h-2 rounded-full bg-[#E61E2A] flex-shrink-0" />
+            <span className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-white truncate">
               {copy.headerTitle}
             </span>
           </div>
@@ -216,20 +230,19 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
             onClick={onClose}
             data-testid="close-promo-modal-btn"
             aria-label="Close"
-            className="p-1.5 rounded-full bg-[#111F36] text-[#94A3B8] hover:text-white transition-colors flex-shrink-0"
+            className="p-1.5 rounded-full bg-white/10 text-slate-300 hover:text-white transition-colors flex-shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Optional PIN Gate OR Direct HTML5 Video Player */}
         {!pinUnlocked ? (
           <form onSubmit={handlePinSubmit} className="p-8 sm:p-12 text-center space-y-5 max-w-md mx-auto">
-            <div className="w-12 h-12 rounded-full bg-[#111F36] border border-[#38BDF8]/25 flex items-center justify-center mx-auto text-[#E61E2A]">
+            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/15 flex items-center justify-center mx-auto text-[#E61E2A]">
               <Lock className="w-5 h-5" />
             </div>
-            <h3 className="font-unbounded font-bold text-lg text-[#F8FAFC]">{copy.pinTitle}</h3>
-            <p className="text-xs text-[#94A3B8]">{copy.pinSub}</p>
+            <h3 className="font-unbounded font-bold text-lg text-white">{copy.pinTitle}</h3>
+            <p className="text-xs text-slate-400">{copy.pinSub}</p>
             <input
               type="password"
               inputMode="numeric"
@@ -237,7 +250,7 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
               value={pinInput}
               onChange={(e) => setPinInput(e.target.value)}
               placeholder="• • • •"
-              className="w-40 text-center font-mono text-2xl tracking-[0.4em] px-4 py-2.5 rounded-xl bg-[#060B14] border border-[#38BDF8]/30 text-[#F8FAFC] focus:outline-none focus:border-[#E61E2A]"
+              className="w-40 text-center font-mono text-2xl tracking-[0.4em] px-4 py-2.5 rounded-xl bg-[#060B14] border border-white/20 text-white focus:outline-none focus:border-[#E61E2A]"
             />
             {pinError && <div className="text-xs text-[#E61E2A]">{copy.pinError}</div>}
             <div>
@@ -251,10 +264,10 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
           </form>
         ) : (
           <div className="p-3 sm:p-5 space-y-3">
-            {/* Custom HTML5 Video Stage */}
+            {/* GPU-Friendly Hardware-Accelerated Video Container (Zero Heavy Backdrop Blur!) */}
             <div
               ref={containerRef}
-              className="relative aspect-video w-full bg-black rounded-xl overflow-hidden border border-white/10 group"
+              className="relative aspect-video w-full bg-black rounded-xl overflow-hidden border border-white/10"
             >
               <video
                 ref={videoRef}
@@ -262,10 +275,19 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
                 src={PROMO_VIDEO_CONFIG.src}
                 poster={PROMO_VIDEO_CONFIG.poster}
                 playsInline
-                preload="metadata"
+                preload="auto"
                 onClick={togglePlay}
                 onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
+                onPlaying={() => {
+                  setIsPlaying(true);
+                  setIsBuffering(false);
+                }}
+                onWaiting={() => setIsBuffering(true)}
+                onCanPlay={() => setIsBuffering(false)}
+                onPause={() => {
+                  setIsPlaying(false);
+                  setIsBuffering(false);
+                }}
                 onLoadedMetadata={(e) => {
                   const vid = e.currentTarget;
                   if (vid.duration && Number.isFinite(vid.duration)) {
@@ -283,12 +305,19 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
                 className="w-full h-full object-contain cursor-pointer bg-black"
               />
 
-              {!isPlaying && (
+              {isBuffering && (
+                <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/40">
+                  <Loader2 className="w-9 h-9 text-[#E61E2A] animate-spin" />
+                  <span className="font-mono text-[11px] text-white/90">{copy.buffering}</span>
+                </div>
+              )}
+
+              {!isPlaying && !isBuffering && (
                 <button
                   type="button"
                   onClick={togglePlay}
                   aria-label={copy.playLabel}
-                  className="absolute inset-0 flex items-center justify-center bg-[#060B14]/35 hover:bg-[#060B14]/20 transition-colors"
+                  className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/15 transition-colors"
                 >
                   <span className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#060B14] flex items-center justify-center shadow-2xl transition-all">
                     <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
@@ -296,14 +325,10 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
                 </button>
               )}
 
-              {/* Custom Control Bar */}
-              <div className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 pt-6 pb-3 bg-gradient-to-t from-black/95 via-black/70 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 px-3 sm:px-4 pt-6 pb-3 bg-gradient-to-t from-black/95 via-black/65 to-transparent">
                 <div className="relative h-2 flex items-center mb-2.5">
                   <div className="absolute inset-x-0 h-1 rounded-full bg-white/20 overflow-hidden">
-                    <div
-                      className="h-full bg-[#38BDF8]/45 transition-all"
-                      style={{ width: `${bufferedPct}%` }}
-                    />
+                    <div className="h-full bg-sky-400/50" style={{ width: `${bufferedPct}%` }} />
                   </div>
                   <div
                     className="absolute left-0 h-1 rounded-full bg-[#E61E2A] pointer-events-none"
@@ -336,13 +361,13 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
                       type="button"
                       onClick={toggleMute}
                       aria-label="Mute"
-                      className="text-[#94A3B8] hover:text-white transition-colors"
+                      className="text-slate-300 hover:text-white transition-colors"
                     >
                       {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     </button>
 
-                    <span className="font-mono text-[10px] sm:text-xs text-[#CBD5E1] tabular-nums">
-                      {formatTime(currentTime)} <span className="text-[#64748B]">/ {formatTime(duration)}</span>
+                    <span className="font-mono text-[10px] sm:text-xs text-slate-200 tabular-nums">
+                      {formatTime(currentTime)} <span className="text-slate-500">/ {formatTime(duration)}</span>
                     </span>
                   </div>
 
@@ -350,7 +375,7 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
                     type="button"
                     onClick={handleFullscreen}
                     aria-label="Fullscreen"
-                    className="text-[#94A3B8] hover:text-white transition-colors"
+                    className="text-slate-300 hover:text-white transition-colors"
                   >
                     <Maximize className="w-4 h-4" />
                   </button>
@@ -358,12 +383,11 @@ export const PromoPlayerModal: React.FC<PromoPlayerModalProps> = ({ isOpen, onCl
               </div>
             </div>
 
-            {/* Single Clean Small Disclaimer Line + Direct Email Link Underneath */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
-              <p className="text-[11px] text-[#94A3B8] leading-snug">{copy.disclaimerLine}</p>
+              <p className="text-[11px] text-slate-400 leading-snug">{copy.disclaimerLine}</p>
               <a
                 href={`mailto:${CONTACT_CONFIG.email}`}
-                className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#38BDF8] hover:text-white transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] text-sky-400 hover:text-white transition-colors whitespace-nowrap"
               >
                 <Mail className="w-3.5 h-3.5 text-[#E61E2A]" />
                 <span>

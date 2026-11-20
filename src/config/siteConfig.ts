@@ -5,7 +5,7 @@ export type SiteMode = 'DISTRIBUTOR' | 'AUDIENCE';
 export const SITE_MODE: SiteMode = 'DISTRIBUTOR';
 
 export const PROMO_VIDEO_CONFIG = {
-  src: './promo_3min_zh.mp4?v=2027',
+  src: './promo_3min_zh.mp4?v=fast2',
   poster: './stills/hero_vest_web.webp',
   durationLabel: '03:00',
   // Set requirePin to true if you want a 4-digit gate before playing the Rough Cut
