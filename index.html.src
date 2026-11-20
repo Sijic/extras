@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230B0807'/><text x='50%25' y='56%25' dominant-baseline='middle' text-anchor='middle' fill='%23E85D04' font-family='sans-serif' font-weight='900' font-size='40'>42.2</text></svg>" />
-    <title>НЕ ЛИШНИЕ / NOT EXTRA / АРТЫҚ ЕМЕС — Official Film Website (Spring 2027)</title>
-    <meta name="description" content="Психологическое социально-спортивное драмеди «НЕ ЛИШНИЕ» (NOT EXTRA / АРТЫҚ ЕМЕС). 200 кг → 42.2 км. Релиз: Весна 2027 (март–май). Big Movie Studio & IBA JANA MEN." />
-    <meta property="og:title" content="НЕ ЛИШНИЕ / NOT EXTRA / АРТЫҚ ЕМЕС — Feature Film (Spring 2027)" />
-    <meta property="og:description" content="Psychological Sports Dramedy. The most unlikely man against the hardest distance: 200 kg to 42.2 km marathon. Post-Production (Rough Cut). Release: Spring 2027." />
+    <title>NOT EXTRA / 《绝不多余》 / НЕ ЛИШНИЕ — Official International Distribution & Sales</title>
+    <meta name="description" content="NOT EXTRA (《绝不多余》 / НЕ ЛИШНИЕ) — Inspirational Sports Dramedy. 207 kg → 42.2 km Astana Marathon. Theatrical Release: Spring 2027. Big Movie Studio & IBA JANA MEN." />
+    <meta property="og:title" content="NOT EXTRA / 《绝不多余》 / НЕ ЛИШНИЕ — Feature Film (Spring 2027)" />
+    <meta property="og:description" content="Inspirational Sports Dramedy. The most unlikely man against the hardest distance: 207 kg to 42.2 km marathon. Greater China & Global Acquisition Desk." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://extras.sijicbond.site/stills/still_stadium_vest.jpg" />
     <meta property="og:image:width" content="1920" />
     <meta property="og:image:height" content="1080" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="НЕ ЛИШНИЕ / NOT EXTRA / АРТЫҚ ЕМЕС — Feature Film" />
-    <meta name="twitter:description" content="Psychological Sports Dramedy. 200 kg → 42.2 km. Release: Spring 2027." />
+    <meta name="twitter:title" content="NOT EXTRA / 《绝不多余》 / НЕ ЛИШНИЕ — Feature Film" />
+    <meta name="twitter:description" content="Inspirational Sports Dramedy. 207 kg → 42.2 km. Release: Spring 2027." />
     <meta name="twitter:image" content="https://extras.sijicbond.site/stills/still_stadium_vest.jpg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
   </head>
   <body class="bg-[#0B0807] text-[#FBF3E8] antialiased selection:bg-[#E85D04] selection:text-[#0B0807] overflow-x-hidden">
     <div id="root"></div>

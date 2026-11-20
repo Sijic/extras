@@ -1,67 +1,101 @@
-// Hybrid Cinema ASMR Sound Engine for "NOT EXTRA" / «НЕ ЛИШНИЕ»
-// Powered by real CC0-1.0 SFX samples sourced via Patch.gg (45.3 KB total, universal MP3)
-// layered with procedural Web Audio sub-bass breath & heartbeat.
-// Strictly OFF by default. Activated only when user toggles SOUND ON in header.
+// Cinema Foley & ASMR Audio Engine for "NOT EXTRA" / «НЕ ЛИШНИЕ»
+// Powered by real short (<12 KB) film Foley MP3 stems from F:\SFX_Library
+// Unlocks gently on first user interaction; always mutable via top/corner Mute toggle;
+// automatically mutes during HTML5 Promo Video playback.
 
 type SfxKey =
-  | 'footstep_concrete'
-  | 'footstep_stride'
-  | 'shoelace_cloth'
-  | 'shoelace_tighten'
-  | 'brass_scale_clink'
-  | 'brass_scale_bell'
-  | 'sos_beep'
+  | 'scale_spring'
+  | 'steam_hiss'
+  | 'lace_snap'
+  | 'xray_heart'
+  | 'sos_watch'
   | 'ui_tick';
 
 const SFX_FILES: Record<SfxKey, string> = {
-  footstep_concrete: './sfx/footstep_concrete.mp3',
-  footstep_stride: './sfx/footstep_stride.mp3',
-  shoelace_cloth: './sfx/shoelace_cloth.mp3',
-  shoelace_tighten: './sfx/shoelace_tighten.mp3',
-  brass_scale_clink: './sfx/brass_scale_clink.mp3',
-  brass_scale_bell: './sfx/brass_scale_bell.mp3',
-  sos_beep: './sfx/sos_beep.mp3',
+  scale_spring: './sfx/film_scale_spring.mp3',
+  steam_hiss: './sfx/film_steam_hiss.mp3',
+  lace_snap: './sfx/film_lace_snap.mp3',
+  xray_heart: './sfx/film_xray_heart.mp3',
+  sos_watch: './sfx/film_sos_watch.mp3',
   ui_tick: './sfx/ui_tick.mp3',
 };
 
-export class ProceduralSoundEngine {
+export class CinemaFoleyEngine {
   private ctx: AudioContext | null = null;
   private isEnabled = false;
-  private timerId: number | null = null;
-  private scrollProgress = 0;
-  private stepToggle = false;
+  private userMuted = false;
+  private videoPlaying = false;
   private buffers: Partial<Record<SfxKey, AudioBuffer>> = {};
   private loadingStarted = false;
-  private lastShoelaceAt = 0;
-  private lastScaleAt = 0;
+  private listeners = new Set<(enabled: boolean) => void>();
+
+  private lastLaceAt = 0;
+  private lastXrayAt = 0;
+  private lastSteamAt = 0;
+  private lastSosAt = 0;
+
+  public subscribe(fn: (enabled: boolean) => void): () => void {
+    this.listeners.add(fn);
+    return () => {
+      this.listeners.delete(fn);
+    };
+  }
+
+  private notify() {
+    const active = this.isEnabled && !this.userMuted && !this.videoPlaying;
+    this.listeners.forEach((fn) => fn(active));
+  }
+
+  public isActive(): boolean {
+    return this.isEnabled && !this.userMuted && !this.videoPlaying;
+  }
+
+  // Called once on first user tap/pointerdown anywhere on the page (if user hasn't explicitly muted)
+  public unlockOnFirstGesture() {
+    if (this.userMuted || this.isEnabled) return;
+    this.ensureContext();
+    this.isEnabled = true;
+    this.preloadSamples();
+    this.notify();
+  }
 
   public toggle(enable: boolean): boolean {
     if (enable) {
-      if (!this.ctx) {
-        const AudioCtx =
-          window.AudioContext ||
-          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-        this.ctx = new AudioCtx();
-      }
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume().catch(() => {});
-      }
+      this.userMuted = false;
+      this.ensureContext();
       this.isEnabled = true;
       this.preloadSamples();
+      this.notify();
       this.playUiTick();
-      this.startLoop();
     } else {
+      this.userMuted = true;
       this.isEnabled = false;
-      if (this.timerId !== null) {
-        window.clearTimeout(this.timerId);
-        this.timerId = null;
-      }
+      this.notify();
     }
-    return this.isEnabled;
+    return this.isActive();
   }
 
-  public setScrollProgress(progress: number) {
-    this.scrollProgress = Math.max(0, Math.min(1, progress));
+  public setVideoPlaying(playing: boolean) {
+    this.videoPlaying = playing;
+    this.notify();
+  }
+
+  public setScrollProgress(_progress: number) {
+    // Kept for smooth compatibility; subtle SOS watch pulse can trigger near climax if user clicks HUD
+  }
+
+  private ensureContext() {
+    if (!this.ctx) {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (AudioCtx) {
+        this.ctx = new AudioCtx();
+      }
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().catch(() => {});
+    }
   }
 
   private preloadSamples() {
@@ -76,14 +110,12 @@ export class ProceduralSoundEngine {
         .then((decoded) => {
           this.buffers[key] = decoded;
         })
-        .catch(() => {
-          // Graceful fallback to procedural oscillator if offline
-        });
+        .catch(() => {});
     });
   }
 
   private playBuffer(key: SfxKey, gainVal: number, playbackRate = 1.0): boolean {
-    if (!this.isEnabled || !this.ctx) return false;
+    if (!this.isActive() || !this.ctx) return false;
     const buf = this.buffers[key];
     if (!buf) return false;
 
@@ -101,129 +133,90 @@ export class ProceduralSoundEngine {
     return true;
   }
 
-  // Tactile SFX hooks for interactive film scenes
   public playUiTick() {
-    if (!this.isEnabled || !this.ctx) return;
-    if (!this.playBuffer('ui_tick', 0.16, 1.05)) {
-      this.playMetronomeFallback(680, 0.02);
+    if (!this.isActive() || !this.ctx) return;
+    if (!this.playBuffer('ui_tick', 0.14, 1.05)) {
+      this.playToneFallback(720, 0.015, 0.04);
     }
   }
 
-  public playShoelacePull(progress: number) {
-    if (!this.isEnabled || !this.ctx) return;
-    const nowMs = Date.now();
-    if (nowMs - this.lastShoelaceAt < 180) return;
-    this.lastShoelaceAt = nowMs;
-
-    const key: SfxKey = progress > 0.72 ? 'shoelace_tighten' : 'shoelace_cloth';
-    this.playBuffer(key, 0.22, 0.92 + progress * 0.25);
-  }
-
-  public playScaleTilt(side: 'left' | 'right') {
-    if (!this.isEnabled || !this.ctx) return;
-    const nowMs = Date.now();
-    if (nowMs - this.lastScaleAt < 240) return;
-    this.lastScaleAt = nowMs;
-
-    if (side === 'left') {
-      this.playBuffer('brass_scale_clink', 0.2, 0.78);
-    } else {
-      this.playBuffer('brass_scale_bell', 0.16, 1.18);
+  // Metallic scale spring release when samsa is swiped/tapped off
+  public playScaleSpring() {
+    if (!this.isActive() || !this.ctx) return;
+    if (!this.playBuffer('scale_spring', 0.28, 1.15)) {
+      this.playToneFallback(190, 0.04, 0.18);
     }
   }
 
-  private startLoop() {
-    if (!this.isEnabled || !this.ctx) return;
+  // Soft steam hiss when hovering/touching the hot samsa
+  public playSteamHiss() {
+    if (!this.isActive() || !this.ctx) return;
+    const now = Date.now();
+    if (now - this.lastSteamAt < 1100) return;
+    this.lastSteamAt = now;
+    this.playBuffer('steam_hiss', 0.14, 1.05);
+  }
 
-    const p = this.scrollProgress;
-    // Dynamic BPM from 64 BPM (Act I) to 188 BPM (Climax)
-    const bpm = Math.round(64 + p * 124);
-    const intervalMs = Math.max(315, Math.round((60 / bpm) * 1000));
-    this.stepToggle = !this.stepToggle;
+  // Realistic shoelace rustle / pull when dragging Verlet laces
+  public playShoelacePull(intensity = 0.5) {
+    if (!this.isActive() || !this.ctx) return;
+    const now = Date.now();
+    if (now - this.lastLaceAt < 220) return;
+    this.lastLaceAt = now;
+    this.playBuffer('lace_snap', 0.18, 0.88 + Math.min(0.35, intensity * 0.35));
+  }
 
-    if (p < 0.35) {
-      // Act I: Heavy 207 kg heartbeat + slow low-pitched concrete step
-      this.playBreathAndHeartbeat(50, 0.05);
-      if (this.stepToggle) {
-        this.playBuffer('footstep_concrete', 0.18, 0.72);
-      }
-    } else if (p < 0.72) {
-      // Act II: Rhythmic running footsteps on tartan/concrete track
-      const stepKey: SfxKey = this.stepToggle ? 'footstep_concrete' : 'footstep_stride';
-      const played = this.playBuffer(stepKey, 0.22, this.stepToggle ? 0.96 : 1.06);
-      this.playBreathAndHeartbeat(58, 0.032);
-      if (!played) {
-        this.playMetronomeFallback(420, 0.025);
-      }
-    } else {
-      // Act III: 188 BPM SOS Heart-Rate Monitor alert + urgent sprint strides
-      const stepKey: SfxKey = this.stepToggle ? 'footstep_stride' : 'footstep_concrete';
-      this.playBuffer(stepKey, 0.16, 1.14);
-      if (this.stepToggle) {
-        if (!this.playBuffer('sos_beep', 0.1, 1.42)) {
-          this.playSosFallback(1760, 0.03);
-        }
-      } else {
-        this.playBreathAndHeartbeat(68, 0.04);
-      }
+  // Deep muffled heartbeat while scanning with the X-Ray finger/cursor
+  public playXrayHeartbeat() {
+    if (!this.isActive() || !this.ctx) return;
+    const now = Date.now();
+    if (now - this.lastXrayAt < 640) return;
+    this.lastXrayAt = now;
+    if (!this.playBuffer('xray_heart', 0.22, 0.92)) {
+      this.playSubThudFallback(54, 0.045);
     }
-
-    this.timerId = window.setTimeout(() => this.startLoop(), intervalMs);
   }
 
-  private playBreathAndHeartbeat(freq: number, gainVal: number) {
-    if (!this.ctx) return;
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, now);
-    osc.frequency.exponentialRampToValueAtTime(26, now + 0.26);
-
-    gain.gain.setValueAtTime(0.001, now);
-    gain.gain.linearRampToValueAtTime(gainVal, now + 0.045);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
-
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.32);
+  // Subtle SOS watch alert beep
+  public playSosPulse() {
+    if (!this.isActive() || !this.ctx) return;
+    const now = Date.now();
+    if (now - this.lastSosAt < 450) return;
+    this.lastSosAt = now;
+    this.playBuffer('sos_watch', 0.12, 1.0);
   }
 
-  private playMetronomeFallback(freq: number, gainVal: number) {
+  private playToneFallback(freq: number, gainVal: number, dur: number) {
     if (!this.ctx) return;
     const now = this.ctx.currentTime;
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'triangle';
     osc.frequency.setValueAtTime(freq, now);
-    osc.frequency.exponentialRampToValueAtTime(180, now + 0.07);
-
     gain.gain.setValueAtTime(gainVal, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
-
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
     osc.connect(gain);
     gain.connect(this.ctx.destination);
     osc.start(now);
-    osc.stop(now + 0.09);
+    osc.stop(now + dur + 0.01);
   }
 
-  private playSosFallback(freq: number, gainVal: number) {
+  private playSubThudFallback(freq: number, gainVal: number) {
     if (!this.ctx) return;
     const now = this.ctx.currentTime;
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, now);
-
-    gain.gain.setValueAtTime(gainVal, now);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
-
+    osc.frequency.exponentialRampToValueAtTime(28, now + 0.24);
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(gainVal, now + 0.04);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
     osc.connect(gain);
     gain.connect(this.ctx.destination);
     osc.start(now);
-    osc.stop(now + 0.1);
+    osc.stop(now + 0.3);
   }
 }
 
-export const soundEngine = new ProceduralSoundEngine();
+export const soundEngine = new CinemaFoleyEngine();
