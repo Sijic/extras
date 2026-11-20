@@ -6,8 +6,6 @@ import {
   Volume2,
   VolumeX,
   Play,
-  Scale,
-  Footprints,
   Sparkles,
   FileDown,
   Copy,
@@ -34,8 +32,6 @@ import { SITE_MODE, CONTACT_CONFIG } from './config/siteConfig';
 import { soundEngine } from './utils/soundEngine';
 import { IshimWaterCanvas } from './components/IshimWaterCanvas';
 import { SosHudWidget } from './components/SosHudWidget';
-import { SamsaScalesHero } from './components/SamsaScalesHero';
-import { VerletShoelacesCanvas } from './components/VerletShoelacesCanvas';
 import { DiaryXrayScanner } from './components/DiaryXrayScanner';
 import { CinemaLookbookSection } from './components/CinemaLookbookSection';
 import { PromoPlayerModal, UILang } from './components/PromoPlayerModal';
@@ -248,11 +244,10 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio & IBA JANA MEN Movement (Astana, Kazakhstan). All Rights Reserved.',
     chapters: [
       { id: 'hero', num: '01', label: 'PROLOGUE' },
-      { id: 'lace', num: '02', label: 'LACES' },
-      { id: 'scales', num: '03', label: 'X-RAY' },
-      { id: 'lookbook', num: '04', label: 'LOOKBOOK' },
-      { id: 'cast', num: '05', label: 'CAST' },
-      { id: 'sales', num: '06', label: 'BUYERS' },
+      { id: 'diary', num: '02', label: 'STORY' },
+      { id: 'lookbook', num: '03', label: 'LOOKBOOK' },
+      { id: 'cast', num: '04', label: 'CAST' },
+      { id: 'sales', num: '05', label: 'BUYERS' },
     ],
   },
 
@@ -381,11 +376,10 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio & IBA JANA MEN Movement（哈萨克斯坦阿斯塔纳）保留所有权利。',
     chapters: [
       { id: 'hero', num: '01', label: '序幕' },
-      { id: 'lace', num: '02', label: '鞋带' },
-      { id: 'scales', num: '03', label: '透视' },
-      { id: 'lookbook', num: '04', label: '剧照' },
-      { id: 'cast', num: '05', label: '阵容' },
-      { id: 'sales', num: '06', label: '合作' },
+      { id: 'diary', num: '02', label: '故事' },
+      { id: 'lookbook', num: '03', label: '剧照' },
+      { id: 'cast', num: '04', label: '阵容' },
+      { id: 'sales', num: '05', label: '发行合作' },
     ],
   },
 
@@ -514,11 +508,10 @@ const COPY: Record<UILang, PageCopy> = {
     footerRights: '© 2026–2027 Big Movie Studio и движение IBA JANA MEN (Астана, Казахстан). Все права защищены.',
     chapters: [
       { id: 'hero', num: '01', label: 'ПРОЛОГ' },
-      { id: 'lace', num: '02', label: 'ШНУРКИ' },
-      { id: 'scales', num: '03', label: 'РЕНТГЕН' },
-      { id: 'lookbook', num: '04', label: 'ЛУКБУК' },
-      { id: 'cast', num: '05', label: 'КАСТ' },
-      { id: 'sales', num: '06', label: 'ПРАВА' },
+      { id: 'diary', num: '02', label: 'ИСТОРИЯ' },
+      { id: 'lookbook', num: '03', label: 'КАДРЫ' },
+      { id: 'cast', num: '04', label: 'КАСТ' },
+      { id: 'sales', num: '05', label: 'ПРАВА' },
     ],
   },
 };
@@ -548,7 +541,6 @@ export default function App() {
   const [soundEnabled, setSoundEnabled] = useState<boolean>(false);
   const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [heroShatter, setHeroShatter] = useState<number>(0);
-  const [scaleTilt, setScaleTilt] = useState<number>(-14);
   const [showFullCredits, setShowFullCredits] = useState<boolean>(false);
   const [isPromoModalOpen, setIsPromoModalOpen] = useState<boolean>(false);
   const [copiedEmail, setCopiedEmail] = useState<boolean>(false);
@@ -698,9 +690,9 @@ export default function App() {
       {/* Zero-FPS 35mm Cinema Grain Veil */}
       <div className="fixed inset-0 cinema-grain pointer-events-none z-30 opacity-55" aria-hidden="true" />
 
-      {/* ==================== CLEAN UNOBSTRUCTED B2B TOP BAR (PLAY + PITCH DECK + EN|中文|RU + MUTE) ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0B0807]/88 backdrop-blur-xl border-b border-[#FFEDD7]/10">
-        <div className="max-w-[1380px] mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+      {/* ==================== CLEAN EDITORIAL TOP BAR (NO DUPLICATE CTA CLUTTER) ==================== */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#0B0807]/85 backdrop-blur-xl border-b border-[#FFEDD7]/10">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
           {/* Film Title Monogram */}
           <a
             href="#hero"
@@ -714,51 +706,45 @@ export default function App() {
               42.2
             </div>
             <div className="min-w-0">
-              <div className="font-unbounded font-bold text-[11px] sm:text-sm text-[#FBF3E8] tracking-[0.06em] sm:tracking-[0.1em] uppercase whitespace-nowrap">
+              <div className="font-unbounded font-bold text-xs sm:text-sm text-[#FBF3E8] tracking-[0.08em] uppercase whitespace-nowrap">
                 {c.filmTitle}
               </div>
-              <div className="font-mono text-[9px] text-[#8E847C] tracking-[0.18em] uppercase hidden lg:block truncate">
+              <div className="font-mono text-[9px] text-[#8E847C] tracking-[0.18em] uppercase hidden xl:block truncate">
                 {c.studioLine}
               </div>
             </div>
           </a>
 
-          {/* Always-Accessible B2B Controls (NEVER blocked by animations!) */}
-          <div className="flex items-center gap-1 sm:gap-2.5 flex-shrink-0">
-            {/* 1-Click Watch 3-Min Promo Button */}
-            <button
-              type="button"
-              onClick={handleOpenPromo}
-              data-testid="header-play-promo-btn"
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-4 py-1.5 rounded-full bg-[#E85D04] hover:bg-[#FFEDD7] text-[#FBF3E8] hover:text-[#0B0807] font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.08em] sm:tracking-[0.1em] transition-all"
-            >
-              <Play className="w-3 h-3 fill-current flex-shrink-0" />
-              <span className="hidden md:inline">{c.headerPromoBtn}</span>
-              <span className="md:hidden">{lang === 'zh' ? '推介片' : lang === 'ru' ? 'Промо' : 'Play'}</span>
-            </button>
+          {/* Quiet Editorial Section Navigation (Desktop) */}
+          <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+            {c.chapters.slice(1).map((ch) => (
+              <a
+                key={ch.id}
+                href={`#${ch.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleJumpToSection(ch.id);
+                }}
+                className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#9E948B] hover:text-[#FFEDD7] transition-colors"
+              >
+                {ch.label}
+              </a>
+            ))}
+          </nav>
 
-            {/* 1-Click Pitch Deck PDF (or Tickets in AUDIENCE Mode) */}
-            {SITE_MODE === 'DISTRIBUTOR' ? (
-              <a
-                href={CONTACT_CONFIG.pitchDeckUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="header-deck-btn"
-                title={c.headerDeckBtn}
-                className="inline-flex items-center gap-1.5 px-2 sm:px-3.5 py-1.5 rounded-full border border-[#FFEDD7]/22 hover:border-[#FFEDD7] text-[#FFEDD7] font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors"
+          {/* Right Controls: Sticky Promo button ONLY after scrolling past Hero + EN|中文|RU + Mute */}
+          <div className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
+            {scrollProgress > 0.08 && (
+              <button
+                type="button"
+                onClick={handleOpenPromo}
+                data-testid="header-play-promo-btn"
+                className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full bg-[#E85D04] hover:bg-[#FFEDD7] text-[#FBF3E8] hover:text-[#0B0807] font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.1em] transition-all"
               >
-                <FileDown className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#D4A373]" />
-                <span className="hidden sm:inline">{c.headerDeckBtn}</span>
-              </a>
-            ) : (
-              <a
-                href={CONTACT_CONFIG.ticketsUrl}
-                title={c.headerTicketsBtn}
-                className="inline-flex items-center gap-1.5 px-2 sm:px-3.5 py-1.5 rounded-full border border-[#D4A373]/60 text-[#FFEDD7] font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.1em]"
-              >
-                <Ticket className="w-3.5 h-3.5 sm:w-3 sm:h-3 text-[#E85D04]" />
-                <span className="hidden sm:inline">{c.headerTicketsBtn}</span>
-              </a>
+                <Play className="w-3 h-3 fill-current flex-shrink-0" />
+                <span className="hidden sm:inline">{c.headerPromoBtn}</span>
+                <span className="sm:hidden">{lang === 'zh' ? '推介片' : lang === 'ru' ? 'Промо' : 'Play'}</span>
+              </button>
             )}
 
             {/* Pure 3-Language Switcher: EN | 中文 | RU */}
@@ -808,12 +794,10 @@ export default function App() {
         </div>
       </header>
 
-      {/* Bottom-Centered Compact SOS Telemetry Bar + Mute Button */}
+      {/* Bottom-Centered Compact SOS Telemetry Bar (Desktop Only — clean mobile viewport!) */}
       <SosHudWidget
         scrollProgress={scrollProgress}
         lang={lang}
-        soundEnabled={soundEnabled}
-        onToggleSound={handleToggleSound}
         onJumpToSection={handleJumpToSection}
       />
 
@@ -973,137 +957,62 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right 5 Cols: Large Steaming Samsa Floor Scales (Readable on 375x667!) */}
+            {/* Right 5 Cols: Authentic 2.39:1 Cinema Promo Still Preview (1-Click Play, zero cartoon gimmicks) */}
             <div className="lg:col-span-5">
-              <SamsaScalesHero lang={lang} onPlayPromo={handleOpenPromo} />
+              <button
+                type="button"
+                onClick={handleOpenPromo}
+                data-testid="hero-video-poster-card"
+                aria-label={c.heroPromoBtn}
+                className="group relative block w-full rounded-2xl overflow-hidden border border-[#FFEDD7]/18 hover:border-[#E85D04]/70 bg-[#0B0807] text-left shadow-[0_24px_70px_rgba(0,0,0,0.72)] transition-all"
+              >
+                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                  <img
+                    src="./stills/hero_vest_web.webp"
+                    alt={c.filmTitle}
+                    className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0807] via-[#0B0807]/25 to-transparent" />
+
+                  {/* Top Cinema Frame Metadata */}
+                  <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#0B0807]/75 backdrop-blur-md border border-[#FFEDD7]/15 text-[#FFEDD7]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04]" />
+                      {lang === 'zh' ? '中文字幕 · 03:00' : lang === 'ru' ? 'ПРОМО · 03:00' : 'CHN SUBS · 03:00'}
+                    </span>
+                    <span className="px-2 py-1 rounded-full bg-[#0B0807]/65 backdrop-blur-md text-[#D4A373]">
+                      2.39:1
+                    </span>
+                  </div>
+
+                  {/* Minimal Center Cinema Play Emblem */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#0B0807]/65 group-hover:bg-[#E85D04] border border-[#FFEDD7]/35 group-hover:border-[#E85D04] backdrop-blur-md flex items-center justify-center transition-all duration-300 group-hover:scale-105">
+                      <Play className="w-6 h-6 sm:w-7 sm:h-7 text-[#FFEDD7] fill-current ml-1" />
+                    </div>
+                  </div>
+
+                  {/* Bottom Subtle Reel Tag */}
+                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-[#B8AEA4] tracking-[0.14em] uppercase">
+                    <span>
+                      {lang === 'zh'
+                        ? '官方3分钟粗剪推介片'
+                        : lang === 'ru'
+                        ? 'Официальный черновой промо-ролик'
+                        : 'Official 3-Min Rough Cut Promo'}
+                    </span>
+                    <span className="text-[#FFEDD7]/75">HD 720p</span>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ==================== SCENE 2: REALISTIC 2D VERLET PHYSICS SHOELACES ==================== */}
-      <section
-        id="lace"
-        className="relative py-20 sm:py-28 hairline-dashed bg-gradient-to-b from-[#130A09] via-[#0D0807] to-[#0B0807] overflow-hidden"
-      >
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-10">
-            <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#E85D04] mb-3">
-                <Footprints className="w-3.5 h-3.5" />
-                <span>{c.laceTag}</span>
-              </div>
-              <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] leading-[1.14]">
-                {c.laceTitle}
-              </h2>
-            </div>
-            <div className="lg:col-span-5">
-              <p className="text-sm text-[#A69B91] leading-relaxed">{c.laceDesc}</p>
-            </div>
-          </div>
-
-          <VerletShoelacesCanvas lang={lang} />
-        </div>
-      </section>
-
-      {/* ==================== SCENE 3: BRASS SCALES & TOUCH + DESKTOP X-RAY DIARY ==================== */}
-      <section id="scales" className="py-20 sm:py-28 hairline-dashed bg-[#0B0807]">
-        <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-20">
-          {/* Part A: Aitym's Brass Apothecary Scales */}
-          <div>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mb-10">
-              <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#D4A373] mb-3">
-                  <Scale className="w-3.5 h-3.5" />
-                  <span>{c.scalesTag}</span>
-                </div>
-                <h2 className="font-unbounded font-bold text-2xl sm:text-4xl text-[#FFEDD7] leading-[1.14]">
-                  {c.scalesTitle}
-                </h2>
-              </div>
-              <div className="lg:col-span-5">
-                <p className="text-sm text-[#A69B91] leading-relaxed">{c.scalesDesc}</p>
-              </div>
-            </div>
-
-            <div
-              className="rounded-2xl bg-[#110D0B] border border-[#FFEDD7]/10 p-6 sm:p-10"
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const norm = (e.clientX - rect.left) / rect.width - 0.5;
-                setScaleTilt(Math.round(norm * 28));
-              }}
-            >
-              <div className="relative h-44 sm:h-52 flex items-center justify-center my-4">
-                <div className="absolute left-1/2 -translate-x-1/2 top-1/2 bottom-2 flex flex-col items-center pointer-events-none z-0">
-                  <div className="w-3.5 h-3.5 -mt-1.5 rounded-full bg-[#D4A373] border-2 border-[#0B0807] z-20" />
-                  <div className="w-1 flex-1 bg-gradient-to-b from-[#D4A373] to-[#4A3623]" />
-                  <div className="w-20 h-1.5 rounded-full bg-[#5B422B]" />
-                </div>
-
-                <div
-                  className="w-full max-w-2xl h-1.5 bg-gradient-to-r from-[#E85D04] via-[#D4A373] to-[#FFEDD7] rounded-full relative z-10 transition-transform duration-200 ease-out flex items-center justify-between px-2 sm:px-4"
-                  style={{ transform: `rotate(${scaleTilt}deg)` }}
-                >
-                  <div
-                    className="w-32 sm:w-44 -mt-20 p-3 rounded-xl bg-[#0B0807] border border-[#E85D04]/55 text-center"
-                    style={{ transform: `rotate(${-scaleTilt}deg)` }}
-                  >
-                    <div className="font-unbounded font-bold text-sm sm:text-lg text-[#E85D04]">
-                      {c.panLeftWeight}
-                    </div>
-                    <div className="font-mono text-[9px] tracking-[0.14em] text-[#A69B91] mt-1 uppercase">
-                      {c.panLeftSub}
-                    </div>
-                  </div>
-
-                  <div
-                    className="w-32 sm:w-44 -mt-20 p-3 rounded-xl bg-[#0B0807] border border-[#FFEDD7]/30 text-center"
-                    style={{ transform: `rotate(${-scaleTilt}deg)` }}
-                  >
-                    <div className="font-unbounded font-bold text-sm sm:text-lg text-[#FFEDD7]">
-                      {c.panRightWeight}
-                    </div>
-                    <div className="font-mono text-[9px] tracking-[0.14em] text-[#A69B91] mt-1 uppercase">
-                      {c.panRightSub}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-xl overflow-hidden mt-8">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setScaleTilt(-14);
-                    soundEngine.playScaleSpring();
-                  }}
-                  className="text-left p-5 sm:p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
-                >
-                  <div className="font-mono text-[10px] font-bold tracking-[0.18em] text-[#E85D04] uppercase mb-1.5">
-                    {c.panLeftTitle}
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed">{c.panLeftBody}</p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setScaleTilt(14);
-                    soundEngine.playScaleSpring();
-                  }}
-                  className="text-left p-5 sm:p-6 bg-[#0D0A09] hover:bg-[#17110E] transition-colors"
-                >
-                  <div className="font-mono text-[10px] font-bold tracking-[0.18em] text-[#FFEDD7] uppercase mb-1.5">
-                    {c.panRightTitle}
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#A69B91] leading-relaxed">{c.panRightBody}</p>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Part B: Unified Mobile Touch + Desktop Cursor X-Ray Scanner */}
+      {/* ==================== SCENE 2: DIARY X-RAY SCANNER (ADULT EDITORIAL INTERACTIVE) ==================== */}
+      <section id="diary" className="py-16 sm:py-24 hairline-dashed bg-[#0B0807]">
+        <div className="max-w-[1380px] mx-auto px-4 sm:px-8">
           <DiaryXrayScanner lang={lang} />
         </div>
       </section>
@@ -1312,7 +1221,7 @@ export default function App() {
       >
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-14">
           {/* Header */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 hairline-dashed-b">
+          <div className="pb-8 hairline-dashed-b">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-[#E85D04] mb-3">
                 <ShieldCheck className="w-3.5 h-3.5" />
@@ -1322,27 +1231,6 @@ export default function App() {
                 {c.salesTitle}
               </h2>
               <p className="text-sm text-[#A69B91]">{c.salesSub}</p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={handleOpenPromo}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#E85D04] hover:bg-[#FFEDD7] text-[#FBF3E8] hover:text-[#0B0807] font-mono font-bold text-[11px] uppercase tracking-[0.12em] transition-all"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                <span>{c.headerPromoBtn}</span>
-              </button>
-              <a
-                href={CONTACT_CONFIG.pitchDeckUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="download-china-pdf-btn"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[11px] uppercase tracking-[0.12em] transition-all"
-              >
-                <FileDown className="w-3.5 h-3.5" />
-                <span>{c.deckPrimaryBtn}</span>
-              </a>
             </div>
           </div>
 
@@ -1572,6 +1460,7 @@ export default function App() {
                   href={CONTACT_CONFIG.pitchDeckUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-testid="download-china-pdf-btn"
                   className="px-4 py-2 rounded-full bg-[#FFEDD7] hover:bg-[#E85D04] text-[#0B0807] hover:text-[#FBF3E8] font-mono font-bold text-[10px] uppercase tracking-[0.12em] transition-colors"
                 >
                   {c.deckPrimaryBtn} ↗
