@@ -41,8 +41,19 @@ import {
 import { soundEngine } from './utils/soundEngine';
 import { IshimWaterCanvas } from './components/IshimWaterCanvas';
 import { SosHudWidget } from './components/SosHudWidget';
+import { CinemaLookbookSection } from './components/CinemaLookbookSection';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CINEMA_CHAPTERS = [
+  { id: 'hero', num: '01', label: 'PROLOGUE' },
+  { id: 'lace', num: '02', label: 'SHOELACE' },
+  { id: 'scales', num: '03', label: 'SCALES' },
+  { id: 'lookbook', num: '04', label: 'LOOKBOOK' },
+  { id: 'track', num: '05', label: '42.2 KM' },
+  { id: 'cast', num: '06', label: 'CAST' },
+  { id: 'sales', num: '07', label: 'BUYERS' },
+];
 
 const LANG_BUTTONS: Array<{ code: Lang; label: string }> = [
   { code: 'ru', label: 'RU' },
@@ -299,6 +310,9 @@ export default function App() {
             <button onClick={() => handleJumpToSection('scales')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.scales}
             </button>
+            <button onClick={() => handleJumpToSection('lookbook')} className="hover:text-[#FBF3E8] transition-colors">
+              {lang === 'zh' ? '视觉剧照集' : lang === 'en' ? 'Lookbook' : 'Лукбук'}
+            </button>
             <button onClick={() => handleJumpToSection('track')} className="hover:text-[#FBF3E8] transition-colors">
               {t.nav.track}
             </button>
@@ -369,6 +383,45 @@ export default function App() {
         onJumpToSection={handleJumpToSection}
       />
 
+      {/* Awwwards / Watson Design Group Right-Edge Vertical Cinema Chapter Scrubber */}
+      <aside
+        aria-label="Cinema Chapter Scrubber"
+        className="hidden 2xl:flex fixed right-5 top-1/2 -translate-y-1/2 z-40 flex-col items-end gap-3"
+      >
+        {CINEMA_CHAPTERS.map((ch, idx) => {
+          const activeIdx = Math.min(
+            CINEMA_CHAPTERS.length - 1,
+            Math.floor(scrollProgress * CINEMA_CHAPTERS.length)
+          );
+          const isActive = idx === activeIdx;
+          return (
+            <button
+              key={ch.id}
+              type="button"
+              onClick={() => handleJumpToSection(ch.id)}
+              className="group flex items-center gap-2.5 font-mono text-[9px] tracking-[0.18em] uppercase transition-all"
+            >
+              <span
+                className={`transition-all ${
+                  isActive
+                    ? 'text-[#FFEDD7] opacity-100'
+                    : 'text-[#7E746B] opacity-0 group-hover:opacity-100'
+                }`}
+              >
+                {ch.num} · {ch.label}
+              </span>
+              <span
+                className={`block h-[2px] transition-all ${
+                  isActive
+                    ? 'w-6 bg-[#E85D04]'
+                    : 'w-2.5 bg-[#FFEDD7]/25 group-hover:w-4 group-hover:bg-[#FFEDD7]/70'
+                }`}
+              />
+            </button>
+          );
+        })}
+      </aside>
+
       {/* ==================== SCENE 1 (HERO): DARKROOM CINEMA EDITORIAL (ORYZO / LUSION) ==================== */}
       <section
         id="hero"
@@ -430,6 +483,8 @@ export default function App() {
               <span>{t.hero.bridgeTag}</span>
             </div>
             <div className="flex flex-wrap items-center gap-4 text-[#9E948B]">
+              <span className="hidden lg:inline text-[#7E746B]">2.39:1 SCOPE · 24 FPS · 4K DCP</span>
+              <span className="hidden lg:inline text-[#FFEDD7]/20">·</span>
               <span className="text-[#E85D04]">{t.statusPill}</span>
               <span className="text-[#FFEDD7]/20">·</span>
               <span className="text-[#FBF3E8]">{t.releasePill}</span>
@@ -825,6 +880,9 @@ export default function App() {
         </div>
       </section>
 
+      {/* ==================== SCENE 3.5: DIRECTOR'S STATEMENT & 35MM CINEMATOGRAPHY LOOKBOOK ==================== */}
+      <CinemaLookbookSection lang={lang} />
+
       {/* ==================== SCENE 4A: 42.2 KM CHROMATIC TRACK (APPLE MIDNIGHT GALLERY) ==================== */}
       <section
         id="track"
@@ -1210,6 +1268,69 @@ export default function App() {
                 <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-[#7E746B]">DELIVERY WINDOW</div>
                 <div className="font-semibold text-xs sm:text-sm text-[#D4A373] mt-1.5">Spring 2027</div>
                 <div className="text-[10px] text-[#9E948B] mt-1">March – May 2027 (EN/ZH)</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 1B. Market Comparables ("COMPS") Box-Office Proof Matrix (Ryan Camp Pitch-Deck Standard) */}
+          <div>
+            <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A373] mb-4">
+              {lang === 'zh'
+                ? '票房对标与市场验证矩阵 (MARKET COMPARABLES · COMPS)'
+                : lang === 'en'
+                ? 'MARKET COMPARABLES & BOX-OFFICE PROOF (COMPS)'
+                : 'РЫНОЧНЫЕ РЕФЕРЕНСЫ И КАССОВЫЙ ПОТЕНЦИАЛ (MARKET COMPS)'}
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#FFEDD7]/10 border border-[#FFEDD7]/10 rounded-2xl overflow-hidden">
+              <div className="p-6 bg-[#0F0C0A] space-y-2">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.16em]">
+                  <span className="text-[#E85D04] font-bold">COMP 01 · CHINA HIT</span>
+                  <span className="text-[#FFEDD7]">$480M+ CN BO</span>
+                </div>
+                <div className="font-unbounded font-bold text-base text-[#FFEDD7]">
+                  YOLO / 《热辣滚烫》 (2024)
+                </div>
+                <p className="text-xs text-[#A69B91] leading-relaxed">
+                  {lang === 'zh'
+                    ? '证明了“演员真实减重蜕变 + 为自己赢一次”在华语院线拥有核爆级破圈情感共鸣。'
+                    : lang === 'en'
+                    ? 'Proves authentic actor physical transformation and “win once for yourself” redemption drives massive Asian box office.'
+                    : 'Доказал, что реальная трансформация тела и история «победить ради себя» собирают рекордную кассу в Китае и Азии.'}
+                </p>
+              </div>
+
+              <div className="p-6 bg-[#0F0C0A] space-y-2">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.16em]">
+                  <span className="text-[#D4A373] font-bold">COMP 02 · A24 PRESTIGE</span>
+                  <span className="text-[#FFEDD7]">2× OSCARS · $55M+</span>
+                </div>
+                <div className="font-unbounded font-bold text-base text-[#FFEDD7]">
+                  THE WHALE / 《鲸》 (2022)
+                </div>
+                <p className="text-xs text-[#A69B91] leading-relaxed">
+                  {lang === 'zh'
+                    ? '200公斤心理盔甲与父女救赎的情感深度，但《绝不多余》赋予观众更温暖、明亮的院线出口。'
+                    : lang === 'en'
+                    ? 'Deep psychological weight of a 200-kg recluse seeking forgiveness—elevated here with an uplifting sports-dramedy climax.'
+                    : 'Психологическая глубина 200-килограммового затворника и искупления — со светлым зрительским катарсисом марафона.'}
+                </p>
+              </div>
+
+              <div className="p-6 bg-[#0F0C0A] space-y-2">
+                <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.16em]">
+                  <span className="text-[#FFEDD7] font-bold">COMP 03 · SAME WRITER</span>
+                  <span className="text-[#E85D04]">#1 CIS BOX OFFICE</span>
+                </div>
+                <div className="font-unbounded font-bold text-base text-[#FFEDD7]">
+                  «Я ХУДЕЮ» / I AM LOSING WEIGHT
+                </div>
+                <p className="text-xs text-[#A69B91] leading-relaxed">
+                  {lang === 'zh'
+                    ? '由同款独联体票房冠军编剧康斯坦丁·迈耶 (Konstantin Mayer) 操刀，精准拿捏笑泪平衡的商业剧作公式。'
+                    : lang === 'en'
+                    ? 'Penned by the exact same hit screenwriter Konstantin Mayer—bringing proven crowd-pleasing humor and commercial pacing.'
+                    : 'Написано тем же сценаристом Константином Майером — проверенная формула народного хита на стыке юмора и драмы.'}
+                </p>
               </div>
             </div>
           </div>

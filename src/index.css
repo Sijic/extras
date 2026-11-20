@@ -30,6 +30,10 @@
   font-family: 'Unbounded', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
+.font-editorial {
+  font-family: 'Cormorant Garamond', 'Noto Sans SC', Georgia, serif;
+}
+
 .font-mono {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 }
