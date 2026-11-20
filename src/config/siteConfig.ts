@@ -4,6 +4,10 @@ export type SiteMode = 'DISTRIBUTOR' | 'AUDIENCE';
 // B2B Pitch Deck / Screener actions for theatrical ticket booking without touching animations or audio.
 export const SITE_MODE: SiteMode = 'DISTRIBUTOR';
 
+// Keep true for B2B distributors & festival programmers so they see the full emotional climax.
+// Flip to false before Spring 2027 theatrical audience launch to hide the finish-line twist.
+export const SHOW_B2B_SPOILERS: boolean = true;
+
 export const PROMO_VIDEO_CONFIG = {
   src: './promo_3min_zh.mp4?v=smooth3',
   poster: './stills/hero_vest_web.webp',

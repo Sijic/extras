@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { UILang } from './PromoPlayerModal';
+import { SHOW_B2B_SPOILERS } from '../config/siteConfig';
 
 interface AstanaMarathonJourneyProps {
   lang: UILang;
@@ -66,8 +67,12 @@ const JOURNEY_COPY: Record<
         km: '42.2 КМ',
         kg: '135 КГ',
         landmark: 'EXPO «НУР АЛЕМ» · ФИНИШНАЯ АРКА',
-        title: 'Разворот за 10 метров до финиша',
-        body: 'Реальный марафон Астаны среди тысяч бегунов. За десять метров до медали Расул разворачивается против толпы, чтобы спасти задыхающуюся Юлю — и впервые становится главным героем своей жизни.',
+        title: SHOW_B2B_SPOILERS
+          ? 'Разворот за 10 метров до финиша'
+          : 'Финишная прямая: выбор длиною в жизнь',
+        body: SHOW_B2B_SPOILERS
+          ? 'Реальный марафон Астаны среди тысяч бегунов. За десять метров до медали Расул разворачивается против толпы, чтобы спасти задыхающуюся Юлю — и впервые становится главным героем своей жизни.'
+          : 'Реальный марафон Астаны среди тысяч бегунов. На последних метрах дистанции Расулу предстоит решить, что для него важнее: заветная медаль или цена человеческой жизни.',
         image: './stills/still_finish_arch.jpg',
         caption: 'Финал · Живая съёмка Астана Марафона',
       },
@@ -112,8 +117,12 @@ const JOURNEY_COPY: Record<
         km: '42.2 КМ',
         kg: '135 КГ',
         landmark: 'EXPO «НҰР ӘЛЕМ» · МӘРЕ АРКАСЫ',
-        title: 'Мәреге 10 метр қалғандағы шешім',
-        body: 'Мыңдаған желаяқ қатысқан нағыз Астана марафоны. Мәреге 10 метр қалғанда Расул медальдан бас тартып, Юляны құтқару үшін кері бұрылады.',
+        title: SHOW_B2B_SPOILERS
+          ? 'Мәреге 10 метр қалғандағы шешім'
+          : 'Мәре сызығындағы шешуші таңдау',
+        body: SHOW_B2B_SPOILERS
+          ? 'Мыңдаған желаяқ қатысқан нағыз Астана марафоны. Мәреге 10 метр қалғанда Расул медальдан бас тартып, Юляны құтқару үшін кері бұрылады.'
+          : 'Мыңдаған желаяқ қатысқан нағыз Астана марафоны. Қашықтықтың соңғы метрлерінде Расул өміріндегі ең маңызды таңдаудың алдында тұрады.',
         image: './stills/still_finish_arch.jpg',
         caption: 'Финал · Нағыз Астана марафонындағы түсірілім',
       },
@@ -158,8 +167,12 @@ const JOURNEY_COPY: Record<
         km: '42.2 KM',
         kg: '135 KG',
         landmark: 'EXPO NUR ALEM · FINISH ARCH',
-        title: 'Turning Back 10 Meters From Glory',
-        body: 'Shot live inside the real Astana Marathon. Ten meters from the finish arch, Rasul turns against the crowd to save Yulia from an asthma attack—finally claiming his own name.',
+        title: SHOW_B2B_SPOILERS
+          ? 'Turning Back 10 Meters From Glory'
+          : 'The Final Stretch: What Truly Matters',
+        body: SHOW_B2B_SPOILERS
+          ? 'Shot live inside the real Astana Marathon. Ten meters from the finish arch, Rasul turns against the crowd to save Yulia from an asthma attack—finally claiming his own name.'
+          : 'Shot live inside the real Astana Marathon surrounded by thousands of runners. In the final heartbeat before the finish arch, Rasul faces an impossible choice that will define who he really is.',
         image: './stills/still_finish_arch.jpg',
         caption: 'Finale · Live Astana Marathon Capture',
       },
@@ -204,8 +217,10 @@ const JOURNEY_COPY: Record<
         km: '42.2 公里',
         kg: '135 公斤',
         landmark: '世博球形馆 · 万人马拉松终点拱门',
-        title: '距离终点10米的逆流转身',
-        body: '阿斯塔纳官方万人马拉松实景拍摄。在触手可及的终点线前10米，拉苏尔毅然转身救下哮喘发作的尤莉亚，真正成为自己人生的主角。',
+        title: SHOW_B2B_SPOILERS ? '距离终点10米的逆流转身' : '终点线前的终极抉择',
+        body: SHOW_B2B_SPOILERS
+          ? '阿斯塔纳官方万人马拉松实景拍摄。在触手可及的终点线前10米，拉苏尔毅然转身救下哮喘发作的尤莉亚，真正成为自己人生的主角。'
+          : '阿斯塔纳官方万人马拉松实景拍摄。在触手可及的终点拱门前，拉苏尔迎来改写命运的终极一战——真正的胜利，远不止于一块奖牌。',
         image: './stills/still_finish_arch.jpg',
         caption: '高潮终章 · 万人马拉松真实赛场跟拍',
       },
@@ -335,84 +350,42 @@ const LandmarkIllustration: React.FC<{ index: number; active: boolean }> = ({ in
   );
 };
 
-/* Dynamic Illustrated Runner Who Visually Slims Down From 207 KG -> 135 KG as You Scroll! */
-const SlimmingRunnerFigure: React.FC<{ progress: number }> = ({ progress }) => {
-  const p = Math.max(0, Math.min(1, progress));
-  // Real running stride cycle driven smoothly by scroll distance
-  const stride = Math.sin(p * 38);
-  const strideOpp = Math.sin(p * 38 + Math.PI);
-
-  // Body transformation math: wide heavy silhouette (207kg) -> lean athletic runner (135kg)
-  const bellyRx = 14.5 - p * 7.8; // 14.5 -> 6.7
-  const torsoWidth = 24 - p * 12; // 24 -> 12
-  const postureLean = 14 - p * 5; // Heavy hunched forward -> confident athletic lean
-  const isFinished = p > 0.96;
-
-  // Outfit morphs along the film's exact 3-act wardrobe:
-  // Act 1 (0–0.32): Orange janitor vest | Act 2 (0.32–0.65): JANA MEN crimson/orange tee | Act 3 (0.65–1.0): Marathon Royal Blue jacket
-  const jerseyColor = p < 0.34 ? '#F97316' : p < 0.66 ? '#E61E2A' : '#1D4ED8';
-  const stripeColor = p < 0.34 ? '#FEF08A' : '#FFFFFF';
-
-  const leg1Angle = isFinished ? -8 : stride * 34;
-  const leg2Angle = isFinished ? 8 : strideOpp * 34;
-  const arm1Angle = isFinished ? -145 : strideOpp * 36;
-  const arm2Angle = isFinished ? -135 : stride * 36;
-
+/* Minimalist Sports Broadcast GPS Beacon (Clean pulsing radar pin + dark telemetry badge) */
+const BroadcastGpsBeacon: React.FC<{
+  km: string;
+  kmUnit: string;
+  kg: number;
+  kgUnit: string;
+  compact?: boolean;
+}> = ({ km, kmUnit, kg, kgUnit, compact = false }) => {
   return (
-    <svg viewBox="0 0 96 104" className="w-24 h-24 sm:w-28 sm:h-28 drop-shadow-[0_10px_22px_rgba(15,35,66,0.28)]" fill="none">
-      {/* Ground shadow gets tighter & lighter as Rasul slims down */}
-      <ellipse cx="48" cy="94" rx={28 - p * 11} ry="4.5" fill="rgba(15, 35, 66, 0.18)" />
+    <div className="flex flex-col items-center select-none">
+      {/* Live Pulsing GPS Broadcast Pin */}
+      <div className="relative flex items-center justify-center w-9 h-9">
+        <span className="absolute inset-0 rounded-full bg-[#E61E2A]/25 animate-ping" style={{ animationDuration: '2.2s' }} />
+        <span className="absolute w-6 h-6 rounded-full bg-[#E61E2A]/20 border border-[#E61E2A]/45" />
+        <span className="relative w-3.5 h-3.5 rounded-full bg-[#E61E2A] ring-[3px] ring-white shadow-[0_4px_14px_rgba(230,30,42,0.55)]" />
+      </div>
 
-      <g transform={`translate(48, 52) rotate(${isFinished ? 0 : postureLean})`}>
-        {/* Back Leg */}
-        <g transform={`translate(-2, 12) rotate(${leg2Angle})`}>
-          <path d="M0 0 L-4 15 L-11 27" stroke="#0F2342" strokeWidth={6.4 - p * 1.8} strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M-11 27 L-3 29" stroke="#E61E2A" strokeWidth="3.8" strokeLinecap="round" />
-        </g>
-
-        {/* Front Leg */}
-        <g transform={`translate(4, 12) rotate(${leg1Angle})`}>
-          <path d="M0 0 L6 15 L1 28" stroke="#0F2342" strokeWidth={6.6 - p * 1.8} strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M1 28 L11 29" stroke="#E61E2A" strokeWidth="3.8" strokeLinecap="round" />
-        </g>
-
-        {/* Back Arm */}
-        <g transform={`translate(-5, -12) rotate(${arm2Angle})`}>
-          <path d="M0 0 L-9 13 L-2 20" stroke="#1E3A5F" strokeWidth={5.2 - p * 1.3} strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-
-        {/* Torso / Belly that visibly slims down from 207 kg (huge!) to 135 kg (athletic!) */}
-        <ellipse
-          cx={3 - p * 2}
-          cy={-1}
-          rx={bellyRx * 1.32}
-          ry={18.5 - p * 1.5}
-          fill={jerseyColor}
-          stroke="#0F2342"
-          strokeWidth="2.5"
-        />
-        {/* Reflective vest stripe (Act 1) or Marathon Bib #261 (Act 3) */}
-        {p < 0.34 ? (
-          <path
-            d={`M${-torsoWidth * 0.56} 3 L${torsoWidth * 0.62} 3`}
-            stroke={stripeColor}
-            strokeWidth="3"
-            strokeLinecap="round"
-          />
-        ) : p >= 0.66 ? (
-          <rect x="-4.5" y="-6" width="11" height="9.5" rx="1.8" fill="#FFFFFF" stroke="#0F2342" strokeWidth="1.2" />
-        ) : null}
-
-        {/* Head */}
-        <circle cx="4" cy="-26" r={9.6 - p * 1.2} fill="#F8FAFC" stroke="#0F2342" strokeWidth="2.4" />
-        <path d="M-4 -30 Q4 -37 12 -29" stroke="#0F2342" strokeWidth="3.4" strokeLinecap="round" />
-
-        {/* Front Arm */}
-        <g transform={`translate(5, -11) rotate(${arm1Angle})`}>
-          <path d="M0 0 L10 12 L15 6" stroke="#0F2342" strokeWidth={5.4 - p * 1.3} strokeLinecap="round" strokeLinejoin="round" />
-        </g>
-      </g>
-    </svg>
+      {/* Crisp Dark Telemetry Pill */}
+      {compact ? (
+        <div className="mt-1 px-2 py-0.5 rounded-md bg-[#060B14] border border-white/15 text-white font-mono text-[9px] font-bold tracking-wider shadow-lg whitespace-nowrap">
+          <span className="text-[#E61E2A]">{km}</span>
+          <span className="text-white/30 mx-1">·</span>
+          <span className="text-sky-300">{kg}{kgUnit}</span>
+        </div>
+      ) : (
+        <div className="mt-1.5 px-3.5 py-1.5 rounded-full bg-[#060B14] border border-white/15 text-white font-mono text-[11px] font-bold tracking-[0.08em] shadow-[0_10px_28px_rgba(6,11,20,0.34)] whitespace-nowrap flex items-center gap-2">
+          <span className="text-white tabular-nums">
+            {km} <span className="text-slate-400 text-[10px]">{kmUnit}</span>
+          </span>
+          <span className="text-white/25">·</span>
+          <span className="text-[#38BDF8] tabular-nums">
+            {kg} <span className="text-slate-400 text-[10px]">{kgUnit}</span>
+          </span>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -479,7 +452,7 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
       id="journey"
       ref={sectionRef}
       data-testid="astana-marathon-journey"
-      className="relative bg-[#F5F7FB] text-[#0B172A] py-20 sm:py-28 overflow-x-clip"
+      className="relative bg-[#F5F7FB] text-[#0B172A] pt-24 sm:pt-32 pb-24 sm:pb-32 scroll-mt-24 overflow-x-clip"
     >
       {/* Subtle Architectural Blueprint Grid Texture */}
       <div
@@ -492,8 +465,8 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
       />
 
       <div className="relative z-10 max-w-[1320px] mx-auto px-4 sm:px-8">
-        {/* Section Editorial Header */}
-        <div className="max-w-3xl mx-auto text-center mb-14 sm:mb-20 space-y-4">
+        {/* Section Editorial Header (Generous top air under fixed header) */}
+        <div className="max-w-3xl mx-auto text-center mb-16 sm:mb-24 space-y-4 pt-2">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm font-mono text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-[#E61E2A]">
             <span className="w-2 h-2 rounded-full bg-[#E61E2A]" />
             <span>{copy.eyebrow}</span>
@@ -504,36 +477,35 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
             {copy.sub}
           </p>
-        </div>
-
-        {/* Sticky Live Transformation Progress Bar (Solid Deep Navy — High Contrast!) */}
-        <div className="sticky top-20 z-30 flex justify-center mb-10 pointer-events-none">
-          <div
-            data-testid="marathon-live-meter"
-            className="inline-flex items-center gap-3 sm:gap-5 px-4 sm:px-6 py-2.5 rounded-full bg-[#060B14] text-white shadow-[0_12px_32px_rgba(6,11,20,0.32)] border border-white/15 font-mono text-[11px] sm:text-xs"
-          >
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#E61E2A]" />
-              <strong className="text-white tabular-nums">{currentKm}</strong>
-              <span className="text-slate-400">/ 42.2 {copy.kmUnit}</span>
-            </span>
-            <span className="text-white/20">|</span>
-            <span className="flex items-center gap-1.5">
-              <strong className="text-[#38BDF8] tabular-nums">{currentKg}</strong>
-              <span className="text-slate-400">{copy.kgUnit}</span>
-            </span>
-            <span className="hidden sm:inline-block w-24 h-1.5 rounded-full bg-white/15 overflow-hidden">
-              <span
-                className="block h-full bg-[#E61E2A] rounded-full"
-                style={{ width: `${Math.round(progress * 100)}%` }}
-              />
-            </span>
+          {/* Non-overlapping Static Route Summary Telemetry */}
+          <div className="pt-2 flex justify-center">
+            <div
+              data-testid="marathon-live-meter"
+              className="inline-flex items-center gap-3 sm:gap-5 px-4 sm:px-6 py-2 rounded-full bg-[#060B14] text-white shadow-[0_10px_28px_rgba(6,11,20,0.22)] border border-white/15 font-mono text-[11px] sm:text-xs"
+            >
+              <span className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#E61E2A]" />
+                <strong className="text-white tabular-nums">{currentKm}</strong>
+                <span className="text-slate-400">/ 42.2 {copy.kmUnit}</span>
+              </span>
+              <span className="text-white/20">|</span>
+              <span className="flex items-center gap-1.5">
+                <strong className="text-[#38BDF8] tabular-nums">{currentKg}</strong>
+                <span className="text-slate-400">{copy.kgUnit}</span>
+              </span>
+              <span className="hidden sm:inline-block w-24 h-1.5 rounded-full bg-white/15 overflow-hidden">
+                <span
+                  className="block h-full bg-[#E61E2A] rounded-full"
+                  style={{ width: `${Math.round(progress * 100)}%` }}
+                />
+              </span>
+            </div>
           </div>
         </div>
 
         {/* ==================== VERTICAL ILLUSTRATED ASTANA MARATHON ROUTE ==================== */}
-        <div className="relative">
-          {/* Desktop Center Winding Marathon Route SVG + ALWAYS-VISIBLE Sticky Slimming Runner */}
+        <div className="relative pt-4">
+          {/* Desktop Center Winding Marathon Route SVG + Broadcast GPS Beacon */}
           <div
             className="hidden lg:block pointer-events-none absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[200px] z-20"
             aria-hidden="true"
@@ -543,50 +515,50 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
               preserveAspectRatio="none"
               className="w-full h-full overflow-visible"
             >
-              {/* Faint architectural dashed route base */}
               <path
                 d="M 100 16 C 175 150, 25 320, 100 490 C 175 660, 25 830, 100 984"
                 fill="none"
                 stroke="#CBD5E1"
-                strokeWidth="4.5"
+                strokeWidth="4"
                 strokeDasharray="8 8"
                 strokeLinecap="round"
               />
-              {/* Active Red Marathon Path Drawing Dynamically With Scroll */}
               <path
                 ref={pathRef}
                 d="M 100 16 C 175 150, 25 320, 100 490 C 175 660, 25 830, 100 984"
                 fill="none"
                 stroke="#E61E2A"
-                strokeWidth="5"
+                strokeWidth="4.5"
                 strokeLinecap="round"
                 strokeDasharray={pathLen}
                 strokeDashoffset={Math.max(0, pathLen * (1 - progress))}
               />
-              <circle cx="100" cy="16" r="7" fill="#0F2342" stroke="#FFFFFF" strokeWidth="2.5" />
-              <circle cx="100" cy="984" r="8" fill="#E61E2A" stroke="#FFFFFF" strokeWidth="2.5" />
+              <circle cx="100" cy="16" r="6.5" fill="#0F2342" stroke="#FFFFFF" strokeWidth="2.5" />
+              <circle cx="100" cy="984" r="7.5" fill="#E61E2A" stroke="#FFFFFF" strokeWidth="2.5" />
             </svg>
 
-            {/* ALWAYS-VISIBLE Sticky Large Slimming Runner Locked to Center Eye-Level! */}
+            {/* Minimalist Sports Broadcast GPS Beacon Tracking Along the Curve */}
             <div className="absolute inset-0 flex justify-center">
               <div
-                data-testid="marathon-slimming-runner"
-                className="sticky top-[38vh] h-fit flex flex-col items-center will-change-transform"
+                data-testid="marathon-gps-beacon"
+                className="sticky top-[44vh] h-fit will-change-transform"
                 style={{
                   transform: `translateX(${((runnerPt.x - 100) / 200) * 140}px)`,
                 }}
               >
-                <div className="px-2.5 py-0.5 mb-1 rounded-full bg-[#060B14] text-white font-mono text-[10px] font-bold shadow-md whitespace-nowrap">
-                  <span className="text-[#E61E2A]">{currentKm}</span> · <span className="text-sky-300">{currentKg} {copy.kgUnit}</span>
-                </div>
-                <SlimmingRunnerFigure progress={progress} />
+                <BroadcastGpsBeacon
+                  km={currentKm}
+                  kmUnit={copy.kmUnit}
+                  kg={currentKg}
+                  kgUnit={copy.kgUnit}
+                />
               </div>
             </div>
           </div>
 
-          {/* Mobile Left-Rail Marathon Track + ALWAYS-VISIBLE Sticky Slimming Runner */}
+          {/* Mobile Left-Rail Marathon Track + Compact Broadcast GPS Beacon */}
           <div
-            className="lg:hidden pointer-events-none absolute top-2 bottom-2 left-2 w-14 z-20"
+            className="lg:hidden pointer-events-none absolute top-4 bottom-4 left-1.5 w-14 z-20"
             aria-hidden="true"
           >
             <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-slate-300" />
@@ -594,16 +566,19 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
               className="absolute left-6 top-0 w-1 bg-[#E61E2A] rounded-full"
               style={{ height: `${Math.round(progress * 100)}%` }}
             />
-            <div className="sticky top-[42vh] -ml-3 flex flex-col items-center">
-              <SlimmingRunnerFigure progress={progress} />
-              <span className="mt-0.5 px-1.5 py-0.5 rounded bg-[#060B14] text-white font-mono text-[9px] font-bold">
-                {currentKg}{copy.kgUnit}
-              </span>
+            <div className="sticky top-[46vh] flex justify-center pl-1">
+              <BroadcastGpsBeacon
+                km={currentKm}
+                kmUnit={copy.kmUnit}
+                kg={currentKg}
+                kgUnit={copy.kgUnit}
+                compact
+              />
             </div>
           </div>
 
-          {/* 4 Editorial Story Stops Along Astana's Iconic Landmarks */}
-          <div className="space-y-16 sm:space-y-28 lg:space-y-32 pl-14 lg:pl-0">
+          {/* 4 Editorial Story Stops Along Astana's Iconic Landmarks (Extra Top Air so Fixed Header Never Clips!) */}
+          <div className="space-y-20 sm:space-y-32 lg:space-y-36 pl-16 lg:pl-0">
             {copy.milestones.map((m, idx) => {
               const isReached = progress >= idx * 0.27 - 0.04;
               const isLeftText = idx % 2 === 0;
@@ -611,7 +586,7 @@ export const AstanaMarathonJourney: React.FC<AstanaMarathonJourneyProps> = ({ la
               return (
                 <div
                   key={m.km}
-                  className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-center relative"
+                  className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center relative pt-6 sm:pt-8"
                 >
                   {/* Story & Astana Landmark Side */}
                   <div

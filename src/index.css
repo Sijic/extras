@@ -19,6 +19,9 @@
 }
 
 @layer base {
+  html {
+    scroll-padding-top: 96px;
+  }
   body {
     background-color: var(--bg-void);
     color: var(--ink-white);

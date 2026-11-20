@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Camera, X, ChevronLeft, ChevronRight, Maximize2, Quote } from 'lucide-react';
 import { soundEngine } from '../utils/soundEngine';
 import { UILang } from './PromoPlayerModal';
+import { SHOW_B2B_SPOILERS } from '../config/siteConfig';
 
 interface LookbookFrame {
   id: string;
@@ -400,9 +401,10 @@ const LOOKBOOK_COPY: Record<
       'Mentor Aitym strips away self-pity while Elvira teaches Rasul to tie his shoes and read—until Artyom’s daughter Yulia exposes her father as a con artist.',
     act3Tag: 'ACT III · 42.2 KM',
     act3Min: '188 BPM CLIMAX',
-    act3Title: '10 Meters From the Finish Arch',
-    act3Body:
-      'Ten meters from the Astana Marathon finish arch at 188 BPM, Rasul turns his back on the medal to save Yulia from an asthma attack—finally reclaiming his own name.',
+    act3Title: SHOW_B2B_SPOILERS ? '10 Meters From the Finish Arch' : 'The Final Stretch in Astana',
+    act3Body: SHOW_B2B_SPOILERS
+      ? 'Ten meters from the Astana Marathon finish arch at 188 BPM, Rasul turns his back on the medal to save Yulia from an asthma attack—finally reclaiming his own name.'
+      : 'At 188 BPM on the live Astana Marathon course, Rasul faces a defining choice at the finish line that changes everything.',
     sheetTag: '35MM CINEMATOGRAPHY CONTACT SHEET · 12 ACTUAL FILM STILLS',
     sheetTitle: 'Visual Lookbook & Cinematography',
     tabAll: 'ALL (12)',
@@ -428,9 +430,10 @@ const LOOKBOOK_COPY: Record<
       '导师艾特姆撕开他的心理防线，管理员艾尔薇拉教他系鞋带与写字；直到阿尔乔姆的女儿尤莉亚揭露父亲实为骗子的残酷真相。',
     act3Tag: '第三幕 · 42.2 公里',
     act3Min: '188 次/分 高潮',
-    act3Title: '距终点10米的转身救赎',
-    act3Body:
-      '在阿斯塔纳万人马拉松终点前10米，心率飙升至188 BPM。拉苏尔放弃触手可及的奖牌，转身逆流救下哮喘发作的尤莉亚，第一次以真名站立。',
+    act3Title: SHOW_B2B_SPOILERS ? '距终点10米的转身救赎' : '阿斯塔纳赛道终点决战',
+    act3Body: SHOW_B2B_SPOILERS
+      ? '在阿斯塔纳万人马拉松终点前10米，心率飙升至188 BPM。拉苏尔放弃触手可及的奖牌，转身逆流救下哮喘发作的尤莉亚，第一次以真名站立。'
+      : '在阿斯塔纳万人马拉松赛道终点前，心率飙升至188 BPM，拉苏尔迎来改写命运的终极抉择。',
     sheetTag: '35毫米实拍剧照接触印相 · 12帧真实电影画面',
     sheetTitle: '影片视觉风格与实拍剧照集',
     tabAll: '全部 (12)',
@@ -456,9 +459,10 @@ const LOOKBOOK_COPY: Record<
       'Наставник Айтым ломает жалость к себе, Эльвира учит завязывать шнурки и писать — пока дочь Артёма Юля не разрушает легенду, открыв, что её отец был аферистом.',
     act3Tag: 'АКТ III · 42.2 КМ',
     act3Min: '188 УД/М ФИНАЛ',
-    act3Title: 'Разворот за 10 метров до финиша',
-    act3Body:
-      'За 10 метров до арки марафона Астаны при 188 уд/мин Расул отказывается от медали и разворачивается против толпы, чтобы спасти задыхающуюся Юлю и впервые обрести своё имя.',
+    act3Title: SHOW_B2B_SPOILERS ? 'Разворот за 10 метров до финиша' : 'Финишная прямая в Астане',
+    act3Body: SHOW_B2B_SPOILERS
+      ? 'За 10 метров до арки марафона Астаны при 188 уд/мин Расул отказывается от медали и разворачивается против толпы, чтобы спасти задыхающуюся Юлю и впервые обрести своё имя.'
+      : 'На реальной трассе марафона Астаны при пульсе 188 уд/мин Расул оказывается перед главным выбором своей жизни.',
     sheetTag: '35ММ КОНТАКТ-ЛИСТ ФИЛЬМА · 12 РЕАЛЬНЫХ СТОП-КАДРОВ',
     sheetTitle: 'Визуальный лукбук и операторская работа',
     tabAll: 'ВСЕ (12)',
@@ -484,9 +488,10 @@ const LOOKBOOK_COPY: Record<
       'Тәлімгер Айтым өзін аяу сезімін сындырады, Эльвира оған бәтеңке бауын байлау мен жазуды үйретеді — алайда Артёмның қызы Юля әкесінің алаяқ болғанын ашып береді.',
     act3Tag: 'III АКТ · 42.2 КМ',
     act3Min: '188 СОҚ/М ФИНАЛ',
-    act3Title: 'Мәреге 10 метр қалғандағы шешім',
-    act3Body:
-      'Астана марафонының мәре аркасына 10 метр қалғанда, жүрек соғысы 188-ге жеткен сәтте Расул медальдан бас тартып, демікпе ұстамасы басталған Юляны құтқару үшін кері бұрылады.',
+    act3Title: SHOW_B2B_SPOILERS ? 'Мәреге 10 метр қалғандағы шешім' : 'Астана марафонының шешуші сәті',
+    act3Body: SHOW_B2B_SPOILERS
+      ? 'Астана марафонының мәре аркасына 10 метр қалғанда, жүрек соғысы 188-ге жеткен сәтте Расул медальдан бас тартып, демікпе ұстамасы басталған Юляны құтқару үшін кері бұрылады.'
+      : 'Астана марафонының шешуші шақырымдарында, жүрек соғысы 188-ге жеткен сәтте Расул өміріндегі ең маңызды таңдаудың алдында тұрады.',
     sheetTag: '35ММ КИНО КАДРЛАРЫ · 12 НАҚТЫ СТОП-КАДР',
     sheetTitle: 'Фильмнің визуалды стилі мен кадрлары',
     tabAll: 'БАРЛЫҒЫ (12)',
@@ -531,7 +536,7 @@ export const CinemaLookbookSection: React.FC<{ lang: UILang }> = ({ lang }) => {
   return (
     <section
       id="lookbook"
-      className="py-24 sm:py-32 hairline-dashed bg-gradient-to-b from-[#060B14] via-[#091221] to-[#050911]"
+      className="py-24 sm:py-32 scroll-mt-24 hairline-dashed bg-gradient-to-b from-[#060B14] via-[#091221] to-[#050911]"
     >
       <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-20">
         {/* PART 1: DIRECTOR'S STATEMENT + 3-ACT SYNOPSIS */}

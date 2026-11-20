@@ -26,7 +26,7 @@ import {
   KEY_CREW_DATA,
   FULL_CREDITS_DATA,
 } from './data/filmData';
-import { SITE_MODE, CONTACT_CONFIG } from './config/siteConfig';
+import { SITE_MODE, SHOW_B2B_SPOILERS, CONTACT_CONFIG } from './config/siteConfig';
 import { soundEngine } from './utils/soundEngine';
 import { AstanaMarathonJourney } from './components/AstanaMarathonJourney';
 import { CinemaLookbookSection } from './components/CinemaLookbookSection';
@@ -126,10 +126,11 @@ const COPY: Record<UILang, PageCopy> = {
     headerDeckBtn: 'Pitch Deck PDF',
     headerTicketsBtn: 'Buy Tickets',
     heroPitch: 'The most unlikely man against the hardest distance.',
-    heroHook:
-      'A 207-kg invisible stadium janitor steals a dead marathoner’s identity, enters a brutal weight-loss camp, and runs the 42.2 km Astana Marathon—turning back 10 meters from the finish line to save a life.',
+    heroHook: SHOW_B2B_SPOILERS
+      ? 'A 207-kg invisible stadium janitor steals a dead marathoner’s identity, enters a brutal weight-loss camp, and runs the 42.2 km Astana Marathon—turning back 10 meters from the finish line to save a life.'
+      : 'A 207-kg invisible stadium janitor steps into a dead marathoner’s shoes, survives a brutal weight-loss camp, and enters the real 42.2 km Astana Marathon—where the final meters demand the hardest choice of his life.',
     heroPromoBtn: 'Watch 3-Min Subtitled Promo',
-    heroDeckBtn: 'Download China Pitch Deck (PDF)',
+    heroDeckBtn: 'Pitch Deck EN / 中文 (PDF)',
     heroTicketsBtn: 'Book Cinema Tickets (Spring 2027)',
     heroBridgeTag: 'ASIAN & GLOBAL AUDIENCE HOOK',
     heroBridgeBody:
@@ -259,10 +260,11 @@ const COPY: Record<UILang, PageCopy> = {
     headerDeckBtn: '下载推介手册',
     headerTicketsBtn: '预订影票',
     heroPitch: '200公斤。42.2公里。你无法逃避过去，但你可以选择背负怎样的重量前行。',
-    heroHook:
-      '一名体重207公斤、被视作“透明人”的体育场清洁工，冒用逝去跑者的身份进入严苛减重营，踏上阿斯塔纳42.2公里全程马拉松赛道——在距离终点10米处毅然转身救人。',
+    heroHook: SHOW_B2B_SPOILERS
+      ? '一名体重207公斤、被视作“透明人”的体育场清洁工，冒用逝去跑者的身份进入严苛减重营，踏上阿斯塔纳42.2公里全程马拉松赛道——在距离终点10米处毅然转身救人。'
+      : '一名体重207公斤、被视作“透明人”的体育场清洁工，冒用逝去跑者的身份进入严苛减重营，踏上阿斯塔纳42.2公里全程马拉松赛道，在终点线前迎来改写命运的终极抉择。',
     heroPromoBtn: '播放3分钟中文字幕推介片',
-    heroDeckBtn: '下载大中华区推介手册 (PDF)',
+    heroDeckBtn: '推介手册 EN / 中文 (PDF)',
     heroTicketsBtn: '预订2027年春季影院观影票',
     heroBridgeTag: '中哈文化共鸣 · 院线破圈基因',
     heroBridgeBody:
@@ -391,10 +393,11 @@ const COPY: Record<UILang, PageCopy> = {
     headerDeckBtn: 'Питч-дек PDF',
     headerTicketsBtn: 'Купить билеты',
     heroPitch: 'Самый неподходящий человек против самой тяжёлой дистанции.',
-    heroHook:
-      '207-килограммовый уборщик стадиона присваивает имя погибшего марафонца, попадает в жёсткий лагерь трансформации и выходит на трассу 42.2 км — чтобы за 10 метров до финиша развернуться ради спасения чужой жизни.',
+    heroHook: SHOW_B2B_SPOILERS
+      ? '207-килограммовый уборщик стадиона присваивает имя погибшего марафонца, попадает в жёсткий лагерь трансформации и выходит на трассу 42.2 км — чтобы за 10 метров до финиша развернуться ради спасения чужой жизни.'
+      : '207-килограммовый уборщик стадиона присваивает имя погибшего марафонца, проходит жёсткий лагерь трансформации и выходит на реальную трассу 42.2 км — где на финише его ждёт главный выбор жизни.',
     heroPromoBtn: 'Смотреть 3-минутный промо-ролик',
-    heroDeckBtn: 'Скачать презентацию (PDF)',
+    heroDeckBtn: 'Pitch Deck EN / 中文 (PDF)',
     heroTicketsBtn: 'Купить билеты на премьеру (Весна 2027)',
     heroBridgeTag: 'ПОТЕНЦИАЛ ДЛЯ КИТАЯ И МИРОВОГО ПРОКАТА',
     heroBridgeBody:
@@ -523,10 +526,11 @@ const COPY: Record<UILang, PageCopy> = {
     headerDeckBtn: 'Питч-дек PDF',
     headerTicketsBtn: 'Билет алу',
     heroPitch: 'Ең ауыр қашықтыққа қарсы шыққан ең күтпеген кейіпкер.',
-    heroHook:
-      '207 келі стадион тазалаушысы қаза тапқан марафоншының есімін иемденіп, қатал салмақ тастау лагеріне түседі және 42.2 шақырымдық Астана марафонына шығады — мәреге 10 метр қалғанда өзге адамның өмірін құтқару үшін кері бұрылу үшін.',
+    heroHook: SHOW_B2B_SPOILERS
+      ? '207 келі стадион тазалаушысы қаза тапқан марафоншының есімін иемденіп, қатал салмақ тастау лагеріне түседі және 42.2 шақырымдық Астана марафонына шығады — мәреге 10 метр қалғанда өзге адамның өмірін құтқару үшін кері бұрылу үшін.'
+      : '207 келі стадион тазалаушысы қаза тапқан марафоншының есімін иемденіп, қатал салмақ тастау лагерінен өтеді және 42.2 шақырымдық нағыз Астана марафонында өмірінің басты таңдауымен бетпе-бет келеді.',
     heroPromoBtn: '3 минуттық промо-роликті көру',
-    heroDeckBtn: 'Презентацияны жүктеу (PDF)',
+    heroDeckBtn: 'Pitch Deck EN / 中文 (PDF)',
     heroTicketsBtn: 'Премьераға билет алу (2027 көктем)',
     heroBridgeTag: 'ҚЫТАЙ ЖӘНЕ ХАЛЫҚАРАЛЫҚ НАРЫҚ ӘЛЕУЕТІ',
     heroBridgeBody:
@@ -1005,7 +1009,7 @@ export default function App() {
                         className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#07336B]/75 hover:bg-[#07336B] border border-white/45 text-white font-mono font-semibold text-xs uppercase tracking-[0.12em] backdrop-blur-sm transition-all"
                       >
                         <FileDown className="w-4 h-4 text-sky-300" />
-                        <span>{lang === 'kk' ? 'Орысша презентация (PDF)' : 'Презентация RU (PDF)'}</span>
+                        <span>Презентация RU (PDF)</span>
                       </a>
                     )}
                   </>
@@ -1067,10 +1071,24 @@ export default function App() {
                       className="w-full h-full object-cover"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#060B14]/85 via-transparent to-[#060B14]/25" />
+                  {/* Solid Dark Frosted Bottom Scrim (84px) Cleanly Masks Any Burnt-In Preview Subtitles */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-16"
+                    style={{
+                      background: 'linear-gradient(180deg, rgba(6,11,20,0.62) 0%, transparent 100%)',
+                    }}
+                  />
+                  <div
+                    data-testid="promo-card-bottom-scrim"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-[84px] backdrop-blur-[4px]"
+                    style={{
+                      background:
+                        'linear-gradient(0deg, rgba(6,11,20,0.98) 0%, rgba(6,11,20,0.88) 54%, rgba(6,11,20,0.0) 100%)',
+                    }}
+                  />
 
                   <div className="absolute top-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/80 text-white">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#060B14]/85 text-white">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
                       {lang === 'zh'
                         ? '中文字幕 · 03:00'
@@ -1080,21 +1098,21 @@ export default function App() {
                         ? 'ПРОМО · 03:00'
                         : 'CHN SUBS · 03:00'}
                     </span>
-                    <span className="px-2 py-1 rounded-full bg-[#060B14]/70 text-sky-300">
+                    <span className="px-2 py-1 rounded-full bg-[#060B14]/80 text-sky-300">
                       2.39:1
                     </span>
                   </div>
 
                   {/* Single Signature Red Play Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A] group-hover:scale-110 border-2 border-white/40 flex items-center justify-center shadow-[0_0_40px_rgba(230,30,42,0.55)] transition-transform duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center pb-4">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#E61E2A] group-hover:scale-110 border-2 border-white/45 flex items-center justify-center shadow-[0_0_40px_rgba(230,30,42,0.55)] transition-transform duration-300">
                       <Play className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-current ml-1" />
                     </div>
                   </div>
 
-                  <div className="absolute bottom-3.5 left-4 right-4 flex items-center justify-between font-mono text-[10px] text-white/95 tracking-[0.14em] uppercase">
+                  <div className="absolute bottom-3.5 left-4 right-4 z-10 flex items-center justify-between font-mono text-[10px] font-semibold text-white tracking-[0.14em] uppercase">
                     <span>{c.heroPromoBtn}</span>
-                    <span className="text-sky-300">FAST STREAM</span>
+                    <span className="text-sky-300">HD STREAM</span>
                   </div>
                 </div>
               </button>
@@ -1110,7 +1128,7 @@ export default function App() {
       <CinemaLookbookSection lang={lang} />
 
       {/* ==================== SCENE 4: EDITORIAL LIGHT CAST & CREW EXHIBITION (23 VERIFIED FACES) ==================== */}
-      <section id="cast" className="py-20 sm:py-28 bg-white text-[#0B172A]">
+      <section id="cast" className="py-24 sm:py-32 scroll-mt-24 bg-white text-[#0B172A]">
         <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
           <div className="max-w-3xl mb-12">
             <div className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#E61E2A] mb-3">
@@ -1306,7 +1324,7 @@ export default function App() {
       <section
         id="sales"
         data-testid="sales-section"
-        className="py-20 sm:py-28 border-t-2 border-[#E61E2A]/70 bg-[#060B14] relative"
+        className="py-24 sm:py-32 scroll-mt-24 border-t-2 border-[#E61E2A]/70 bg-[#060B14] relative"
       >
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-14">
           {/* Header */}
