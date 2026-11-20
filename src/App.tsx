@@ -730,8 +730,8 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#060B14] text-[#F8FAFC] overflow-x-hidden relative selection:bg-[#E61E2A] selection:text-white">
 
-      {/* ==================== CLEAN EDITORIAL TOP BAR (SOLID MIDNIGHT NAVY — ALWAYS READABLE) ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#060B14]/95 backdrop-blur-md border-b border-white/10">
+      {/* ==================== CLEAN EDITORIAL TOP BAR (ROYAL SKY NAVY — MATCHES BLUE SKY HERO) ==================== */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#07336B]/95 backdrop-blur-md border-b border-white/15">
         <div className="max-w-[1380px] mx-auto px-3 sm:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
           {/* Brand Logo Title in Official @ne_lishnie_film Red + White Palette */}
           <a
@@ -839,39 +839,43 @@ export default function App() {
         </div>
       </header>
 
-      {/* ==================== SCENE 1 (HERO): BRIGHT CINEMATIC IMAX POSTER ==================== */}
+      {/* ==================== SCENE 1 (HERO): OFFICIAL BLUE SKY OF ASTANA (@ne_lishnie_film) ==================== */}
       <section
         id="hero"
-        className="relative min-h-[92vh] flex flex-col justify-between pt-20 pb-14 sm:pb-20 overflow-hidden bg-[#081529]"
+        className="relative min-h-[90vh] flex flex-col justify-between pt-20 pb-14 sm:pb-20 overflow-hidden"
+        style={{
+          background:
+            'linear-gradient(180deg, #0753A8 0%, #157AD8 44%, #3DA4EE 82%, #7CC8F8 100%)',
+        }}
       >
-        {/* Crisp Full-Bleed Astana Bridge Cinema Backdrop (Vibrant & Clear — NO Muddy Dark Fog!) */}
+        {/* Subtle Soft Daylight Clouds & Astana Bridge Atmospheric Texture */}
         <img
           src="./stills/hero_bridge_web.webp"
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none opacity-85"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none opacity-22 mix-blend-luminosity"
         />
 
-        {/* Directional Cinema Poster Scrim: Deep Navy Left for Text Clarity, Open Daylight Sky Right */}
+        {/* Soft Airy Sunlight Glow + Gentle Bottom Blend into Marathon Blueprint */}
         <div
           className="absolute inset-0 pointer-events-none z-[5]"
           style={{
             background:
-              'linear-gradient(105deg, rgba(6,14,28,0.92) 0%, rgba(8,20,40,0.72) 48%, rgba(8,20,40,0.34) 100%), linear-gradient(180deg, rgba(6,14,28,0.68) 0%, transparent 25%, rgba(6,14,28,0.78) 100%)',
+              'radial-gradient(ellipse 68% 48% at 78% 18%, rgba(255,255,255,0.28) 0%, transparent 70%), radial-gradient(ellipse 55% 40% at 20% 72%, rgba(255,255,255,0.18) 0%, transparent 70%), linear-gradient(180deg, rgba(6,62,130,0.34) 0%, rgba(16,108,200,0.12) 55%, rgba(245,247,251,0.18) 92%, #F5F7FB 100%)',
           }}
         />
 
         <div className="relative z-20 max-w-[1340px] mx-auto px-4 sm:px-8 w-full flex-1 flex flex-col justify-between gap-8">
           {/* Minimal Top Metadata Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3 border-b border-white/15 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
-            <div className="flex items-center gap-2 text-sky-300">
+          <div className="flex flex-wrap items-center justify-between gap-y-2 gap-x-6 pb-3 border-b border-white/25 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em]">
+            <div className="flex items-center gap-2 text-white">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E61E2A]" />
               <span>{c.slateMeta}</span>
             </div>
-            <div className="flex flex-wrap items-center gap-3 text-slate-200">
-              <span className="text-amber-300">{c.statusText}</span>
-              <span className="text-white/30">·</span>
-              <span className="text-white font-semibold">{c.releaseText}</span>
+            <div className="flex flex-wrap items-center gap-3 text-white/95">
+              <span className="text-amber-200 font-semibold">{c.statusText}</span>
+              <span className="text-white/40">·</span>
+              <span className="text-white font-bold">{c.releaseText}</span>
             </div>
           </div>
 
@@ -879,41 +883,41 @@ export default function App() {
           <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-4 sm:py-8">
             {/* Left 7 Cols */}
             <div className="lg:col-span-7 space-y-5">
-              <div className="font-mono text-[10px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-sky-300">
+              <div className="font-mono text-[10px] sm:text-xs font-bold uppercase tracking-[0.24em] text-white/95 drop-shadow-[0_1px_8px_rgba(7,51,107,0.35)]">
                 {c.genre}
               </div>
 
               <div>
-                <h1 className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.4rem] uppercase leading-[0.96] tracking-[-0.025em]">
+                <h1 className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.5rem] uppercase leading-[0.96] tracking-[-0.025em]">
                   {lang === 'ru' ? (
                     <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
                         НЕ
                       </span>
-                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">ЛИШНИЕ</span>
+                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">ЛИШНИЕ</span>
                     </>
                   ) : lang === 'kk' ? (
                     <>
-                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">АРТЫҚ</span>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
+                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">АРТЫҚ</span>
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
                         ЕМЕС
                       </span>
                     </>
                   ) : lang === 'zh' ? (
                     <>
-                      <span className="text-[#E61E2A] drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">《绝不</span>
-                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">多余》</span>
+                      <span className="text-[#E61E2A] drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">《绝不</span>
+                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">多余》</span>
                     </>
                   ) : (
                     <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_6px_28px_rgba(230,30,42,0.45)]">
+                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
                         NOT
                       </span>
-                      <span className="text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]">EXTRA</span>
+                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">EXTRA</span>
                     </>
                   )}
                 </h1>
-                <div className="mt-2.5 font-mono text-[11px] sm:text-xs uppercase tracking-[0.28em] text-white/90">
+                <div className="mt-2.5 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-[0.28em] text-white drop-shadow-[0_1px_10px_rgba(7,51,107,0.4)]">
                   {lang === 'ru'
                     ? 'ФИЛЬМ АЙТЫМА ЖАКУПОВА'
                     : lang === 'kk'
@@ -924,11 +928,11 @@ export default function App() {
                 </div>
               </div>
 
-              <p className="text-lg sm:text-2xl font-semibold text-white leading-snug max-w-2xl drop-shadow-sm">
+              <p className="text-lg sm:text-2xl font-bold text-white leading-snug max-w-2xl drop-shadow-[0_2px_12px_rgba(7,51,107,0.35)]">
                 {c.heroPitch}
               </p>
 
-              <p className="text-sm sm:text-[15px] text-slate-200 leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-[15px] text-white/95 font-medium leading-relaxed max-w-2xl drop-shadow-[0_1px_8px_rgba(7,51,107,0.3)]">
                 {c.heroHook}
               </p>
 
@@ -940,7 +944,7 @@ export default function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     data-testid="hero-download-deck-btn"
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-[#E61E2A] text-[#060B14] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-lg transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-[#E61E2A] text-[#07336B] hover:text-white font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-[0_12px_28px_rgba(7,51,107,0.28)] transition-all"
                   >
                     <FileDown className="w-4 h-4" />
                     <span>{c.heroDeckBtn}</span>
@@ -948,7 +952,7 @@ export default function App() {
                 ) : (
                   <a
                     href={CONTACT_CONFIG.ticketsUrl}
-                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#060B14] font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-lg transition-all"
+                    className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[#E61E2A] hover:bg-white text-white hover:text-[#07336B] font-mono font-bold text-xs uppercase tracking-[0.14em] shadow-lg transition-all"
                   >
                     <Ticket className="w-4 h-4" />
                     <span>{c.heroTicketsBtn}</span>
@@ -961,7 +965,7 @@ export default function App() {
                     e.preventDefault();
                     handleJumpToSection('journey');
                   }}
-                  className="font-mono text-xs uppercase tracking-[0.14em] text-sky-300 hover:text-white transition-colors"
+                  className="font-mono text-xs font-bold uppercase tracking-[0.14em] text-white hover:text-amber-200 drop-shadow-[0_1px_6px_rgba(7,51,107,0.4)] transition-colors"
                 >
                   {lang === 'zh'
                     ? '跟随 42.2 公里蜕变路线 ↓'
