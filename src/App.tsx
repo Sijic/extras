@@ -789,12 +789,15 @@ export default function App() {
               42.2
             </div>
             <div className="min-w-0">
-              <div className="font-unbounded font-black text-xs sm:text-sm tracking-[0.06em] uppercase whitespace-nowrap">
+              <div className="font-unbounded font-black text-xs sm:text-sm tracking-[0.06em] uppercase whitespace-nowrap flex items-center">
                 {lang === 'ru' ? (
-                  <>
-                    <span className="text-[#E61E2A] inline-block -skew-x-6 mr-1">НЕ</span>
-                    <span className="text-[#F8FAFC]">ЛИШНИЕ</span>
-                  </>
+                  <img
+                    src="./brand/ne_lishnie_logo_header.webp"
+                    alt="НЕ ЛИШНИЕ"
+                    width={1226}
+                    height={388}
+                    className="h-7 sm:h-8 w-auto object-contain select-none mb-0.5"
+                  />
                 ) : lang === 'kk' ? (
                   <>
                     <span className="text-[#F8FAFC]">АРТЫҚ</span>
@@ -902,12 +905,14 @@ export default function App() {
           style={{ transform: 'scale(1.03) translate3d(0px, 0px, 0)' }}
         />
 
-        {/* Delicate Editorial Contrast Scrim ONLY Behind Left Text (Zero heavy continuous animations!) */}
+        {/* Delicate Editorial Contrast Scrim ONLY Behind Left Text (Lighter sunlit upper sky on RU so original blue cracked title pops naturally!) */}
         <div
           className="absolute inset-0 pointer-events-none z-[5]"
           style={{
             background:
-              'linear-gradient(100deg, rgba(4,44,98,0.68) 0%, rgba(7,64,136,0.38) 46%, rgba(7,64,136,0.06) 76%, transparent 100%), linear-gradient(180deg, rgba(4,40,88,0.42) 0%, transparent 24%, transparent 86%, rgba(245,247,251,0.92) 100%)',
+              lang === 'ru'
+                ? 'radial-gradient(ellipse 56% 42% at 24% 34%, rgba(226,244,255,0.42) 0%, rgba(190,228,255,0.16) 52%, transparent 82%), linear-gradient(115deg, rgba(4,44,98,0.22) 0%, rgba(7,64,136,0.18) 42%, transparent 72%), linear-gradient(180deg, rgba(4,40,88,0.34) 0%, transparent 18%, transparent 46%, rgba(4,36,84,0.62) 72%, rgba(245,247,251,0.92) 100%)'
+                : 'linear-gradient(100deg, rgba(4,44,98,0.68) 0%, rgba(7,64,136,0.38) 46%, rgba(7,64,136,0.06) 76%, transparent 100%), linear-gradient(180deg, rgba(4,40,88,0.42) 0%, transparent 24%, transparent 86%, rgba(245,247,251,0.92) 100%)',
           }}
         />
 
@@ -934,35 +939,46 @@ export default function App() {
               </div>
 
               <div>
-                <h1 className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.5rem] uppercase leading-[0.96] tracking-[-0.025em]">
-                  {lang === 'ru' ? (
-                    <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-2 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
-                        НЕ
-                      </span>
-                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">ЛИШНИЕ</span>
-                    </>
-                  ) : lang === 'kk' ? (
-                    <>
-                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">АРТЫҚ</span>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
-                        ЕМЕС
-                      </span>
-                    </>
-                  ) : lang === 'zh' ? (
-                    <>
-                      <span className="text-[#E61E2A] drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">《绝不</span>
-                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">多余》</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
-                        NOT
-                      </span>
-                      <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">EXTRA</span>
-                    </>
-                  )}
-                </h1>
+                {lang === 'ru' ? (
+                  <h1 className="relative inline-block max-w-full">
+                    <span className="sr-only">НЕ ЛИШНИЕ</span>
+                    <img
+                      src="./brand/ne_lishnie_logo.webp"
+                      alt="НЕ ЛИШНИЕ"
+                      width={1226}
+                      height={388}
+                      fetchPriority="high"
+                      className="relative z-10 h-[92px] sm:h-[126px] lg:h-[152px] xl:h-[168px] w-auto max-w-full object-contain select-none -ml-1.5 sm:-ml-2.5"
+                      style={{
+                        filter:
+                          'drop-shadow(0 0 18px rgba(230,245,255,0.62)) drop-shadow(0 4px 14px rgba(5,28,68,0.22)) contrast(1.05)',
+                      }}
+                    />
+                  </h1>
+                ) : (
+                  <h1 className="font-unbounded font-black text-4xl sm:text-6xl lg:text-[5.5rem] uppercase leading-[0.96] tracking-[-0.025em]">
+                    {lang === 'kk' ? (
+                      <>
+                        <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">АРТЫҚ</span>
+                        <span className="text-[#E61E2A] inline-block -skew-x-6 ml-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
+                          ЕМЕС
+                        </span>
+                      </>
+                    ) : lang === 'zh' ? (
+                      <>
+                        <span className="text-[#E61E2A] drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">《绝不</span>
+                        <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">多余》</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-[#E61E2A] inline-block -skew-x-6 mr-3 drop-shadow-[0_4px_18px_rgba(0,0,0,0.38)]">
+                          NOT
+                        </span>
+                        <span className="text-white drop-shadow-[0_4px_20px_rgba(7,51,107,0.45)]">EXTRA</span>
+                      </>
+                    )}
+                  </h1>
+                )}
                 <div className="mt-3 flex flex-wrap items-center gap-3.5">
                   <JanaMenLogo size="md" data-testid="hero-janamen-logo" />
                   <div className="font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-white drop-shadow-[0_1px_10px_rgba(7,51,107,0.4)]">
@@ -1644,9 +1660,19 @@ export default function App() {
       <footer className="pt-12 pb-20 hairline-dashed bg-[#040810] text-center">
         <div className="max-w-[1380px] mx-auto px-4 sm:px-8 space-y-4">
           <div className="flex items-center justify-center gap-4">
-            <span className="font-unbounded font-black text-sm tracking-[0.14em] uppercase text-[#F8FAFC]">
-              {c.filmTitle}
-            </span>
+            {lang === 'ru' ? (
+              <img
+                src="./brand/ne_lishnie_logo_header.webp"
+                alt="НЕ ЛИШНИЕ"
+                width={1226}
+                height={388}
+                className="h-7 w-auto object-contain select-none"
+              />
+            ) : (
+              <span className="font-unbounded font-black text-sm tracking-[0.14em] uppercase text-[#F8FAFC]">
+                {c.filmTitle}
+              </span>
+            )}
             <span className="text-white/25">×</span>
             <JanaMenLogo size="sm" />
           </div>
